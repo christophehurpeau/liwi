@@ -15,6 +15,7 @@ export type {
   QueryMeta,
   SubscribeCallback,
   ServiceQuery,
+  ServiceOperation,
 } from "liwi-resources";
 export type { ClientQuery } from "./ClientQuery";
 export type {
