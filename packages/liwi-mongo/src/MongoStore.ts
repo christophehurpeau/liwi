@@ -1,13 +1,12 @@
 import type {
   AllowedKeyValue,
+  CreateQueryOptions,
   Criteria,
   Fields,
   OptionalBaseModelKeysForInsert,
-  QueryOptions,
   QueryParams,
   Sort,
   SubscribableStore,
-  Transformer,
   Update,
   UpsertPartialObject,
   UpsertResult,
@@ -84,10 +83,15 @@ export default class MongoStore<
   createQuerySingleItem<
     Result extends Record<MongoKeyPath, KeyValue> = Model,
     Params extends QueryParams<Params> = never,
-  >(
-    options: QueryOptions<Model>,
-    transformer?: Transformer<Model, Result>,
-  ): MongoQuerySingleItem<Model, Params, Result, KeyValue> {
+  >({
+    transformer,
+    ...options
+  }: CreateQueryOptions<Model, Result>): MongoQuerySingleItem<
+    Model,
+    Params,
+    Result,
+    KeyValue
+  > {
     return new MongoQuerySingleItem<Model, Params, Result, KeyValue>(
       this,
       options,
@@ -98,10 +102,15 @@ export default class MongoStore<
   createQueryCollection<
     Item extends Record<MongoKeyPath, KeyValue> = Model,
     Params extends QueryParams<Params> = never,
-  >(
-    options: QueryOptions<Model>,
-    transformer?: Transformer<Model, Item>,
-  ): MongoQueryCollection<Model, Params, Model["_id"], Item> {
+  >({
+    transformer,
+    ...options
+  }: CreateQueryOptions<Model, Item>): MongoQueryCollection<
+    Model,
+    Params,
+    Model["_id"],
+    Item
+  > {
     return new MongoQueryCollection<Model, Params, KeyValue, Item>(
       this,
       options,

@@ -3,16 +3,15 @@ import type {
   AbstractStoreCursor,
   AllowedKeyValue,
   BaseModel,
+  CreateQueryOptions,
   Criteria,
   InsertType,
   OptionalBaseModelKeysForInsert,
-  QueryOptions,
   QueryParams,
   Sort,
   Store as StoreInterface,
   SubscribableStore,
   SubscribableStoreQuery,
-  Transformer,
   Update,
   UpsertPartialObject,
   UpsertResult,
@@ -73,8 +72,7 @@ export default class SubscribeStore<
     Result extends Record<KeyPath, KeyValue>,
     Params extends QueryParams<Params>,
   >(
-    options: QueryOptions<Model>,
-    transformer?: Transformer<Model, Result>,
+    options: CreateQueryOptions<Model, Result>,
   ): SubscribableStoreQuery<
     KeyPath,
     KeyValue,
@@ -90,7 +88,7 @@ export default class SubscribeStore<
       SubscribableStore<KeyPath, KeyValue, Model, ModelInsertType, Connection>,
       Result,
       Params
-    > = this.store.createQuerySingleItem<Result, Params>(options, transformer);
+    > = this.store.createQuerySingleItem<Result, Params>(options);
     query.setSubscribeStore(this);
     return query;
   }
@@ -99,8 +97,7 @@ export default class SubscribeStore<
     Item extends Record<KeyPath, KeyValue>,
     Params extends QueryParams<Params>,
   >(
-    options: QueryOptions<Model>,
-    transformer?: Transformer<Model, Item>,
+    options: CreateQueryOptions<Model, Item>,
   ): SubscribableStoreQuery<
     KeyPath,
     KeyValue,
@@ -116,7 +113,7 @@ export default class SubscribeStore<
       SubscribableStore<KeyPath, KeyValue, Model, ModelInsertType, Connection>,
       Item[],
       Params
-    > = this.store.createQueryCollection<Item, Params>(options, transformer);
+    > = this.store.createQueryCollection<Item, Params>(options);
     query.setSubscribeStore(this);
     return query;
   }

@@ -1,10 +1,10 @@
-import type { Task, TasksService } from "@todo-example/modules";
+import type { TaskSummary, TasksService } from "@todo-example/modules";
 import type { MouseEventHandler, ReactNode } from "react";
 import { useEffect, useRef, useState } from "react";
 import type { OperationCallWrapper } from "react-liwi";
 
 export interface TaskItemProps {
-  task: Task;
+  task: TaskSummary;
   onChangeCompleted: (completed: boolean) => Promise<boolean>;
   onChangeLabel: (newText: string) => Promise<boolean>;
 }
@@ -116,7 +116,7 @@ function TaskItem({
 }
 
 export interface TodoListProps {
-  tasks: Task[];
+  tasks: TaskSummary[];
   patchTask: OperationCallWrapper<TasksService["operations"]["patch"]>;
 }
 

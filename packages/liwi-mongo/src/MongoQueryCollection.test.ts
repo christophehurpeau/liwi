@@ -88,6 +88,7 @@ describe("MongoQueryCollection fields", () => {
     const query = createStore().createQueryCollection({
       criteria: { age: { $gt: 0 } },
       fields: { name: 1 },
+      transformer: ({ _id, name }) => ({ _id, name }),
     });
 
     await query.fetch((result) => result);

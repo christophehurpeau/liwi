@@ -2,7 +2,7 @@ import type AbstractConnection from "./AbstractConnection";
 import type AbstractStoreCursor from "./AbstractStoreCursor";
 import type { InternalCommonStoreClient } from "./InternalCommonStoreClient";
 import type { Query, QueryParams } from "./Query";
-import type { AllowedKeyValue, BaseModel, Criteria, InsertType, OptionalBaseModelKeysForInsert, QueryOptions, SetOptional, Sort, Transformer, Update } from "./types";
+import type { AllowedKeyValue, BaseModel, CreateQueryOptions, Criteria, InsertType, OptionalBaseModelKeysForInsert, SetOptional, Sort, Update } from "./types";
 export type UpsertPartialObject<KeyPath extends keyof Model, KeyValue extends AllowedKeyValue, Model extends BaseModel & Record<KeyPath, KeyValue>, K extends Exclude<keyof Model, KeyPath | OptionalBaseModelKeysForInsert>> = SetOptional<Model, K | KeyPath | OptionalBaseModelKeysForInsert>;
 export interface UpsertResult<Model extends BaseModel> {
     object: Model;
@@ -11,8 +11,8 @@ export interface UpsertResult<Model extends BaseModel> {
 export interface Store<KeyPath extends keyof Model, KeyValue extends AllowedKeyValue, Model extends BaseModel & Record<KeyPath, KeyValue>, ModelInsertType extends InsertType<Model, KeyPath>, Connection extends AbstractConnection> extends InternalCommonStoreClient<Model> {
     readonly connection: Connection;
     readonly keyPath: KeyPath;
-    createQuerySingleItem: <Result extends Record<KeyPath, KeyValue>, Params extends QueryParams<Params>>(options: QueryOptions<Model>, transformer?: Transformer<Model, Result>) => Query<Result, Params, KeyValue>;
-    createQueryCollection: <Item extends Record<KeyPath, KeyValue>, Params extends QueryParams<Params>>(options: QueryOptions<Model>, transformer?: Transformer<Model, Item>) => Query<Item[], Params, KeyValue>;
+    createQuerySingleItem: <Result extends Record<KeyPath, KeyValue>, Params extends QueryParams<Params>>(options: CreateQueryOptions<Model, Result>) => Query<Result, Params, KeyValue>;
+    createQueryCollection: <Item extends Record<KeyPath, KeyValue>, Params extends QueryParams<Params>>(options: CreateQueryOptions<Model, Item>) => Query<Item[], Params, KeyValue>;
     findAll: (criteria?: Criteria<Model>, sort?: Sort<Model>) => Promise<Model[]>;
     findByKey: (key: KeyValue, criteria?: Criteria<Model>) => Promise<Model | undefined>;
     findOne: (criteria: Criteria<Model>, sort?: Sort<Model>) => Promise<Model | undefined>;

@@ -5,13 +5,12 @@ import type { Query, QueryParams } from "./Query";
 import type {
   AllowedKeyValue,
   BaseModel,
+  CreateQueryOptions,
   Criteria,
   InsertType,
   OptionalBaseModelKeysForInsert,
-  QueryOptions,
   SetOptional,
   Sort,
-  Transformer,
   Update,
 } from "./types";
 
@@ -41,16 +40,14 @@ export interface Store<
     Result extends Record<KeyPath, KeyValue>,
     Params extends QueryParams<Params>,
   >(
-    options: QueryOptions<Model>,
-    transformer?: Transformer<Model, Result>,
+    options: CreateQueryOptions<Model, Result>,
   ) => Query<Result, Params, KeyValue>;
 
   createQueryCollection: <
     Item extends Record<KeyPath, KeyValue>,
     Params extends QueryParams<Params>,
   >(
-    options: QueryOptions<Model>,
-    transformer?: Transformer<Model, Item>,
+    options: CreateQueryOptions<Model, Item>,
   ) => Query<Item[], Params, KeyValue>;
 
   findAll: (criteria?: Criteria<Model>, sort?: Sort<Model>) => Promise<Model[]>;

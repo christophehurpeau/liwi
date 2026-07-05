@@ -182,5 +182,20 @@ export interface QueryOptions<Model extends BaseModel> {
 }
 export type ResourceOperationKey = "cursor toArray" | "cursor" | "do" | "fetch" | "fetchAndSubscribe" | "subscribe" | "unsubscribe";
 export type Transformer<Model extends BaseModel, Transformed = Model> = (model: Model) => Transformed;
+/**
+ * Options of createQueryCollection / createQuerySingleItem.
+ *
+ * When `fields` is passed the query returns a projected (partial) document, so
+ * the result type must be set explicitly: `transformer` becomes required and
+ * its return type pins the result. Without `fields` the transformer stays
+ * optional and the result defaults to the model.
+ */
+export type CreateQueryOptions<Model extends BaseModel, Transformed> = (QueryOptions<Model> & {
+    fields: Fields<Model>;
+    transformer: Transformer<Model, Transformed>;
+}) | (QueryOptions<Model> & {
+    fields?: undefined;
+    transformer?: Transformer<Model, Transformed>;
+});
 export {};
 //# sourceMappingURL=types.d.ts.map

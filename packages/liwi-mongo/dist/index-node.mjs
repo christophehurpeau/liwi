@@ -327,14 +327,20 @@ class MongoStore {
     }
     return Promise.resolve(this._collection);
   }
-  createQuerySingleItem(options, transformer) {
+  createQuerySingleItem({
+    transformer,
+    ...options
+  }) {
     return new MongoQuerySingleItem(
       this,
       options,
       transformer
     );
   }
-  createQueryCollection(options, transformer) {
+  createQueryCollection({
+    transformer,
+    ...options
+  }) {
     return new MongoQueryCollection(
       this,
       options,

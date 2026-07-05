@@ -1,4 +1,4 @@
-import type { Task } from "@todo-example/modules";
+import type { TaskSummary } from "@todo-example/modules";
 import type { ReactElement } from "react";
 import { useContext, useMemo, useState } from "react";
 import { useOperation, useResource } from "react-liwi";
@@ -39,7 +39,7 @@ export default function Main(): ReactElement | null {
     return tasksResourceResult.data.filter((task) => task.completed);
   }, [tasksResourceResult.data]);
 
-  const tasksToShow = useMemo((): Task[] => {
+  const tasksToShow = useMemo((): TaskSummary[] => {
     switch (hash) {
       case "#/active":
         return activeTasks;

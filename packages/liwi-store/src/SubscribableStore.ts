@@ -5,9 +5,8 @@ import type { SubscribableStoreQuery } from "./SubscribableStoreQuery";
 import type {
   AllowedKeyValue,
   BaseModel,
+  CreateQueryOptions,
   InsertType,
-  QueryOptions,
-  Transformer,
 } from "./types";
 
 export interface SubscribableStore<
@@ -21,15 +20,13 @@ export interface SubscribableStore<
     Result extends Record<KeyPath, KeyValue>,
     Params extends QueryParams<Params>,
   >(
-    options: QueryOptions<Model>,
-    transformer?: Transformer<Model, Result>,
+    options: CreateQueryOptions<Model, Result>,
   ) => SubscribableStoreQuery<KeyPath, KeyValue, Model, any, Result, Params>;
 
   createQueryCollection: <
     Item extends Record<KeyPath, KeyValue>,
     Params extends QueryParams<Params>,
   >(
-    options: QueryOptions<Model>,
-    transformer?: Transformer<Model, Item>,
+    options: CreateQueryOptions<Model, Item>,
   ) => SubscribableStoreQuery<KeyPath, KeyValue, Model, any, Item[], Params>;
 }

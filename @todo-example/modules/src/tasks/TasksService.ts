@@ -1,6 +1,8 @@
 import type { ServiceQuery } from "liwi-resources-client";
 import type { DraftTask, Task } from "./Task";
 
+export type TaskSummary = Pick<Task, "_id" | "completed" | "created" | "label">;
+
 export interface QueryAllParams {
   completed?: boolean;
   limit: number;
@@ -18,7 +20,7 @@ interface PatchParams {
 
 export interface TasksService {
   queries: {
-    queryAll: ServiceQuery<Task[], QueryAllParams>;
+    queryAll: ServiceQuery<TaskSummary[], QueryAllParams>;
     queryWithoutParams: ServiceQuery<Task[], Record<string, never>>;
   };
   operations: {

@@ -16,13 +16,13 @@ class SubscribeStore {
   callSubscribed(action) {
     this.listeners.forEach((listener) => listener(action));
   }
-  createQuerySingleItem(options, transformer) {
-    const query = this.store.createQuerySingleItem(options, transformer);
+  createQuerySingleItem(options) {
+    const query = this.store.createQuerySingleItem(options);
     query.setSubscribeStore(this);
     return query;
   }
-  createQueryCollection(options, transformer) {
-    const query = this.store.createQueryCollection(options, transformer);
+  createQueryCollection(options) {
+    const query = this.store.createQueryCollection(options);
     query.setSubscribeStore(this);
     return query;
   }

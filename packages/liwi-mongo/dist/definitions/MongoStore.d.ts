@@ -1,4 +1,4 @@
-import type { AllowedKeyValue, Criteria, Fields, OptionalBaseModelKeysForInsert, QueryOptions, QueryParams, Sort, SubscribableStore, Transformer, Update, UpsertPartialObject, UpsertResult } from "liwi-store";
+import type { AllowedKeyValue, CreateQueryOptions, Criteria, Fields, OptionalBaseModelKeysForInsert, QueryParams, Sort, SubscribableStore, Update, UpsertPartialObject, UpsertResult } from "liwi-store";
 import type { Collection } from "mongodb";
 import type { MongoBaseModel, MongoInsertType, MongoKeyPath } from "./MongoBaseModel.ts";
 import type MongoConnection from "./MongoConnection.ts";
@@ -15,8 +15,8 @@ export default class MongoStore<Model extends MongoBaseModel<KeyValue>, KeyValue
     private _collection;
     constructor(connection: MongoConnection, collectionName: string);
     get collection(): Promise<Collection<Model>>;
-    createQuerySingleItem<Result extends Record<MongoKeyPath, KeyValue> = Model, Params extends QueryParams<Params> = never>(options: QueryOptions<Model>, transformer?: Transformer<Model, Result>): MongoQuerySingleItem<Model, Params, Result, KeyValue>;
-    createQueryCollection<Item extends Record<MongoKeyPath, KeyValue> = Model, Params extends QueryParams<Params> = never>(options: QueryOptions<Model>, transformer?: Transformer<Model, Item>): MongoQueryCollection<Model, Params, Model["_id"], Item>;
+    createQuerySingleItem<Result extends Record<MongoKeyPath, KeyValue> = Model, Params extends QueryParams<Params> = never>({ transformer, ...options }: CreateQueryOptions<Model, Result>): MongoQuerySingleItem<Model, Params, Result, KeyValue>;
+    createQueryCollection<Item extends Record<MongoKeyPath, KeyValue> = Model, Params extends QueryParams<Params> = never>({ transformer, ...options }: CreateQueryOptions<Model, Item>): MongoQueryCollection<Model, Params, Model["_id"], Item>;
     insertOne(object: MongoInsertType<Model>): Promise<Model>;
     replaceOne(object: Model): Promise<Model>;
     upsertOne<K extends Exclude<keyof Model, MongoKeyPath | OptionalBaseModelKeysForInsert>>(object: UpsertPartialObject<MongoKeyPath, KeyValue, Model, K>, setOnInsertPartialObject?: Update<Model>["$setOnInsert"]): Promise<Model>;

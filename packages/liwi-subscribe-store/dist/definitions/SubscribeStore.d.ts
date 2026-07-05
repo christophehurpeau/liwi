@@ -1,4 +1,4 @@
-import type { AbstractConnection, AbstractStoreCursor, AllowedKeyValue, BaseModel, Criteria, InsertType, OptionalBaseModelKeysForInsert, QueryOptions, QueryParams, Sort, Store as StoreInterface, SubscribableStore, SubscribableStoreQuery, Transformer, Update, UpsertPartialObject, UpsertResult } from "liwi-store";
+import type { AbstractConnection, AbstractStoreCursor, AllowedKeyValue, BaseModel, CreateQueryOptions, Criteria, InsertType, OptionalBaseModelKeysForInsert, QueryParams, Sort, Store as StoreInterface, SubscribableStore, SubscribableStoreQuery, Update, UpsertPartialObject, UpsertResult } from "liwi-store";
 export type Actions<Model> = {
     type: "deleted";
     prev: Model[];
@@ -18,8 +18,8 @@ export default class SubscribeStore<KeyPath extends keyof Model, KeyValue extend
     get connection(): Connection;
     subscribe(callback: Listener<Model>): () => void;
     callSubscribed(action: Actions<Model>): void;
-    createQuerySingleItem<Result extends Record<KeyPath, KeyValue>, Params extends QueryParams<Params>>(options: QueryOptions<Model>, transformer?: Transformer<Model, Result>): SubscribableStoreQuery<KeyPath, KeyValue, Model, SubscribableStore<KeyPath, KeyValue, Model, ModelInsertType, Connection>, Result, Params>;
-    createQueryCollection<Item extends Record<KeyPath, KeyValue>, Params extends QueryParams<Params>>(options: QueryOptions<Model>, transformer?: Transformer<Model, Item>): SubscribableStoreQuery<KeyPath, KeyValue, Model, SubscribableStore<KeyPath, KeyValue, Model, ModelInsertType, Connection>, Item[], Params>;
+    createQuerySingleItem<Result extends Record<KeyPath, KeyValue>, Params extends QueryParams<Params>>(options: CreateQueryOptions<Model, Result>): SubscribableStoreQuery<KeyPath, KeyValue, Model, SubscribableStore<KeyPath, KeyValue, Model, ModelInsertType, Connection>, Result, Params>;
+    createQueryCollection<Item extends Record<KeyPath, KeyValue>, Params extends QueryParams<Params>>(options: CreateQueryOptions<Model, Item>): SubscribableStoreQuery<KeyPath, KeyValue, Model, SubscribableStore<KeyPath, KeyValue, Model, ModelInsertType, Connection>, Item[], Params>;
     findAll(criteria?: Criteria<Model>, sort?: Sort<Model>): Promise<Model[]>;
     findByKey(key: KeyValue, criteria?: Criteria<Model>): Promise<Model | undefined>;
     findOne(criteria: Criteria<Model>, sort?: Sort<Model>): Promise<Model | undefined>;

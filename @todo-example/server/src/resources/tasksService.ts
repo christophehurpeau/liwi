@@ -1,4 +1,4 @@
-import type { Task, TasksService } from "@todo-example/modules";
+import type { Task, TaskSummary, TasksService } from "@todo-example/modules";
 import type { Update } from "liwi-mongo";
 import type { ServiceResource } from "liwi-resources-server";
 import { tasksStore } from "../stores/tasksStores.ts";
@@ -10,6 +10,13 @@ export const tasksService: ServiceResource<TasksService> = {
       return tasksStore.createQueryCollection({
         criteria: completed == null ? {} : { completed },
         sort: { created: 1 },
+        fields: { completed: 1, created: 1, label: 1 },
+        transformer: ({ _id, completed, created, label }): TaskSummary => ({
+          _id,
+          completed,
+          created,
+          label,
+        }),
         limit: securedLimit,
         skip: (page - 1) * securedLimit,
       });
