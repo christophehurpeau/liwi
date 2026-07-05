@@ -1,6 +1,7 @@
 import type {
   AllowedKeyValue,
   Criteria,
+  Fields,
   OptionalBaseModelKeysForInsert,
   QueryOptions,
   QueryParams,
@@ -258,12 +259,14 @@ export default class MongoStore<
   async cursor<Result extends Partial<Model> = Model>(
     filter?: Criteria<Model>,
     sort?: Sort<Model>,
+    fields?: Fields<Model>,
   ): Promise<MongoCursor<Model, Result, KeyValue>> {
     const collection = await this.collection;
     const findCursor = filter
       ? collection.find<Result>(filter as Filter<Model>)
       : (collection.find() as unknown as FindCursor<Result>);
     if (sort) findCursor.sort(sort);
+    if (fields) findCursor.project(fields);
     return new MongoCursor<Model, Result, KeyValue>(this, findCursor);
   }
 

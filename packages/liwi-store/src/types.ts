@@ -339,6 +339,7 @@ export type Changes<KeyValue, Result> = Change<KeyValue, Result>[];
 export interface QueryOptions<Model extends BaseModel> {
   criteria?: Criteria<Model>;
   sort?: Sort<Model>;
+  fields?: Fields<Model>;
   limit?: number;
   skip?: number;
 }

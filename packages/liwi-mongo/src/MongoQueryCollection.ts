@@ -217,6 +217,7 @@ export default class MongoQueryCollection<
     const cursor = await this.store.cursor(
       this.options.criteria,
       this.options.sort,
+      this.options.fields,
     );
 
     if (this.options.skip) {

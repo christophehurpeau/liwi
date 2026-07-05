@@ -1,9 +1,4 @@
-import type { AllowedKeyValue, BaseModel, Changes, Criteria, Fields, QueryInfo, QueryMeta, Sort } from "./types";
-export interface QueryOptions<Model extends BaseModel> {
-    fields?: Fields<Model>;
-    criteria?: Criteria<Model>;
-    sort?: Sort<Model>;
-}
+import type { AllowedKeyValue, Changes, QueryInfo, QueryMeta } from "./types";
 export interface QuerySubscription extends PromiseLike<void> {
     cancel: () => void;
     stop: () => void;

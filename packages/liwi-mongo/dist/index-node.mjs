@@ -165,7 +165,8 @@ class MongoQueryCollection extends AbstractSubscribableStoreQuery {
   async createMongoCursor() {
     const cursor = await this.store.cursor(
       this.options.criteria,
-      this.options.sort
+      this.options.sort,
+      this.options.fields
     );
     if (this.options.skip) {
       cursor.advance(this.options.skip);
@@ -290,7 +291,8 @@ class MongoQuerySingleItem extends AbstractSubscribableStoreQuery {
   async createMongoCursor() {
     const cursor = await this.store.cursor(
       this.options.criteria,
-      this.options.sort
+      this.options.sort,
+      this.options.fields
     );
     if (this.options.limit) {
       await cursor.limit(this.options.limit);
@@ -432,10 +434,11 @@ class MongoStore {
     const collection = await this.collection;
     return filter ? collection.countDocuments(filter) : collection.countDocuments();
   }
-  async cursor(filter, sort) {
+  async cursor(filter, sort, fields) {
     const collection = await this.collection;
     const findCursor = filter ? collection.find(filter) : collection.find();
     if (sort) findCursor.sort(sort);
+    if (fields) findCursor.project(fields);
     return new MongoCursor(this, findCursor);
   }
   async findByKey(key, criteria) {

@@ -1,4 +1,4 @@
-import type { AllowedKeyValue, Criteria, OptionalBaseModelKeysForInsert, QueryOptions, QueryParams, Sort, SubscribableStore, Transformer, Update, UpsertPartialObject, UpsertResult } from "liwi-store";
+import type { AllowedKeyValue, Criteria, Fields, OptionalBaseModelKeysForInsert, QueryOptions, QueryParams, Sort, SubscribableStore, Transformer, Update, UpsertPartialObject, UpsertResult } from "liwi-store";
 import type { Collection } from "mongodb";
 import type { MongoBaseModel, MongoInsertType, MongoKeyPath } from "./MongoBaseModel.ts";
 import type MongoConnection from "./MongoConnection.ts";
@@ -29,7 +29,7 @@ export default class MongoStore<Model extends MongoBaseModel<KeyValue>, KeyValue
     deleteOne(object: Model): Promise<void>;
     deleteMany(selector: Criteria<Model>): Promise<void>;
     count(filter?: Criteria<Model>): Promise<number>;
-    cursor<Result extends Partial<Model> = Model>(filter?: Criteria<Model>, sort?: Sort<Model>): Promise<MongoCursor<Model, Result, KeyValue>>;
+    cursor<Result extends Partial<Model> = Model>(filter?: Criteria<Model>, sort?: Sort<Model>, fields?: Fields<Model>): Promise<MongoCursor<Model, Result, KeyValue>>;
     findByKey(key: KeyValue, criteria?: Criteria<Model>): Promise<Model | undefined>;
     findAll(criteria?: Criteria<Model>, sort?: Sort<Model>): Promise<Model[]>;
     findOne(filter: Criteria<Model>, sort?: Sort<Model>): Promise<Model | undefined>;
