@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [13.1.0](https://github.com/christophehurpeau/liwi/compare/v13.0.2...v13.1.0) (2026-07-05)
+
+Version bump for dependency: liwi-resources
+Version bump for dependency: liwi-store
+
+
 ## [13.0.2](https://github.com/christophehurpeau/liwi/compare/v13.0.1...v13.0.2) (2026-07-05)
 
 ### Bug Fixes

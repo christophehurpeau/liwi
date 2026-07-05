@@ -3,6 +3,19 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [13.1.0](https://github.com/christophehurpeau/liwi/compare/v13.0.2...v13.1.0) (2026-07-05)
+
+### Features
+
+* remove transformer parameter from createQuerySingleItem and createQueryCollection methods in SubscribeStore
+
+Version bump for dependency: @todo-example/modules
+Version bump for dependency: liwi-resources-client
+Version bump for dependency: liwi-resources-void-client
+Version bump for dependency: liwi-resources-websocket-client
+Version bump for dependency: react-liwi
+
+
 ## [13.0.2](https://github.com/christophehurpeau/liwi/compare/v13.0.1...v13.0.2) (2026-07-05)
 
 Version bump for dependency: @todo-example/modules

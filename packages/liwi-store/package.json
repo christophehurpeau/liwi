@@ -1,6 +1,6 @@
 {
   "name": "liwi-store",
-  "version": "13.0.1",
+  "version": "13.1.0",
   "description": "abstract store used by liwi implementations",
   "keywords": [],
   "homepage": "https://github.com/christophehurpeau/liwi",
