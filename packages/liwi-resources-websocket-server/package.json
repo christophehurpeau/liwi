@@ -54,7 +54,7 @@
     "ws": "^8.21.0"
   },
   "devDependencies": {
-    "@pob/rollup-esbuild": "9.1.1",
+    "@pob/rollup-esbuild": "9.2.0",
     "@types/ws": "8.18.1",
     "typescript": "6.0.3"
   },

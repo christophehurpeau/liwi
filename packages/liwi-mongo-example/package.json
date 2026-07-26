@@ -34,7 +34,7 @@
     "liwi-mongo": "workspace:*"
   },
   "devDependencies": {
-    "@pob/rollup-esbuild": "9.1.1",
+    "@pob/rollup-esbuild": "9.2.0",
     "typescript": "6.0.3"
   },
   "engines": {
