@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [13.1.1](https://github.com/christophehurpeau/liwi/compare/v13.1.0...v13.1.1) (2026-07-27)
+
+### Bug Fixes
+
+* **store:** accept array dot notation without index, bind Document and Buffer, closes [#718](https://github.com/christophehurpeau/liwi/issues/718)
+
 ## [13.1.0](https://github.com/christophehurpeau/liwi/compare/v13.0.2...v13.1.0) (2026-07-05)
 
 ### Features

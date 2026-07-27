@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [13.1.1](https://github.com/christophehurpeau/liwi/compare/v13.1.0...v13.1.1) (2026-07-27)
+
+Version bump for dependency: @todo-example/modules
+Version bump for dependency: liwi-mongo
+Version bump for dependency: liwi-resources-server
+Version bump for dependency: liwi-resources-websocket-server
+
+
 ## [13.1.0](https://github.com/christophehurpeau/liwi/compare/v13.0.2...v13.1.0) (2026-07-05)
 
 ### Features

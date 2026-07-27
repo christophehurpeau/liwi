@@ -1,6 +1,6 @@
 {
   "name": "liwi-resources-websocket-server",
-  "version": "13.1.0",
+  "version": "13.1.1",
   "description": "liwi resources client implementation for websocket",
   "keywords": [],
   "homepage": "https://github.com/christophehurpeau/liwi",

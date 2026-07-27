@@ -1,6 +1,6 @@
 {
   "name": "liwi-monorepo",
-  "version": "13.1.0",
+  "version": "13.1.1",
   "private": true,
   "description": "db abstraction",
   "homepage": "https://github.com/christophehurpeau/liwi",
