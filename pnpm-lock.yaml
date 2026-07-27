@@ -200,8 +200,8 @@ importers:
         specifier: ~6.2.7
         version: 6.2.7
       mongodb:
-        specifier: ^7.4.0
-        version: 7.4.0
+        specifier: ^7.5.0
+        version: 7.5.0
       nightingale-logger:
         specifier: ^18.2.0
         version: 18.2.0
@@ -3012,15 +3012,15 @@ packages:
     resolution: {integrity: sha512-vOoDtn0JiLrHvZY81Rp/UtKXXK0rtJHZGZFVnccvJwYitPLNspO0Ty0grqFQOe7iAET8+GI4zAQcphg+R3vxQg==}
     engines: {node: '>=20.19.0'}
 
-  mongodb@7.4.0:
-    resolution: {integrity: sha512-giySkkdYiwoBFo/oCc8nzov3xOYZ/sB8OpAYk5GINRLEjVw0LDsm8xgQL0XMTyU4extQlDZjhdUr1ZEwKFaazw==}
+  mongodb@7.5.0:
+    resolution: {integrity: sha512-5FnrEDLnvp6ycUOGLNLLU33BfCx2qmp2mJjGPDwKLruYsVzXVSK5fsGpoDXvsXJwBfBsD7ebMRdawbDxC2814g==}
     engines: {node: '>=20.19.0'}
     peerDependencies:
       '@aws-sdk/credential-providers': ^3.806.0
       '@mongodb-js/zstd': ^7.0.0
       gcp-metadata: ^7.0.1
       kerberos: ^7.0.0
-      mongodb-client-encryption: '>=7.0.0 <7.1.0'
+      mongodb-client-encryption: ^7.2.0
       snappy: ^7.3.2
       socks: ^2.8.6
     peerDependenciesMeta:
@@ -3362,6 +3362,7 @@ packages:
   react-alp-connection-state@10.0.2:
     resolution: {integrity: sha512-ikKzI7/LpOP9/yVNE7XryUlbN+B7BCbhRfNzY7s9GnsinQs+AF70Kb2IxYw32+J8a6zHGYsQS/sN9OSci69dbw==}
     engines: {node: '>=22.18.0'}
+    deprecated: Package no longer supported. Contact Support at https://www.npmjs.com/support for more info.
     peerDependencies:
       react: ^19.0.0
       react-native: '*'
@@ -6432,7 +6433,7 @@ snapshots:
       find-cache-dir: 3.3.2
       follow-redirects: 1.16.0(debug@4.4.3(supports-color@7.2.0))
       https-proxy-agent: 7.0.6(supports-color@7.2.0)
-      mongodb: 7.4.0
+      mongodb: 7.5.0
       new-find-package-json: 2.0.0(supports-color@7.2.0)
       semver: 7.8.5
       tar-stream: 3.2.0
@@ -6451,7 +6452,7 @@ snapshots:
       - socks
       - supports-color
 
-  mongodb@7.4.0:
+  mongodb@7.5.0:
     dependencies:
       '@mongodb-js/saslprep': 1.4.11
       bson: 7.3.1
