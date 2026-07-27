@@ -2,6 +2,7 @@
   "name": "liwi-mongo-example",
   "version": "13.1.1",
   "private": true,
+  "description": "minimal liwi-mongo usage example",
   "homepage": "https://github.com/christophehurpeau/liwi",
   "license": "ISC",
   "author": "Christophe Hurpeau <christophe@hurpeau.com> (https://christophe.hurpeau.com)",

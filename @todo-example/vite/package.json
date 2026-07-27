@@ -2,6 +2,7 @@
   "name": "@todo-example/vite",
   "version": "13.1.1",
   "private": true,
+  "description": "SSR React frontend of the todo example",
   "homepage": "https://github.com/christophehurpeau/liwi",
   "license": "ISC",
   "author": "Christophe Hurpeau <christophe@hurpeau.com> (https://christophe.hurpeau.com)",

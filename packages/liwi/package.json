@@ -1,7 +1,7 @@
 {
   "name": "liwi",
   "version": "13.0.1",
-  "description": "db abstraction",
+  "description": "db abstraction (deprecated umbrella)",
   "keywords": [],
   "homepage": "https://github.com/christophehurpeau/liwi",
   "license": "ISC",

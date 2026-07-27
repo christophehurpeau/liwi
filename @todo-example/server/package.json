@@ -2,6 +2,7 @@
   "name": "@todo-example/server",
   "version": "13.1.1",
   "private": true,
+  "description": "websocket backend of the todo example",
   "homepage": "https://github.com/christophehurpeau/liwi",
   "license": "ISC",
   "author": "Christophe Hurpeau <christophe@hurpeau.com> (https://christophe.hurpeau.com)",

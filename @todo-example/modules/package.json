@@ -2,6 +2,7 @@
   "name": "@todo-example/modules",
   "version": "13.1.1",
   "private": true,
+  "description": "shared types of the todo example",
   "homepage": "https://github.com/christophehurpeau/liwi",
   "license": "ISC",
   "author": "Christophe Hurpeau <christophe@hurpeau.com> (https://christophe.hurpeau.com)",
