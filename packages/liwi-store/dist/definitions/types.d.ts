@@ -80,11 +80,70 @@ export type IncludeOnlyFields<Model extends BaseModel> = Record<string, 1> & {
 };
 export type Fields<Model extends BaseModel> = ExcludeOnlyFields<Model> | IncludeOnlyFields<Model>;
 type BitwiseFilter = number /** numeric bit mask */ | readonly number[];
+type GeoJsonPosition = [number, number];
+interface GeoJsonPoint {
+    type: "Point";
+    coordinates: GeoJsonPosition;
+}
+interface GeoJsonMultiPoint {
+    type: "MultiPoint";
+    coordinates: GeoJsonPosition[];
+}
+interface GeoJsonLineString {
+    type: "LineString";
+    coordinates: GeoJsonPosition[];
+}
+interface GeoJsonMultiLineString {
+    type: "MultiLineString";
+    coordinates: GeoJsonPosition[][];
+}
+interface GeoJsonPolygon {
+    type: "Polygon";
+    coordinates: GeoJsonPosition[][];
+}
+interface GeoJsonMultiPolygon {
+    type: "MultiPolygon";
+    coordinates: GeoJsonPosition[][][];
+}
+type GeoJsonGeometry = GeoJsonLineString | GeoJsonMultiLineString | GeoJsonMultiPoint | GeoJsonMultiPolygon | GeoJsonPoint | GeoJsonPolygon;
+interface GeoWithinGeometry {
+    $geometry: GeoJsonMultiPolygon | GeoJsonPolygon;
+}
+interface GeoWithinBox {
+    $box: [GeoJsonPosition, GeoJsonPosition];
+}
+interface GeoWithinCenter {
+    $center: [GeoJsonPosition, number];
+}
+interface GeoWithinCenterSphere {
+    $centerSphere: [GeoJsonPosition, number];
+}
+interface GeoWithinPolygon {
+    $polygon: GeoJsonPosition[];
+}
+interface NearGeometry {
+    $geometry: GeoJsonPoint;
+    $maxDistance?: number;
+    $minDistance?: number;
+}
 interface FilterRegex {
     pattern: string;
     options: string;
 }
-interface FilterOperators<TValue> {
+/**
+ * Query document matched against every element of an array field: either
+ * conditions on the element's own paths, or operators applied to the element
+ * itself when it is not a document.
+ */
+type ElemMatch<Item> = Item extends Record<string, any> ? {
+    [Property in Join<NestedPaths<Item, []>, ".">]?: Condition<PropertyType<Item, Property>>;
+} : FilterOperators<Item>;
+/**
+ * `TField` is the declared type of the field, `TValue` the type its values are
+ * compared against — they differ for array fields, where mongo matches both the
+ * whole array and any of its elements.
+ */
+interface FilterOperators<TValue, TField = TValue> {
     $eq?: TValue;
     $gt?: TValue;
     $gte?: TValue;
@@ -105,15 +164,15 @@ interface FilterOperators<TValue> {
     $regex?: TValue extends string ? FilterRegex | RegExp | string : never;
     $options?: TValue extends string ? string : never;
     $geoIntersects?: {
-        $geometry: Document;
+        $geometry: GeoJsonGeometry;
     };
-    $geoWithin?: Document;
-    $near?: Document;
-    $nearSphere?: Document;
+    $geoWithin?: GeoWithinBox | GeoWithinCenter | GeoWithinCenterSphere | GeoWithinGeometry | GeoWithinPolygon;
+    $near?: GeoJsonPosition | NearGeometry;
+    $nearSphere?: GeoJsonPosition | NearGeometry;
     $maxDistance?: number;
-    $all?: readonly any[];
-    $elemMatch?: Document;
-    $size?: TValue extends readonly any[] ? number : never;
+    $all?: TField extends readonly (infer Item)[] ? readonly Item[] : never;
+    $elemMatch?: TField extends readonly (infer Item)[] ? ElemMatch<Item> : never;
+    $size?: TField extends readonly any[] ? number : never;
     $bitsAllClear?: BitwiseFilter;
     $bitsAllSet?: BitwiseFilter;
     $bitsAnyClear?: BitwiseFilter;
@@ -121,15 +180,15 @@ interface FilterOperators<TValue> {
     $rand?: Record<string, never>;
 }
 type Join<T extends unknown[], D extends string> = T extends [] ? "" : T extends [number | string] ? `${T[0]}` : T extends [number | string, ...infer R] ? `${T[0]}${D}${Join<R, D>}` : string;
-export declare type NestedPaths<Type, Depth extends number[]> = Depth["length"] extends 8 ? [] : Type extends Buffer | Date | RegExp | Uint8Array | bigint | boolean | number | string | ((...args: any[]) => any) | {
+export declare type NestedPaths<Type, Depth extends number[]> = Depth["length"] extends 8 ? [] : Type extends Date | RegExp | Uint8Array | bigint | boolean | number | string | ((...args: any[]) => any) | {
     _bsontype: string;
-} ? [] : Type extends readonly (infer ArrayType)[] ? [number, ...NestedPaths<ArrayType, [...Depth, 1]>] | [number] : Type extends Map<string, any> ? [string] : Type extends object ? {
+} ? [] : Type extends readonly (infer ArrayType)[] ? NestedPaths<ArrayType, [...Depth, 1]> | [number, ...NestedPaths<ArrayType, [...Depth, 1]>] | [number] : Type extends Map<string, any> ? [string] : Type extends object ? {
     [Key in Extract<keyof Type, string>]: Type[Key] extends Type ? [Key] : Type extends Type[Key] ? [Key] : Type[Key] extends readonly (infer ArrayType)[] ? Type extends ArrayType ? [Key] : ArrayType extends Type ? [Key] : [Key, ...NestedPaths<Type[Key], [...Depth, 1]>] | [Key] : [Key, ...NestedPaths<Type[Key], [...Depth, 1]>] | [Key];
 }[Extract<keyof Type, string>] : [];
-type PropertyType<Type, Property extends string> = string extends Property ? unknown : Property extends keyof Type ? Type[Property] : Property extends `${number}` ? Type extends readonly (infer ArrayType)[] ? ArrayType : unknown : Property extends `${infer Key}.${infer Rest}` ? Key extends `${number}` ? Type extends readonly (infer ArrayType)[] ? PropertyType<ArrayType, Rest> : unknown : Key extends keyof Type ? Type[Key] extends Map<string, infer MapType> ? MapType : PropertyType<Type[Key], Rest> : unknown : unknown;
+type PropertyType<Type, Property extends string> = string extends Property ? unknown : Property extends keyof Type ? Type[Property] : Property extends `${number}` ? Type extends readonly (infer ArrayType)[] ? ArrayType : unknown : Property extends `${infer Key}.${infer Rest}` ? Key extends `${number}` ? Type extends readonly (infer ArrayType)[] ? PropertyType<ArrayType, Rest> : unknown : Key extends keyof Type ? Type[Key] extends Map<string, infer MapType> ? MapType : PropertyType<Type[Key], Rest> : Type extends readonly (infer ArrayType)[] ? PropertyType<ArrayType, Property> : unknown : Type extends readonly (infer ArrayType)[] ? PropertyType<ArrayType, Property> : unknown;
 type RegExpOrString<T> = T extends string ? RegExp | T : T;
 type AlternativeType<T> = T extends readonly (infer U)[] ? RegExpOrString<U> | T : RegExpOrString<T>;
-type Condition<T> = AlternativeType<T> | FilterOperators<AlternativeType<T>>;
+type Condition<T> = AlternativeType<T> | FilterOperators<AlternativeType<T>, T>;
 export type Criteria<Model extends BaseModel> = Partial<Model> | ({
     [Property in Join<NestedPaths<Model, []>, ".">]?: Condition<PropertyType<Model, Property>>;
 } & {
@@ -143,7 +202,7 @@ export type Criteria<Model extends BaseModel> = Partial<Model> | ({
         $diacriticSensitive?: boolean;
     };
     $where?: string | ((this: Model) => boolean);
-    $comment?: Document | string;
+    $comment?: string;
 });
 export type Sort<Model extends BaseModel> = Record<string, -1 | 1> & {
     [P in keyof Model]?: -1 | 1;
