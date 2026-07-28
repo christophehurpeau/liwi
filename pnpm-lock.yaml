@@ -55,8 +55,8 @@ importers:
         specifier: workspace:*
         version: link:../modules
       alp-node:
-        specifier: 10.0.0
-        version: 10.0.0(router-segments@12.2.1)(supports-color@7.2.0)
+        specifier: 10.1.1
+        version: 10.1.1(router-segments@12.2.1)(supports-color@7.2.0)
       liwi-mongo:
         specifier: workspace:*
         version: link:../../packages/liwi-mongo
@@ -1745,8 +1745,8 @@ packages:
   ajv@6.15.0:
     resolution: {integrity: sha512-fgFx7Hfoq60ytK2c7DhnF8jIvzYgOMxfugjLOSMHjLIPgenqa7S7oaagATUq99mV6IYvN2tRmC0wnTYX6iPbMw==}
 
-  alp-node@10.0.0:
-    resolution: {integrity: sha512-4oqE3voflSBtUkxZ15/0V9asTnLDkoYgI5+EiMO51pOYBd+Fm46d7hkt1DFRwEmNhNuLkG8jE/zdp2QmXl2iog==}
+  alp-node@10.1.1:
+    resolution: {integrity: sha512-X/QM8jla8CWomKadwju+TSLu6+F97TgfG7lBUtCyIGBeI3wwFGVjUDiLL9vlaK+fWzknY+fypCDXfhakCeFTVw==}
     engines: {node: '>=22.18.0'}
     peerDependencies:
       router-segments: ^11.0.0 || ^12.0.0
@@ -2101,9 +2101,9 @@ packages:
   deep-equal@1.0.1:
     resolution: {integrity: sha512-bHtC0iYvWhyaTzvV3CZgPeZQqCOBGyGsVV7v4eevpdkLHfiSrXUdBG+qAuSz4RI70sszvjQ1QSZ98An1yNwpSw==}
 
-  deep-freeze-es6@4.0.1:
-    resolution: {integrity: sha512-3EJbpB1u1VX++I5LE1wWdrtD1E3A9VuZyMfkMX7Bf383vPfn53bzwrYTp5igdcyTg0o4SE3x5uymZEzNHHWL6A==}
-    engines: {node: '>=20.9.0'}
+  deep-freeze-es6@5.0.0:
+    resolution: {integrity: sha512-ovTuOE+wULT/D4E9RyRAEc2T4siqbhkw1Ak7OzfnfrI8wemiZzbvuAzIt6g0ciLggySPgMLJD91NyDoaI2WJnA==}
+    engines: {node: '>=22.18.0'}
 
   deep-is@0.1.4:
     resolution: {integrity: sha512-oIPzksmTg4/MriiaYGO+okXDT7ztn/w3Eptv/+gSIdMdKsJo0u4CfYNFJPy+4SKMuCqGw2wxnA+URMg3t8a/bQ==}
@@ -3076,10 +3076,6 @@ packages:
     resolution: {integrity: sha512-8IXnUydZ6qrxmpydjrcMdALIda+6QTKktjo5PCmhsGS6QBzCssP7RU+EjHVIfIEYLkcGKMe8tPEYTIsr1q1chg==}
     engines: {node: '>=18.12.0'}
 
-  nightingale-levels@16.0.0:
-    resolution: {integrity: sha512-SYUkeXSS1VDakEdOA0zG1ERIARJoD/fdHcErnrghzzlcKREBsVwgqKG+iGbuVrnKl0XjqeJL9xS04m6XJYlDUg==}
-    engines: {node: '>=20.9.0'}
-
   nightingale-levels@18.2.0:
     resolution: {integrity: sha512-kl3OKYQCWjcTvlTDgwBq2QcRajmEyD5VV9jf2sHF27SOgY/Fhf2YxSzeqFO6u+GSyU1uNMD9xg2N04949022aA==}
     engines: {node: '>=22.18.0'}
@@ -3088,10 +3084,6 @@ packages:
     resolution: {integrity: sha512-0WxPE/JWK2T9Tbpwg7hL4aaRiDp/iOgCrZO2s1mTsG1U0avwWy7gm2NCzPx/+L/nlED4ebBOqlW3xqG03R8BeA==}
     engines: {node: '>=18.12.0'}
 
-  nightingale-logger@16.0.0:
-    resolution: {integrity: sha512-hEa3xoSrPCWBkLW0hY0syED/aXr04osWbmjUaeUyIf185iP5iANnlhXxBtKjtTonj9DgymmXtpGGqseKArALwQ==}
-    engines: {node: '>=20.9.0'}
-
   nightingale-logger@18.2.0:
     resolution: {integrity: sha512-ni7Qztw3bb2GTuNyyo0YxHEDaUNL14lP/fhJOjNFUqK8nc9ZGpBWmdp3+3MKrZbonEEvK7vkHo8ktTb+grqsOQ==}
     engines: {node: '>=22.18.0'}
@@ -3099,10 +3091,6 @@ packages:
   nightingale-types@15.0.0:
     resolution: {integrity: sha512-QtR2VWKBQPvmfoe8amkpBNCRMmjMlHPOqiwgRMuQ8H0Glcln9qTqxGeED59Sf8clsVhJg6GL9KeWSI8m4cWMOQ==}
     engines: {node: '>=18.12.0'}
-
-  nightingale-types@16.0.0:
-    resolution: {integrity: sha512-gyE8eTDztwfDUAow7qEH9hAKRZizWTMbvSTmTFNOU/SzbdYes1fQueLmSJOLxPvRZfbfgXHP/Ck+DdpAwASwrw==}
-    engines: {node: '>=20.9.0'}
 
   nightingale-types@18.2.0:
     resolution: {integrity: sha512-4eGgasLzIzyeAXz2ASosL3RHZ8awLMLrYV/xCeYbFN+dJFJ9Wx0y/vztFrOno2QmWXiDrYpyaH6Vi3Jdc389QQ==}
@@ -3140,9 +3128,9 @@ packages:
     resolution: {integrity: sha512-NuAESUOUMrlIXOfHKzD6bpPu3tYt3xvjNdRIQ+FeT0lNb4K8WR70CaDxhuNguS2XG+GjkyMwOzsN5ZktImfhLA==}
     engines: {node: '>= 0.4'}
 
-  object-properties@9.0.1:
-    resolution: {integrity: sha512-/PTwJmv1p1FXh2jwc0DirAc55UZtH7qFbDXZLC3WJmgiZYYj6dLYW3qcPdABz5HVsVB86nhCezniGBvToj9hvg==}
-    engines: {node: '>=20.9.0'}
+  object-properties@10.0.0:
+    resolution: {integrity: sha512-v5o1TQ4O+yGt9B7e8tOGh+hmUin4DdEoPlQwXqDoNwUy/axdOoy2QHRm9ISHm6F1txSL/ioYdBNIJaV74PJnjQ==}
+    engines: {node: '>=22.18.0'}
 
   object.assign@4.1.7:
     resolution: {integrity: sha512-nK28WOo+QIjBkDduTINE4JkF/UJJKyf2EJxvJKfblDpyg0Q+pkOHNTL0Qwy6NP6FhE/EnzV73BxxqcJaXY9anw==}
@@ -4879,19 +4867,19 @@ snapshots:
       json-schema-traverse: 0.4.1
       uri-js: 4.4.1
 
-  alp-node@10.0.0(router-segments@12.2.1)(supports-color@7.2.0):
+  alp-node@10.1.1(router-segments@12.2.1)(supports-color@7.2.0):
     dependencies:
       '@types/koa': 3.0.3
       '@types/node': 24.10.1
-      deep-freeze-es6: 4.0.1
+      deep-freeze-es6: 5.0.0
       error-html: 0.3.5
       intl-messageformat: 10.7.18
       koa: 3.2.1
       koa-compress: 5.2.2
       koa-static: 5.0.0(supports-color@7.2.0)
       minimist: 1.2.8
-      nightingale-logger: 16.0.0
-      object-properties: 9.0.1
+      nightingale-logger: 18.2.0
+      object-properties: 10.0.0
     optionalDependencies:
       router-segments: 12.2.1
     transitivePeerDependencies:
@@ -5236,7 +5224,7 @@ snapshots:
 
   deep-equal@1.0.1: {}
 
-  deep-freeze-es6@4.0.1: {}
+  deep-freeze-es6@5.0.0: {}
 
   deep-is@0.1.4: {}
 
@@ -6398,8 +6386,6 @@ snapshots:
 
   nightingale-levels@15.0.0: {}
 
-  nightingale-levels@16.0.0: {}
-
   nightingale-levels@18.2.0: {}
 
   nightingale-logger@15.0.0:
@@ -6407,12 +6393,6 @@ snapshots:
       '@types/node': 24.10.1
       nightingale-levels: 15.0.0
       nightingale-types: 15.0.0
-
-  nightingale-logger@16.0.0:
-    dependencies:
-      '@types/node': 24.10.1
-      nightingale-levels: 16.0.0
-      nightingale-types: 16.0.0
 
   nightingale-logger@18.2.0:
     dependencies:
@@ -6423,10 +6403,6 @@ snapshots:
   nightingale-types@15.0.0:
     dependencies:
       nightingale-levels: 15.0.0
-
-  nightingale-types@16.0.0:
-    dependencies:
-      nightingale-levels: 16.0.0
 
   nightingale-types@18.2.0:
     dependencies:
@@ -6465,7 +6441,7 @@ snapshots:
 
   object-keys@1.1.1: {}
 
-  object-properties@9.0.1: {}
+  object-properties@10.0.0: {}
 
   object.assign@4.1.7:
     dependencies:
