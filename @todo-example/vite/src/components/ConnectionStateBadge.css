@@ -1,0 +1,37 @@
+.connection-state {
+  position: fixed;
+  top: 0;
+  right: 0;
+  left: 0;
+  z-index: 9;
+  height: 2px;
+  background-color: rgb(247 25 0 / 80%);
+  box-shadow:
+    0 2px 3px 0 rgb(0 0 0 / 15%),
+    0 2px 5px 0 rgb(0 0 0 / 20%);
+  transition:
+    top 0.8s,
+    background-color 0.2s;
+}
+
+.connection-state-connected {
+  top: -24px;
+  background-color: rgb(25 200 60 / 80%);
+}
+
+.connection-state-label {
+  position: absolute;
+  top: 2px;
+  left: 50%;
+  width: 200px;
+  height: 22px;
+  margin-left: -100px;
+  line-height: 22px;
+  color: #fff;
+  text-align: center;
+  text-shadow: 0 -1px 1px rgb(0 0 0 / 30%);
+  background-color: inherit;
+  border-bottom-right-radius: 5px;
+  border-bottom-left-radius: 5px;
+  transition: background-color 0.2s;
+}

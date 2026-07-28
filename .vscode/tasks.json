@@ -6,7 +6,7 @@
     {
       "label": "TODO Example - Server Start",
       "type": "shell",
-      "command": "yarn start",
+      "command": "pnpm start",
       "options": {
         "cwd": "${workspaceFolder}/@todo-example/server"
       },
@@ -20,7 +20,7 @@
     {
       "label": "TODO Example - Vite App Start",
       "type": "shell",
-      "command": "yarn start",
+      "command": "pnpm start",
       "options": {
         "cwd": "${workspaceFolder}/@todo-example/vite"
       },

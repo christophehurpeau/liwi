@@ -3,10 +3,9 @@ import type { WebsocketTransportClientOptions } from "liwi-resources-websocket-c
 import { createWebsocketTransportClient } from "liwi-resources-websocket-client";
 import { appLogger } from "nightingale-app-console";
 import type { ReactNode } from "react";
-import { useEffect, useState } from "react";
 import { TransportClientProvider, useTransportClientState } from "react-liwi";
 import { TodoServicesProvider } from "./app/services/TodoServicesProvider";
-import type ConnectionStateBadge from "./components/ConnectionStateBadge";
+import { ConnectionStateBadge } from "./components/ConnectionStateBadge";
 import Info from "./components/Info";
 import Main from "./components/Main";
 import { NewTaskForm } from "./components/NewTaskForm";
@@ -16,23 +15,7 @@ appLogger.debug("Loading App.tsx");
 
 function AppConnectionState(): ReactNode {
   const transportClientState = useTransportClientState();
-  // react-native-web (used by the badge) is loaded only on the client, after
-  // hydration, so it stays out of the SSR module graph.
-  // eslint-disable-next-line react/hook-use-state
-  const [Badge, setBadge] = useState<typeof ConnectionStateBadge>();
-
-  useEffect(() => {
-    import("./components/ConnectionStateBadge")
-      .then((module) => {
-        setBadge(() => module.default);
-      })
-      .catch((error) => {
-        appLogger.error("Failed to load ConnectionStateBadge", error);
-      });
-  }, []);
-
-  if (!Badge) return null;
-  return <Badge transportClientState={transportClientState} />;
+  return <ConnectionStateBadge transportClientState={transportClientState} />;
 }
 
 function Home(): ReactNode {

@@ -1,6 +1,6 @@
 import type { ReactNode } from "react";
-import { ConnectionState } from "react-alp-connection-state";
 import { transportClientStateToSimplifiedState } from "react-liwi";
+import "./ConnectionStateBadge.css";
 
 interface ConnectionStateBadgeProps {
   transportClientState: Parameters<
@@ -8,12 +8,17 @@ interface ConnectionStateBadgeProps {
   >[0];
 }
 
-// react-alp-connection-state renders through react-native-web, which does not
-// run under Vite's SSR module runner. This component is loaded only on the
-// client (dynamic import in App), keeping react-native-web out of SSR.
-export default function ConnectionStateBadge({
+export function ConnectionStateBadge({
   transportClientState,
 }: ConnectionStateBadgeProps): ReactNode {
   const state = transportClientStateToSimplifiedState(transportClientState);
-  return <ConnectionState state={state}>{state}</ConnectionState>;
+  return (
+    <div
+      role="status"
+      className={`connection-state connection-state-${state}`}
+      aria-live="polite"
+    >
+      <span className="connection-state-label">{state}</span>
+    </div>
+  );
 }

@@ -36,10 +36,8 @@
     "liwi-resources-websocket-client": "workspace:*",
     "nightingale-app-console": "18.2.0",
     "react": "19.1.1",
-    "react-alp-connection-state": "10.0.2",
     "react-dom": "19.1.1",
     "react-liwi": "workspace:*",
-    "react-native-web": "0.21.2",
     "sirv": "3.0.2",
     "todomvc-app-css": "2.4.3",
     "todomvc-common": "1.0.5"
