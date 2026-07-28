@@ -103,4 +103,4 @@ jobs:
         run: pnpm install --frozen-lockfile
 
       - name: E2E testing
-        run: pnpm ./@todo-example/vite run test:e2e
+        run: pnpm --dir @todo-example/vite run test:e2e
