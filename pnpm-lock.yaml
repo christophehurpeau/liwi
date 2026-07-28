@@ -56,7 +56,7 @@ importers:
         version: link:../modules
       alp-node:
         specifier: 10.0.0
-        version: 10.0.0(router-segments@12.0.0)(supports-color@7.2.0)
+        version: 10.0.0(router-segments@12.2.1)(supports-color@7.2.0)
       liwi-mongo:
         specifier: workspace:*
         version: link:../../packages/liwi-mongo
@@ -70,8 +70,8 @@ importers:
         specifier: 18.2.0
         version: 18.2.0
       router-segments:
-        specifier: 12.0.0
-        version: 12.0.0
+        specifier: 12.2.1
+        version: 12.2.1
     devDependencies:
       '@pob/rollup-esbuild':
         specifier: 10.0.0
@@ -3450,8 +3450,8 @@ packages:
     engines: {node: '>=18.0.0', npm: '>=8.0.0'}
     hasBin: true
 
-  router-segments@12.0.0:
-    resolution: {integrity: sha512-yV7VuwLwwd/XUOKSRktj6x5yQhkkiW5NufXl1hQQtPa2MAKIa/XvUuBNRy/Ak3X+jCVWeRfLlvWBRa0+1TwMgA==}
+  router-segments@12.2.1:
+    resolution: {integrity: sha512-OpWb9huKpswz3fXw6RwGM1wXIvgmCEDDnxCSRaqO61hvqBISnlsWg4dS35xibrQ8RZ2ib/TySTFtbeTBlNpZgg==}
     engines: {node: '>=22.18.0'}
 
   router@2.2.0:
@@ -4974,7 +4974,7 @@ snapshots:
       json-schema-traverse: 0.4.1
       uri-js: 4.4.1
 
-  alp-node@10.0.0(router-segments@12.0.0)(supports-color@7.2.0):
+  alp-node@10.0.0(router-segments@12.2.1)(supports-color@7.2.0):
     dependencies:
       '@types/koa': 3.0.3
       '@types/node': 24.10.1
@@ -4988,7 +4988,7 @@ snapshots:
       nightingale-logger: 16.0.0
       object-properties: 9.0.1
     optionalDependencies:
-      router-segments: 12.0.0
+      router-segments: 12.2.1
     transitivePeerDependencies:
       - supports-color
 
@@ -6929,9 +6929,9 @@ snapshots:
       '@rollup/rollup-win32-x64-msvc': 4.60.4
       fsevents: 2.3.3
 
-  router-segments@12.0.0:
+  router-segments@12.2.1:
     dependencies:
-      nightingale-logger: 16.0.0
+      nightingale-logger: 18.2.0
       path-to-regexp: 8.4.2
 
   router@2.2.0(supports-color@7.2.0):
