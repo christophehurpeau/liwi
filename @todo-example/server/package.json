@@ -41,7 +41,7 @@
     "liwi-resources-server": "workspace:*",
     "liwi-resources-websocket-server": "workspace:*",
     "nightingale-app-console": "18.2.0",
-    "router-segments": "12.0.0"
+    "router-segments": "12.2.1"
   },
   "devDependencies": {
     "@pob/rollup-esbuild": "10.0.0",
