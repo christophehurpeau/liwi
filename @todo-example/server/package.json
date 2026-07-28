@@ -36,7 +36,7 @@
   },
   "dependencies": {
     "@todo-example/modules": "workspace:*",
-    "alp-node": "10.1.1",
+    "alp-node": "11.0.0",
     "liwi-mongo": "workspace:*",
     "liwi-resources-server": "workspace:*",
     "liwi-resources-websocket-server": "workspace:*",

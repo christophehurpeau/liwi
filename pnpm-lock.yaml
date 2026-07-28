@@ -55,8 +55,8 @@ importers:
         specifier: workspace:*
         version: link:../modules
       alp-node:
-        specifier: 10.1.1
-        version: 10.1.1(router-segments@12.2.1)(supports-color@7.2.0)
+        specifier: 11.0.0
+        version: 11.0.0(router-segments@12.2.1)(supports-color@7.2.0)
       liwi-mongo:
         specifier: workspace:*
         version: link:../../packages/liwi-mongo
@@ -1745,8 +1745,8 @@ packages:
   ajv@6.15.0:
     resolution: {integrity: sha512-fgFx7Hfoq60ytK2c7DhnF8jIvzYgOMxfugjLOSMHjLIPgenqa7S7oaagATUq99mV6IYvN2tRmC0wnTYX6iPbMw==}
 
-  alp-node@10.1.1:
-    resolution: {integrity: sha512-X/QM8jla8CWomKadwju+TSLu6+F97TgfG7lBUtCyIGBeI3wwFGVjUDiLL9vlaK+fWzknY+fypCDXfhakCeFTVw==}
+  alp-node@11.0.0:
+    resolution: {integrity: sha512-A6wXpCkrNOic9VuAFFp8vS5CDQ9izOtQ+ceiBHsAT1D7rBJ0BFpj/aAJ5n7FuP9DbBbMiP5I17dYIpX5qch93A==}
     engines: {node: '>=22.18.0'}
     peerDependencies:
       router-segments: ^11.0.0 || ^12.0.0
@@ -1907,9 +1907,6 @@ packages:
   bson@7.3.1:
     resolution: {integrity: sha512-h/C0qe6857pQhcSJHLfsR1uYGj98Ge3wKAD3Ed9KqH3wcVh+BM4Jq4xISD7vs9OPuT07n+q3QQVjslJ286j6ag==}
     engines: {node: '>=20.19.0'}
-
-  buffer-from@1.1.2:
-    resolution: {integrity: sha512-E+XQCRwSbaaiChtv6k6Dwgc+bx+Bs6vuKJHHl5kox/BaKbhiXzqQOwK4cO22yElGp2OCmjwVhT3HmxgyPGnJfQ==}
 
   bufferutil@4.1.0:
     resolution: {integrity: sha512-ZMANVnAixE6AWWnPzlW2KpUrxhm9woycYvPOo67jWHyFowASTEd9s+QN1EIMsSDtwhIxN4sWE1jotpuDUIgyIw==}
@@ -2101,10 +2098,6 @@ packages:
   deep-equal@1.0.1:
     resolution: {integrity: sha512-bHtC0iYvWhyaTzvV3CZgPeZQqCOBGyGsVV7v4eevpdkLHfiSrXUdBG+qAuSz4RI70sszvjQ1QSZ98An1yNwpSw==}
 
-  deep-freeze-es6@5.0.0:
-    resolution: {integrity: sha512-ovTuOE+wULT/D4E9RyRAEc2T4siqbhkw1Ak7OzfnfrI8wemiZzbvuAzIt6g0ciLggySPgMLJD91NyDoaI2WJnA==}
-    engines: {node: '>=22.18.0'}
-
   deep-is@0.1.4:
     resolution: {integrity: sha512-oIPzksmTg4/MriiaYGO+okXDT7ztn/w3Eptv/+gSIdMdKsJo0u4CfYNFJPy+4SKMuCqGw2wxnA+URMg3t8a/bQ==}
 
@@ -2168,12 +2161,13 @@ packages:
     resolution: {integrity: sha512-7DdUaTjmNwMcH2gLr1qycesKII3BK4RLy/mdAb7x10Lq7bR4aNKHt1BR1ZALSv0rPM/hF5wYF0PhGop/rJm8vw==}
     engines: {node: '>=10.13.0'}
 
-  error-html@0.3.5:
-    resolution: {integrity: sha512-6TTUbBJaJge8QAFlbvQMc82StImnsN9vCRyp9lvQm84u8jXoHqCjgP7zk20xl/K3QtZm6rls/xYiyqrJp2PIAQ==}
-    engines: {node: '>=4.0.0'}
+  error-html@0.4.1:
+    resolution: {integrity: sha512-kUEL8XyIqRodNp6yKlwK4qWK9S2v7ayCrk/S06S4GPFD6jpLYgOhdm2ziqGCu7He7QvFSkHgVsW6msdh/4kq2w==}
+    engines: {node: '>=22.18.0'}
 
-  error-stack-parser@2.1.4:
-    resolution: {integrity: sha512-Sk5V6wVazPhq5MhpO+AUxJn5x7XSXGl1R93Vn7i+zS15KDVxQijejNCrz8340/2bgLBjR9GtEG8ZVKONDjcqGQ==}
+  errorstacks@2.4.2:
+    resolution: {integrity: sha512-aQAkABfX+AsCxWtvh1KGIDkTiYyABsTtZkBb8cd9FWxNnEdrcFEsTxUfi9sc0Jc1mgHC2kW3UtJVadqSuMm/uQ==}
+    engines: {node: '>=24'}
 
   es-abstract-get@1.0.0:
     resolution: {integrity: sha512-6PMWXpdhshVvFp+FoWYs1EvG1Nj0tvk0dZM+XcK0xMEM1czRVcP6ohqPWHy6qPagSpC8j4+p89WXlT+xXJs/fg==}
@@ -2226,6 +2220,10 @@ packages:
     resolution: {integrity: sha512-WUj2qlxaQtO4g6Pq5c29GTcWGDyd8itL8zTlipgECz3JesAiiOKotd8JU6otB3PACgG6xkJUyVhboMS+bje/jA==}
     engines: {node: '>=6'}
 
+  escape-goat@4.0.0:
+    resolution: {integrity: sha512-2Sd4ShcWxbx6OY1IHyla/CVNwvg7XwZVoXZHcSu9w9SReNP1EzzD5T8NWKIR38fIqEns9kDWKUQTXXAmlDrdPg==}
+    engines: {node: '>=12'}
+
   escape-html@1.0.3:
     resolution: {integrity: sha512-NiSupZ4OeuGwr68lGIeym/ksIZMJodUGOSCZ/FSnTxcrekbvqrgdUxlJOMpijaKZVjAJrWrGs/6Jy8OMuyj9ow==}
 
@@ -2236,10 +2234,6 @@ packages:
   escape-string-regexp@4.0.0:
     resolution: {integrity: sha512-TtpcNJ3XAzx3Gq8sWRzJaVajRs0uVxA2YAkdb1jm2YkPz4G6egUFAyA3n5vtEIZefPk5Wa4UXbKuS5fKkJWdgA==}
     engines: {node: '>=10'}
-
-  eshighlight-fb@1.0.0:
-    resolution: {integrity: sha512-WvOObQDjjMKmbLUMuZxkqN72c7mvt05WBkAo9wXdsx/yexhQUVl2He9u8nwtfis02kRERLoc8QXQMdv0rmoApw==}
-    deprecated: Package no longer supported. Contact Support at https://www.npmjs.com/support for more info.
 
   eslint-compat-utils@0.5.1:
     resolution: {integrity: sha512-3z3vFexKIEnjHE3zCMRo6fn/e44U7T1khUjg+Hp0ZQMCigh28rALD0nPFBcGZuiLC5rLZa2ubQHDRln09JfU2Q==}
@@ -2349,11 +2343,6 @@ packages:
   espree@11.2.0:
     resolution: {integrity: sha512-7p3DrVEIopW1B1avAGLuCSh1jubc01H2JHc8B4qqGblmg5gI9yumBgACjWo4JlIc04ufug4xJ3SQI8HkS/Rgzw==}
     engines: {node: ^20.19.0 || ^22.13.0 || >=24}
-
-  esprima-fb@15001.1001.0-dev-harmony-fb:
-    resolution: {integrity: sha512-m7OsYzocA8OQ3+9CxmhIv7NPHtyDR2ixaLCO7kLZ+YH+xQ/BpaZmll9EXmc+kBxzWA8BRBXbNEuEQqQ6vfsgDw==}
-    engines: {node: '>=0.4.0'}
-    hasBin: true
 
   esquery@1.7.0:
     resolution: {integrity: sha512-Ap6G0WQwcU/LHsvLwON1fAQX9Zp0A2Y6Y/cJBl9r/JbW90Zyg4/zbG6zzKa2OTALELarYHmKu0GhpM5EO+7T0g==}
@@ -2562,6 +2551,10 @@ packages:
   hasown@2.0.4:
     resolution: {integrity: sha512-T2UbfbBEF32wiepXIsMlTW9+dDYC6wMh/t/vYA4tuOMKqWz/n3vr1NFSxQiyP+zk2mXsoMA/i/7qV6LKut1t1A==}
     engines: {node: '>= 0.4'}
+
+  highlight.js@11.11.1:
+    resolution: {integrity: sha512-Xwwo44whKBVCYoliBQwaPvtd/2tYFkRQtXDWj1nackaV2JPXx3L0+Jvd8/qCJ2p+ML0/XVkJ2q+Mr+UVdpJK5w==}
+    engines: {node: '>=12.0.0'}
 
   http-assert@1.5.0:
     resolution: {integrity: sha512-uPpH7OKX4H25hBmU6G1jWNaqJGpTXxey+YOUizJUAgu0AjLUeC8D73hTrhvDS5D+GJN1DN1+hhc/eF/wpxtp0w==}
@@ -3469,13 +3462,6 @@ packages:
     resolution: {integrity: sha512-UXWMKhLOwVKb728IUtQPXxfYU+usdybtUrK/8uGE8CQMvrhOpwvzDBwj0QhSL7MQc7vIsISBG8VQ8+IDQxpfQA==}
     engines: {node: '>=0.10.0'}
 
-  source-map-support@0.5.21:
-    resolution: {integrity: sha512-uBHU3L3czsIyYXKX88fdrGovxdSCoTGDRZ6SYXtSRxLZUzHg5P/66Ht6uoUlHu9EZod+inXhKo3qQgwXUT/y1w==}
-
-  source-map@0.5.7:
-    resolution: {integrity: sha512-LbrmJOMUSdEVxIKvdcJzQC+nQhe8FUZQTXQy6+I75skNgn3OoQ0DZA8YnFa7gp8tqtL3KPf1kmo0R5DoApeSGQ==}
-    engines: {node: '>=0.10.0'}
-
   source-map@0.6.1:
     resolution: {integrity: sha512-UjgapumWlbMhkBgzT7Ykc5YXUT46F0iKu8SGXq0bcwP5dz/h0Plj6enJqjz1Zbq2l5WaqYnrVbwWOWMyF3F47g==}
     engines: {node: '>=0.10.0'}
@@ -3493,9 +3479,6 @@ packages:
   stable-hash-x@0.2.0:
     resolution: {integrity: sha512-o3yWv49B/o4QZk5ZcsALc6t0+eCelPc44zZsLtCQnZPDwFpDYSWcDnrv2TtMmMbQ7uKo3J0HTURCqckw23czNQ==}
     engines: {node: '>=12.0.0'}
-
-  stackframe@1.3.4:
-    resolution: {integrity: sha512-oeVtt7eWQS+Na6F//S4kJ2K2VbRlS9D43mAlMyVpVWovy9o+jfgH8O9agzANzaiLjclA0oYzUXEM4PurhSUChw==}
 
   statuses@1.5.0:
     resolution: {integrity: sha512-OpZ3zP+jT1PI7I8nemJX4AKmAX070ZkYPVWV/AaKTJl+tXCTGyVdC1a4SL8RUQYEwk/f34ZX8UTykN68FwrqAA==}
@@ -4867,12 +4850,11 @@ snapshots:
       json-schema-traverse: 0.4.1
       uri-js: 4.4.1
 
-  alp-node@10.1.1(router-segments@12.2.1)(supports-color@7.2.0):
+  alp-node@11.0.0(router-segments@12.2.1)(supports-color@7.2.0):
     dependencies:
       '@types/koa': 3.0.3
       '@types/node': 24.10.1
-      deep-freeze-es6: 5.0.0
-      error-html: 0.3.5
+      error-html: 0.4.1
       intl-messageformat: 10.7.18
       koa: 3.2.1
       koa-compress: 5.2.2
@@ -5046,8 +5028,6 @@ snapshots:
       update-browserslist-db: 1.2.3(browserslist@4.28.4)
 
   bson@7.3.1: {}
-
-  buffer-from@1.1.2: {}
 
   bufferutil@4.1.0:
     dependencies:
@@ -5224,8 +5204,6 @@ snapshots:
 
   deep-equal@1.0.1: {}
 
-  deep-freeze-es6@5.0.0: {}
-
   deep-is@0.1.4: {}
 
   deepmerge@4.3.1: {}
@@ -5279,17 +5257,13 @@ snapshots:
       graceful-fs: 4.2.11
       tapable: 2.3.3
 
-  error-html@0.3.5:
+  error-html@0.4.1:
     dependencies:
-      error-stack-parser: 2.1.4
-      escape-html: 1.0.3
-      eshighlight-fb: 1.0.0
-      source-map: 0.5.7
-      source-map-support: 0.5.21
+      errorstacks: 2.4.2
+      escape-goat: 4.0.0
+      highlight.js: 11.11.1
 
-  error-stack-parser@2.1.4:
-    dependencies:
-      stackframe: 1.3.4
+  errorstacks@2.4.2: {}
 
   es-abstract-get@1.0.0:
     dependencies:
@@ -5437,15 +5411,13 @@ snapshots:
 
   escalade@3.2.0: {}
 
+  escape-goat@4.0.0: {}
+
   escape-html@1.0.3: {}
 
   escape-string-regexp@1.0.5: {}
 
   escape-string-regexp@4.0.0: {}
-
-  eshighlight-fb@1.0.0:
-    dependencies:
-      esprima-fb: 15001.1001.0-dev-harmony-fb
 
   eslint-compat-utils@0.5.1(eslint@10.7.0(supports-color@7.2.0)):
     dependencies:
@@ -5643,8 +5615,6 @@ snapshots:
       acorn: 8.17.0
       acorn-jsx: 5.3.2(acorn@8.17.0)
       eslint-visitor-keys: 5.0.1
-
-  esprima-fb@15001.1001.0-dev-harmony-fb: {}
 
   esquery@1.7.0:
     dependencies:
@@ -5874,6 +5844,8 @@ snapshots:
   hasown@2.0.4:
     dependencies:
       function-bind: 1.1.2
+
+  highlight.js@11.11.1: {}
 
   http-assert@1.5.0:
     dependencies:
@@ -6890,13 +6862,6 @@ snapshots:
 
   source-map-js@1.2.1: {}
 
-  source-map-support@0.5.21:
-    dependencies:
-      buffer-from: 1.1.2
-      source-map: 0.6.1
-
-  source-map@0.5.7: {}
-
   source-map@0.6.1: {}
 
   sparse-bitfield@3.0.3:
@@ -6916,8 +6881,6 @@ snapshots:
       split: 1.0.1
 
   stable-hash-x@0.2.0: {}
-
-  stackframe@1.3.4: {}
 
   statuses@1.5.0: {}
 
