@@ -44,7 +44,7 @@
   "dependencies": {
     "liwi-store": "workspace:*",
     "liwi-subscribe-store": "workspace:*",
-    "mingo": "~6.2.7",
+    "mingo": "~6.7.2",
     "mongodb": "^7.5.0",
     "nightingale-logger": "^18.2.0"
   },
