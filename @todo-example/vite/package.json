@@ -43,7 +43,7 @@
     "todomvc-common": "1.0.5"
   },
   "devDependencies": {
-    "@playwright/test": "1.61.1",
+    "@playwright/test": "1.62.1",
     "@types/compression": "1.8.1",
     "@types/express": "5.0.6",
     "@types/node": "24.10.1",
