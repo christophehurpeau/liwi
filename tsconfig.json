@@ -1,7 +1,6 @@
 {
   "files": [],
   "references": [
-    { "path": "tsconfig.tools.json" },
     { "path": "packages/extended-json/tsconfig.json" },
     { "path": "packages/liwi-store/tsconfig.json" },
     { "path": "packages/liwi-resources/tsconfig.json" },
@@ -17,6 +16,7 @@
     { "path": "packages/liwi-resources-websocket-server/tsconfig.json" },
     { "path": "packages/react-liwi/tsconfig.json" },
     { "path": "@todo-example/server/tsconfig.json" },
-    { "path": "@todo-example/vite/tsconfig.json" }
+    { "path": "@todo-example/vite/tsconfig.json" },
+    { "path": "tsconfig.tools.json" }
   ]
 }
