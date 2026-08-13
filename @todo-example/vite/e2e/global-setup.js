@@ -2,7 +2,7 @@ import { execSync, spawnSync } from "node:child_process";
 import { fileURLToPath } from "node:url";
 import { MongoMemoryServer } from "mongodb-memory-server-core";
 import { createDaemon } from "springbokjs-daemon";
-import { WEB_PORT, WS_PORT } from "./ports.js";
+import { WEB_PORT, WS_PORT } from "./ports.ts";
 
 export default async function globalSetup(config) {
   const cwd = fileURLToPath(new URL("..", import.meta.url));

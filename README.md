@@ -47,6 +47,7 @@ This repository is a monorepo using workspaces.
 - **Resources** — a resource is a named set of queries (fetchable and subscribable) and operations (mutations), declared once as a TypeScript interface in [`liwi-resources`](packages/liwi-resources), implemented on the server ([`liwi-resources-server`](packages/liwi-resources-server)) and generated on the client ([`liwi-resources-client`](packages/liwi-resources-client)).
 - **Transports** — [websocket](packages/liwi-resources-websocket-client) for browsers, [direct](packages/liwi-resources-direct-client) for in-process calls, [void](packages/liwi-resources-void-client) for SSR. Payloads are encoded with [`extended-json`](packages/extended-json) so `Date` values survive.
 - **React** — [`react-liwi`](packages/react-liwi) provides the transport, `useResource` / `usePaginatedResource` / `useOperation`.
+- **Indexes** — declared on the mongo store next to the queries that need them, collected in a `MongoRegistry`, applied by an explicit step. See [indexes](packages/liwi-mongo#indexes).
 
 ## Install
 
@@ -109,6 +110,32 @@ const resourcesServerService = new ResourcesServerService({
 });
 
 createWsServer(httpServer, "/ws", resourcesServerService, () => null);
+```
+
+Indexes — declare them on the store, register the store, apply from a deploy or migration step:
+
+```ts
+import { MongoRegistry, runIndexesCli } from "liwi-mongo";
+
+const tasksStore = new MongoStore<Task>(connection, "tasks", {
+  indexes: [{ key: { completed: 1, created: 1 } }],
+});
+
+export const mongoRegistry = new MongoRegistry([tasksStore]);
+```
+
+One connection per database, one store per collection, one registry per app: the connection owns the client, the store owns the model and its index declaration, the registry is the list the index step walks — see [connection, store, registry](packages/liwi-mongo#connection-store-registry). So the registry is built next to the connection, not inside the module of one store, and a store that is never registered is never synced.
+
+`runIndexesCli` is the whole entry point — the connection is passed separately because the registry has no handle on it:
+
+```ts
+process.exitCode = await runIndexesCli({ registry: mongoRegistry, connection });
+```
+
+```sh
+node scripts/syncIndexes.ts                 # plan, changes nothing
+node scripts/syncIndexes.ts plan --check    # exit 1 when the plan is not empty
+node scripts/syncIndexes.ts sync            # apply
 ```
 
 Client — build the typed service and read it from React:

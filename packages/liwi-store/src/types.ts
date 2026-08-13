@@ -344,6 +344,8 @@ export declare type NestedPaths<
             }[Extract<keyof Type, string>]
           : [];
 
+export type DottedPaths<Model> = Join<NestedPaths<Model, []>, ".">;
+
 type PropertyType<Type, Property extends string> = string extends Property
   ? unknown
   : Property extends keyof Type

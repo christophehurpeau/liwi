@@ -1,6 +1,7 @@
 {
   "files": [],
   "references": [
+    { "path": "tsconfig.tools.json" },
     { "path": "packages/extended-json/tsconfig.json" },
     { "path": "packages/liwi-store/tsconfig.json" },
     { "path": "packages/liwi-resources/tsconfig.json" },

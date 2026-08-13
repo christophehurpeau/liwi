@@ -5,16 +5,24 @@ import type MongoConnection from "./MongoConnection.ts";
 import MongoCursor from "./MongoCursor.ts";
 import MongoQueryCollection from "./MongoQueryCollection.ts";
 import MongoQuerySingleItem from "./MongoQuerySingleItem.ts";
+import type { MongoIndex, MongoIndexPlan, MongoIndexSyncResult, SyncIndexesOptions } from "./indexes/types.ts";
 export interface MongoUpsertResult<KeyValue extends AllowedKeyValue, Model extends MongoBaseModel<KeyValue>> extends UpsertResult<Model> {
     object: Model;
     inserted: boolean;
 }
+export interface MongoStoreOptions<Model extends MongoBaseModel<any>> {
+    indexes?: readonly MongoIndex<Model>[];
+}
 export default class MongoStore<Model extends MongoBaseModel<KeyValue>, KeyValue extends AllowedKeyValue = Model[MongoKeyPath]> implements SubscribableStore<MongoKeyPath, KeyValue, Model, MongoInsertType<Model>, MongoConnection> {
     readonly keyPath: MongoKeyPath;
     readonly connection: MongoConnection;
+    readonly collectionName: string;
+    private readonly declaredIndexes;
     private _collection;
-    constructor(connection: MongoConnection, collectionName: string);
+    constructor(connection: MongoConnection, collectionName: string, { indexes }?: MongoStoreOptions<Model>);
     get collection(): Promise<Collection<Model>>;
+    planIndexes({ dropUndeclaredIndexes, }?: SyncIndexesOptions): Promise<MongoIndexPlan>;
+    syncIndexes(options?: SyncIndexesOptions): Promise<MongoIndexSyncResult>;
     createQuerySingleItem<Result extends Record<MongoKeyPath, KeyValue> = Model, Params extends QueryParams<Params> = never>({ transformer, ...options }: CreateQueryOptions<Model, Result>): MongoQuerySingleItem<Model, Params, Result, KeyValue>;
     createQueryCollection<Item extends Record<MongoKeyPath, KeyValue> = Model, Params extends QueryParams<Params> = never>({ transformer, ...options }: CreateQueryOptions<Model, Item>): MongoQueryCollection<Model, Params, Model["_id"], Item>;
     insertOne(object: MongoInsertType<Model>): Promise<Model>;

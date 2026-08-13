@@ -28,6 +28,16 @@ import type MongoConnection from "./MongoConnection.ts";
 import MongoCursor from "./MongoCursor.ts";
 import MongoQueryCollection from "./MongoQueryCollection.ts";
 import MongoQuerySingleItem from "./MongoQuerySingleItem.ts";
+import { applyIndexPlan } from "./indexes/applyIndexPlan.ts";
+import { diffIndexes } from "./indexes/diffIndexes.ts";
+import { isNamespaceNotFoundError } from "./indexes/isIndexConflictError.ts";
+import { normalizeDeclaredIndexes } from "./indexes/normalizeIndex.ts";
+import type {
+  MongoIndex,
+  MongoIndexPlan,
+  MongoIndexSyncResult,
+  SyncIndexesOptions,
+} from "./indexes/types.ts";
 
 export interface MongoUpsertResult<
   KeyValue extends AllowedKeyValue,
@@ -35,6 +45,10 @@ export interface MongoUpsertResult<
 > extends UpsertResult<Model> {
   object: Model;
   inserted: boolean;
+}
+
+export interface MongoStoreOptions<Model extends MongoBaseModel<any>> {
+  indexes?: readonly MongoIndex<Model>[];
 }
 
 export default class MongoStore<
@@ -51,14 +65,26 @@ export default class MongoStore<
 
   readonly connection: MongoConnection;
 
+  readonly collectionName: string;
+
+  private readonly declaredIndexes: readonly MongoIndex<Model>[];
+
   private _collection: Collection<Model> | Promise<Collection<Model>>;
 
-  constructor(connection: MongoConnection, collectionName: string) {
+  constructor(
+    connection: MongoConnection,
+    collectionName: string,
+    { indexes = [] }: MongoStoreOptions<Model> = {},
+  ) {
     this.connection = connection;
 
     if (!collectionName) {
       throw new Error(`Invalid collectionName: "${collectionName}"`);
     }
+
+    this.collectionName = collectionName;
+    this.declaredIndexes = indexes;
+    normalizeDeclaredIndexes({ collectionName, indexes });
 
     this._collection = connection.getConnection().then(
       (client: MongoClient) => {
@@ -78,6 +104,42 @@ export default class MongoStore<
     }
 
     return Promise.resolve(this._collection);
+  }
+
+  async planIndexes({
+    dropUndeclaredIndexes = true,
+  }: SyncIndexesOptions = {}): Promise<MongoIndexPlan> {
+    const collection = await this.collection;
+
+    const existingIndexes = await collection
+      .listIndexes()
+      .toArray()
+      .catch((error: unknown) => {
+        if (isNamespaceNotFoundError(error)) return [];
+        throw error;
+      });
+
+    return diffIndexes<Model>({
+      collectionName: this.collectionName,
+      declaredIndexes: this.declaredIndexes,
+      existingIndexes,
+      dropUndeclaredIndexes,
+    });
+  }
+
+  async syncIndexes(
+    options: SyncIndexesOptions = {},
+  ): Promise<MongoIndexSyncResult> {
+    const plan = await this.planIndexes(options);
+    const collection = await this.collection;
+    const client = await this.connection.getConnection();
+
+    return applyIndexPlan({
+      plan,
+      collection: collection as Collection<any>,
+      db: client.db(),
+      dryRun: options.dryRun ?? false,
+    });
   }
 
   createQuerySingleItem<

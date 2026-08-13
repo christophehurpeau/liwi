@@ -1,5 +1,5 @@
 import type { ServiceQuery } from "liwi-resources-client";
-import type { DraftTask, Task } from "./Task";
+import type { DraftTask, Task } from "./Task.ts";
 
 export type TaskSummary = Pick<Task, "_id" | "completed" | "created" | "label">;
 

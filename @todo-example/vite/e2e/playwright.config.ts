@@ -1,11 +1,11 @@
 import { fileURLToPath } from "node:url";
 import { defineConfig } from "@playwright/test";
-import { WEB_PORT } from "./e2e/ports.js";
+import { WEB_PORT } from "./ports.ts";
 
 export default defineConfig({
-  testDir: "./e2e/",
+  testDir: ".",
   globalSetup: fileURLToPath(
-    import.meta.resolve("./e2e/global-setup", import.meta.url),
+    import.meta.resolve("./global-setup", import.meta.url),
   ),
   use: {
     baseURL: `http://127.0.0.1:${WEB_PORT}`,

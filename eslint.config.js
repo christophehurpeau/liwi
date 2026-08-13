@@ -1,10 +1,8 @@
 import pobConfig, { applyTs } from "@pob/eslint-config";
 import pobTypescriptReactConfig from "@pob/eslint-config-typescript-react";
 
-const pobConfigs = pobConfig(import.meta.url).configs;
-const pobTypescriptReactConfigs = pobTypescriptReactConfig(
-  import.meta.url,
-).configs;
+const pobConfigs = pobConfig.configs;
+const pobTypescriptReactConfigs = pobTypescriptReactConfig.configs;
 
 const warnUnsafeConfig = {
   rules: {
@@ -22,6 +20,7 @@ export default [
     ignores: ["@todo-example/vite/dist"],
   },
   ...pobConfigs.node,
+  ...pobConfigs.monorepo,
 
   ...applyTs({
     mode: "directory",

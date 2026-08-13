@@ -38,6 +38,7 @@
     "clean:build": "pob-esbuild-clean-out dist",
     "lint": "pnpm run lint:eslint",
     "lint:eslint": "pnpm run --dir '../..' eslint --quiet 'packages/liwi-mongo'",
+    "test:integration": "LIWI_MONGO_INTEGRATION=1 TZ=UTC node --test 'src/**/*.integration.test.ts'",
     "tsc": "tsc",
     "watch": "yarn clean:build && rollup --config rollup.config.mjs --watch"
   },
@@ -51,6 +52,7 @@
   "devDependencies": {
     "@pob/rollup-esbuild": "10.0.0",
     "@typescript/native": "npm:typescript@7.0.2",
+    "mongodb-memory-server-core": "11.2.0",
     "typescript": "npm:@typescript/typescript6@6.0.2"
   },
   "engines": {
