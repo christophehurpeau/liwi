@@ -194,8 +194,8 @@ importers:
         specifier: workspace:*
         version: link:../liwi-subscribe-store
       mingo:
-        specifier: ~6.2.7
-        version: 6.2.7
+        specifier: ~7.2.4
+        version: 7.2.4
       mongodb:
         specifier: ^7.5.0
         version: 7.5.0
@@ -451,8 +451,8 @@ importers:
         specifier: workspace:*
         version: link:../liwi-store
       mingo:
-        specifier: ~6.2.7
-        version: 6.2.7
+        specifier: ~7.2.4
+        version: 7.2.4
       nightingale-logger:
         specifier: ^18.2.0
         version: 18.2.0
@@ -2923,8 +2923,8 @@ packages:
     resolution: {integrity: sha512-Lbgzdk0h4juoQ9fCKXW4by0UJqj+nOOrI9MJ1sSj4nI8aI2eo1qmvQEie4VD1glsS250n15LsWsYtCugiStS5A==}
     engines: {node: '>=18'}
 
-  mingo@6.2.7:
-    resolution: {integrity: sha512-r+yKmrZ+6SjwGxSot+/3S8sP9+LCxWNueR6xppMx7BzV60OegjbeklWAf/UveyQi8PDW8g/mwrQSHZVY/5jBJQ==}
+  mingo@7.2.4:
+    resolution: {integrity: sha512-KrxHKzMMguL+G1lBC6YbU5UTXdw2viwVHNTPzNYVfEQfSAoetC3M1a7rlveOksn/96oNy+QwBlIXvx/q6rWyxQ==}
 
   minimatch@10.2.5:
     resolution: {integrity: sha512-MULkVLfKGYDFYejP07QOurDLLQpcjk7Fw+7jXS2R2czRQzR56yHRveU5NDJEOviH+hETZKSkIk5c+T23GjFUMg==}
@@ -6165,7 +6165,7 @@ snapshots:
     dependencies:
       mime-db: 1.54.0
 
-  mingo@6.2.7: {}
+  mingo@7.2.4: {}
 
   minimatch@10.2.5:
     dependencies:
