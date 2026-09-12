@@ -1,8 +1,6 @@
 import assert from "node:assert/strict";
 import { describe, test } from "node:test";
-// eslint-disable-next-line import-x/extensions
 import { ClientQuery } from "./ClientQuery.ts";
-// eslint-disable-next-line import-x/extensions
 import type { TransportClient } from "./TransportClient.ts";
 
 interface Item {

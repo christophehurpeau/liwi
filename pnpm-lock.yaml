@@ -376,6 +376,31 @@ importers:
         specifier: npm:@typescript/typescript6@6.0.2
         version: '@typescript/typescript6@6.0.2'
 
+  packages/liwi-resources-websocket-node-client:
+    dependencies:
+      liwi-resources-client:
+        specifier: workspace:*
+        version: link:../liwi-resources-client
+      liwi-resources-websocket-client:
+        specifier: workspace:*
+        version: link:../liwi-resources-websocket-client
+      ws:
+        specifier: ^8.21.3
+        version: 8.21.3(bufferutil@4.1.0)(utf-8-validate@6.0.6)
+    devDependencies:
+      '@pob/rollup-esbuild':
+        specifier: 10.0.0
+        version: 10.0.0(@typescript/typescript6@6.0.2)(rollup@4.60.4)(supports-color@7.2.0)
+      '@types/ws':
+        specifier: 8.18.1
+        version: 8.18.1
+      '@typescript/native':
+        specifier: npm:typescript@7.0.2
+        version: typescript@7.0.2
+      typescript:
+        specifier: npm:@typescript/typescript6@6.0.2
+        version: '@typescript/typescript6@6.0.2'
+
   packages/liwi-resources-websocket-server:
     dependencies:
       extended-json:

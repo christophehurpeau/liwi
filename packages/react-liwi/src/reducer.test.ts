@@ -1,9 +1,7 @@
 import assert from "node:assert/strict";
 import { describe, test } from "node:test";
 import type { QueryInfo, QueryMeta } from "liwi-store";
-// eslint-disable-next-line import-x/extensions
 import reducer, { initReducer } from "./reducer.ts";
-// eslint-disable-next-line import-x/extensions
 import type { Action, State } from "./reducer.ts";
 
 interface Item {

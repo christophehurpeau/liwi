@@ -1,5 +1,18 @@
 import Backoff from "backo2";
 import type { ConnectionStates } from "liwi-resources-client";
+import { detectVisibilitySource } from "./detectVisibilitySource.ts";
+import { isUnrecoverableFailure } from "./isUnrecoverableFailure.ts";
+import { listenHandshakeStatus } from "./listenHandshakeStatus.ts";
+import type {
+  ConnectionFailure,
+  ConnectionFailureCause,
+  HandshakeStatus,
+  VisibilitySource,
+  WebSocketCloseEvent,
+  WebSocketConstructorLike,
+  WebSocketLike,
+  WebSocketMessageEvent,
+} from "./types";
 
 export type StateChangeListener = (newState: ConnectionStates) => void;
 
@@ -16,22 +29,42 @@ export interface SimpleWebsocketClientOptions {
   reconnectionDelayMax?: number;
   reconnectionAttempts?: number;
   inactivityTimeout?: number;
+  webSocketImplementation?: WebSocketConstructorLike;
   thirdWebsocketArgument?: unknown;
-  onMessage: (message: MessageEvent) => void;
-  onError?: (event: Event) => void;
+  getThirdWebsocketArgument?: () => unknown;
+  visibilitySource?: VisibilitySource | false;
+  onMessage: (message: WebSocketMessageEvent) => void;
+  onError?: (event: unknown) => void;
+  onConnectionFailure?: (failure: ConnectionFailure) => void;
 }
-
-type Message = Parameters<WebSocket["send"]>[0];
 
 export interface WebsocketTransport {
   connect: () => void;
   close: () => void;
   isConnected: () => boolean;
-  sendMessage: (message: Message) => void;
+  sendMessage: (message: string) => void;
   listenStateChange: StateChangeListenerCreator;
 }
 
 type Timeouts = "inactivity" | "maxConnect" | "tryReconnect";
+
+const ABNORMAL_CLOSURE_CODE = 1006;
+
+const resolveWebSocketImplementation = (
+  webSocketImplementation: WebSocketConstructorLike | undefined,
+): WebSocketConstructorLike => {
+  if (webSocketImplementation) return webSocketImplementation;
+
+  const { WebSocket: globalWebSocket } = globalThis as {
+    WebSocket?: WebSocketConstructorLike;
+  };
+  if (!globalWebSocket) {
+    throw new Error(
+      "No WebSocket implementation found, pass `webSocketImplementation`",
+    );
+  }
+  return globalWebSocket;
+};
 
 export default function createSimpleWebsocketClient({
   url,
@@ -40,14 +73,23 @@ export default function createSimpleWebsocketClient({
   reconnectionDelayMin = 1000,
   reconnectionDelayMax = 30 * 1000,
   reconnectionAttempts = Infinity,
+  webSocketImplementation,
   thirdWebsocketArgument,
+  getThirdWebsocketArgument,
+  visibilitySource,
   onMessage,
   onError,
+  onConnectionFailure,
 }: SimpleWebsocketClientOptions): WebsocketTransport {
-  let ws: WebSocket | null = null;
+  let ws: WebSocketLike | null = null;
   let currentState: ConnectionStates = "closed";
   let isConnected = false;
   const stateChangeListeners = new Set<StateChangeListener>();
+
+  const visibility =
+    visibilitySource === false
+      ? undefined
+      : (visibilitySource ?? detectVisibilitySource());
 
   const backoff = new Backoff({
     min: reconnectionDelayMin,
@@ -83,42 +125,84 @@ export default function createSimpleWebsocketClient({
     if (ws) {
       clearInternalTimeout("maxConnect");
       clearInternalTimeout("tryReconnect");
+      const closingWebsocket = ws;
       ws = null;
       setCurrentState("closed");
+      closingWebsocket.close();
     }
   };
 
   let tryReconnect: (() => void) | undefined;
 
   const connect = (): void => {
-    const webSocket = thirdWebsocketArgument
-      ? // @ts-expect-error third argument for react-native
-
-        new WebSocket(url, protocols, thirdWebsocketArgument)
-      : new WebSocket(url, protocols);
+    const WebSocketImplementation = resolveWebSocketImplementation(
+      webSocketImplementation,
+    );
+    const thirdArgument = getThirdWebsocketArgument
+      ? getThirdWebsocketArgument()
+      : thirdWebsocketArgument;
+    const webSocket: WebSocketLike = thirdArgument
+      ? new WebSocketImplementation(url, protocols, thirdArgument)
+      : new WebSocketImplementation(url, protocols);
     ws = webSocket;
     clearInternalTimeout("maxConnect");
     setCurrentState("connecting");
+
+    let handshakeStatus: HandshakeStatus | undefined;
+    let failureHandled = false;
+
+    listenHandshakeStatus(webSocket, (receivedHandshakeStatus) => {
+      handshakeStatus = receivedHandshakeStatus;
+    });
+
+    const buildFailureCause = (
+      closeEvent: WebSocketCloseEvent | undefined,
+    ): ConnectionFailureCause => {
+      if (handshakeStatus) return { type: "handshake", ...handshakeStatus };
+      return {
+        type: "close",
+        code: closeEvent?.code ?? ABNORMAL_CLOSURE_CODE,
+        reason: closeEvent?.reason ?? "",
+        wasClean: closeEvent?.wasClean ?? false,
+      };
+    };
+
+    const handleConnectionFailure = (
+      closeEvent: WebSocketCloseEvent | undefined,
+    ): void => {
+      if (failureHandled) return;
+      failureHandled = true;
+      if (currentState === "closed") return;
+
+      const reconnectAfterFailure = tryReconnect;
+      const cause = buildFailureCause(closeEvent);
+      const willReconnect =
+        reconnectAfterFailure !== undefined && !isUnrecoverableFailure(cause);
+
+      if (onConnectionFailure) {
+        onConnectionFailure({ ...cause, willReconnect });
+      }
+
+      if (!willReconnect) {
+        closeWebsocket();
+      } else if (visibility?.isHidden()) {
+        setCurrentState("wait-for-visibility");
+      } else {
+        reconnectAfterFailure();
+      }
+    };
 
     webSocket.addEventListener("open", (): void => {
       backoff.reset();
       clearInternalTimeout("maxConnect");
     });
 
-    const handleCloseOrError = (): void => {
-      if (currentState === "closed") return;
-      if (!tryReconnect) {
-        closeWebsocket();
-      } else if (document.visibilityState === "hidden") {
-        setCurrentState("wait-for-visibility");
-      } else {
-        tryReconnect();
-      }
-    };
+    webSocket.addEventListener("close", (event): void => {
+      handleConnectionFailure(event as WebSocketCloseEvent);
+    });
 
-    webSocket.addEventListener("close", handleCloseOrError);
-
-    webSocket.addEventListener("message", (message): void => {
+    webSocket.addEventListener("message", (event): void => {
+      const message = event as WebSocketMessageEvent;
       if (message.data === "connection-ack") {
         setCurrentState("connected");
       } else {
@@ -132,7 +216,7 @@ export default function createSimpleWebsocketClient({
       } else {
         console.error("ws error", event);
       }
-      handleCloseOrError();
+      handleConnectionFailure(undefined);
     });
   };
 
@@ -155,29 +239,30 @@ export default function createSimpleWebsocketClient({
     };
   }
 
-  const visibilityChangeHandler: (() => void) | undefined = !tryReconnect
-    ? undefined
-    : () => {
-        if (document.visibilityState === "hidden") {
-          if (currentState === "reconnect-scheduled") {
-            setCurrentState("wait-for-visibility");
-            if (timeouts.tryReconnect !== null) {
-              clearTimeout(timeouts.tryReconnect);
+  const visibilityChangeHandler: (() => void) | undefined =
+    !tryReconnect || !visibility
+      ? undefined
+      : () => {
+          if (visibility.isHidden()) {
+            if (currentState === "reconnect-scheduled") {
+              setCurrentState("wait-for-visibility");
+              clearInternalTimeout("tryReconnect");
             }
+            return;
           }
-          return;
-        }
-        if (currentState !== "wait-for-visibility") return;
+          if (currentState !== "wait-for-visibility") return;
 
-        if (tryReconnect) {
-          backoff.reset();
-          tryReconnect();
-        }
-      };
+          if (tryReconnect) {
+            backoff.reset();
+            tryReconnect();
+          }
+        };
 
-  if (visibilityChangeHandler) {
-    globalThis.addEventListener("visibilitychange", visibilityChangeHandler);
-  }
+  const unlistenVisibilityChange =
+    visibility && visibilityChangeHandler
+      ? visibility.listen(visibilityChangeHandler)
+      : undefined;
+
   const wsTransport: WebsocketTransport = {
     connect,
 
@@ -188,11 +273,8 @@ export default function createSimpleWebsocketClient({
         }
         closeWebsocket();
       }
-      if (visibilityChangeHandler) {
-        globalThis.removeEventListener(
-          "visibilitychange",
-          visibilityChangeHandler,
-        );
+      if (unlistenVisibilityChange) {
+        unlistenVisibilityChange();
       }
     },
 

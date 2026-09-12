@@ -75,7 +75,7 @@ export default [
   ...applyTs({
     mode: "directory",
     files: [
-      "packages/liwi-{mongo,resources,resources-client,resources-direct-client,resources-server,resources-void-client,resources-websocket-client,resources-websocket-server,store,subscribe-store}/src/",
+      "packages/liwi-{mongo,resources,resources-client,resources-direct-client,resources-server,resources-void-client,resources-websocket-client,resources-websocket-node-client,resources-websocket-server,store,subscribe-store}/src/",
     ],
     configs: [
       warnUnsafeConfig,
@@ -99,6 +99,9 @@ export default [
         rules: {
           "@typescript-eslint/no-floating-promises": "warn",
           "import-x/no-unresolved": "warn",
+          // node strips types without resolving extensionless specifiers, so
+          // runtime imports must keep their ".ts" extension
+          "import-x/extensions": "off",
         },
       },
     ],
@@ -106,6 +109,9 @@ export default [
   ...applyTs({
     mode: "directory",
     files: ["packages/react-liwi/src/"],
-    configs: [...pobTypescriptReactConfigs["react-native-web"]],
+    configs: [
+      ...pobTypescriptReactConfigs["react-native-web"],
+      { rules: { "import-x/extensions": "off" } },
+    ],
   }),
 ];

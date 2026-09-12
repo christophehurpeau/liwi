@@ -1,0 +1,72 @@
+{
+  "name": "liwi-resources-websocket-node-client",
+  "version": "1.0.0-pre",
+  "description": "node websocket client implementation for liwi",
+  "keywords": [],
+  "homepage": "https://github.com/christophehurpeau/liwi",
+  "bugs": {
+    "url": "https://github.com/christophehurpeau/liwi/issues"
+  },
+  "license": "ISC",
+  "author": "Christophe Hurpeau <302891+christophehurpeau@users.noreply.github.com> (https://christophe.hurpeau.com)",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/christophehurpeau/liwi.git",
+    "directory": "packages/liwi-resources-websocket-node-client"
+  },
+  "files": [
+    "src",
+    "dist"
+  ],
+  "type": "module",
+  "sideEffects": false,
+  "main": "./dist/index-node.mjs",
+  "types": "./dist/definitions/index.d.ts",
+  "exports": {
+    "./package.json": "./package.json",
+    ".": {
+      "types": "./dist/definitions/index.d.ts",
+      "node": {
+        "import": "./dist/index-node.mjs"
+      }
+    }
+  },
+  "scripts": {
+    "build": "pnpm run clean:build && rollup --config rollup.config.mjs && pnpm run build:definitions",
+    "build:definitions": "tsc -p tsconfig.json",
+    "clean": "yarn clean:build",
+    "clean:build": "pob-esbuild-clean-out dist",
+    "lint": "pnpm run lint:eslint",
+    "lint:eslint": "pnpm run --dir '../..' eslint --quiet 'packages/liwi-resources-websocket-node-client'",
+    "tsc": "tsc",
+    "watch": "yarn clean:build && rollup --config rollup.config.mjs --watch"
+  },
+  "dependencies": {
+    "liwi-resources-client": "workspace:*",
+    "liwi-resources-websocket-client": "workspace:*",
+    "ws": "^8.21.3"
+  },
+  "devDependencies": {
+    "@pob/rollup-esbuild": "10.0.0",
+    "@types/ws": "8.18.1",
+    "@typescript/native": "npm:typescript@7.0.2",
+    "typescript": "npm:@typescript/typescript6@6.0.2"
+  },
+  "engines": {
+    "node": ">=22.18.0"
+  },
+  "pob": {
+    "bundler": "rollup-esbuild",
+    "entries": [
+      "index"
+    ],
+    "envs": [
+      {
+        "target": "node",
+        "version": "22",
+        "omitVersionInFileName": true
+      }
+    ],
+    "typescript": true
+  }
+}

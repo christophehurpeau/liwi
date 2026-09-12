@@ -17,6 +17,9 @@ yarn-error.log*
 *.sublime-project
 *.sublime-workspace
 
+# generated documentation and coverage output
+/generated-docs
+
 # default coverage directory
 /coverage
 

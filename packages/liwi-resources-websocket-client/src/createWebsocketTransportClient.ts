@@ -12,7 +12,7 @@ import type {
 } from "liwi-resources-client";
 import { Logger } from "nightingale-logger";
 import type { SimpleWebsocketClientOptions } from "./createSimpleWebsocketClient";
-import createSimpleWebsocketClient from "./createSimpleWebsocketClient";
+import createSimpleWebsocketClient from "./createSimpleWebsocketClient.ts";
 
 const logger = new Logger("liwi:resources-websocket-client");
 
@@ -111,34 +111,19 @@ export default function createResourcesWebsocketClient({
   url,
   ...options
 }: WebsocketTransportClientOptions): TransportClient {
-  const isSSR = globalThis.window === undefined;
-
-  if (isSSR) {
-    return {
-      connect: () => {},
-      close: () => {},
-      listenStateChange: () => {
-        return () => {};
-      },
-      send: (type, message) => {
-        throw new Error("Cannot work on SSR.");
-      },
-
-      subscribe: (type, messageWithoutSubscriptionId, callback) => {
-        throw new Error("Cannot work on SSR.");
-      },
-    };
-  }
-
   let currentId = 1;
   let currentSubscriptionId = 1;
   const acks = new Map<number, Ack<any>>(); // TODO in progress / unsent / sending => find better name
   const subscriptions = new Map<number, Subscription<any, any>>();
 
   if (!url) {
-    url = `ws${globalThis.location.protocol === "https:" ? "s" : ""}://${
-      globalThis.location.host
-    }/ws`;
+    const { location } = globalThis;
+    if (!location) {
+      throw new Error(
+        "`url` is required when globalThis.location is undefined",
+      );
+    }
+    url = `ws${location.protocol === "https:" ? "s" : ""}://${location.host}/ws`;
   }
   logger.info("create", { url });
 
@@ -174,10 +159,10 @@ export default function createResourcesWebsocketClient({
   const wsClient = createSimpleWebsocketClient({
     ...options,
     url,
-    onMessage: (event) => {
-      logger.debug("message", { data: event.data });
+    onMessage: (message) => {
+      logger.debug("message", { data: message.data });
       const [type, id, error, result] = decode<ToClientMessage>(
-        event.data as string,
+        message.data as string,
       );
       const handler = handlers[type];
 
@@ -247,7 +232,6 @@ export default function createResourcesWebsocketClient({
       >,
       callback: TransportClientSubscribeCallback<V>,
     ): TransportClientSubscribeResult<Result, Payload> => {
-      if (isSSR) throw new Error("subscribing is not allowed in SSR");
       const id = currentId++;
       const subscriptionId = currentSubscriptionId++;
       const message = { ...messageWithoutSubscriptionId, subscriptionId };

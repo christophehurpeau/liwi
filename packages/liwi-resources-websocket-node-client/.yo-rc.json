@@ -1,0 +1,13 @@
+{
+  "pob": {
+    "lib": {
+      "documentation": false,
+      "testing": false,
+      "e2e": false,
+      "buildInGit": false
+    },
+    "project": {
+      "type": "lib"
+    }
+  }
+}

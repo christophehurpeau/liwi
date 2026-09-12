@@ -18,7 +18,7 @@
   "scripts": {
     "build": "pnpm run clean:build && rollup --config rollup.config.mjs && pnpm run build:definitions",
     "build:definitions": "tsc -b",
-    "clean": "rm -Rf docs dist test/node6 coverage",
+    "clean": "rm -Rf generate-docs dist test/node6 coverage",
     "clean:build": "pnpm -r --parallel run clean:build",
     "format": "oxfmt",
     "format:check": "oxfmt --check .",
@@ -27,7 +27,7 @@
     "prepare": "pob-root-postinstall",
     "test": "TZ=UTC node --test --experimental-test-module-mocks '@(packages|@todo-example)/*/src/**/*.test.ts'",
     "test:coverage": "TZ=UTC node --test --experimental-test-module-mocks --experimental-test-coverage --test-coverage-include=\"src/**/*.ts\" '@(packages|@todo-example)/*/src/**/*.test.ts'",
-    "test:coverage:generate": "mkdir -p docs && TZ=UTC node --test --experimental-test-module-mocks --experimental-test-coverage --test-reporter=spec --test-reporter-destination=stdout --test-reporter=lcov --test-reporter-destination=docs/coverage.lcov --test-coverage-include=\"src/**/*.ts\" '@(packages|@todo-example)/*/src/**/*.test.ts'",
+    "test:coverage:generate": "mkdir -p generate-docs && TZ=UTC node --test --experimental-test-module-mocks --experimental-test-coverage --test-reporter=spec --test-reporter-destination=stdout --test-reporter=lcov --test-reporter-destination=generate-docs/coverage.lcov --test-coverage-include=\"src/**/*.ts\" '@(packages|@todo-example)/*/src/**/*.test.ts'",
     "test:watch": "TZ=UTC node --test '@(packages|@todo-example)/*/src/**/*.test.ts'",
     "tsc": "tsc -b",
     "watch": "pnpm run clean:build && rollup --config rollup.config.mjs --watch"

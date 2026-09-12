@@ -1,7 +1,6 @@
 import assert from "node:assert/strict";
 import { describe, test } from "node:test";
 import type { Changes, QueryInfo, QueryMeta } from "liwi-store";
-// eslint-disable-next-line import-x/extensions
 import { applyCollectionChanges } from "./applyCollectionChanges.ts";
 
 interface Item {

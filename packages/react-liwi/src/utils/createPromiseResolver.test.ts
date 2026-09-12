@@ -1,6 +1,5 @@
 import assert from "node:assert/strict";
 import { describe, test } from "node:test";
-// eslint-disable-next-line import-x/extensions
 import { createPromiseResolver } from "./createPromiseResolver.ts";
 
 describe("createPromiseResolver", () => {

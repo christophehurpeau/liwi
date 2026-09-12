@@ -26,7 +26,8 @@
         "liwi-resources-websocket-server",
         "react-liwi",
         "@todo-example/server",
-        "@todo-example/vite"
+        "@todo-example/vite",
+        "liwi-resources-websocket-node-client"
       ]
     },
     "renovate": {

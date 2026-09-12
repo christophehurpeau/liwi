@@ -1,0 +1,33 @@
+{
+  "extends": [
+    "@pob/root/tsconfigs/strict.json",
+    "@pob/root/tsconfigs/targets/rollup-node-22.json"
+  ],
+  "include": ["src/**/*.ts"],
+  "compilerOptions": {
+    "rootDir": "src",
+    "outDir": "dist/definitions",
+    "tsBuildInfoFile": "node_modules/.cache/tsc/tsbuildinfo",
+    "noEmitOnError": true,
+    "declaration": true,
+    "declarationMap": true,
+    "emitDeclarationOnly": true,
+    "incremental": true,
+    "composite": true,
+
+    "paths": {
+      "liwi-resources-client": ["../../packages/liwi-resources-client/src"],
+      "liwi-resources-client/*": ["../../packages/liwi-resources-client/src/*"],
+      "liwi-resources-websocket-client": [
+        "../../packages/liwi-resources-websocket-client/src"
+      ],
+      "liwi-resources-websocket-client/*": [
+        "../../packages/liwi-resources-websocket-client/src/*"
+      ]
+    }
+  },
+  "references": [
+    { "path": "../../packages/liwi-resources-client/tsconfig.json" },
+    { "path": "../../packages/liwi-resources-websocket-client/tsconfig.json" }
+  ]
+}
