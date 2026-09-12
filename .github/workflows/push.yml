@@ -46,6 +46,9 @@ jobs:
       - name: Install Dependencies
         run: pnpm install --frozen-lockfile
 
+      - name: Build
+        run: pnpm run build
+
       - name: Format
         run: pnpm run format:check
 
@@ -77,6 +80,9 @@ jobs:
       - name: Install Dependencies
         run: pnpm install --frozen-lockfile
 
+      - name: Build
+        run: pnpm run build
+
       - name: Test
         run: pnpm run test
 
@@ -101,6 +107,9 @@ jobs:
 
       - name: Install Dependencies
         run: pnpm install --frozen-lockfile
+
+      - name: Build
+        run: pnpm run build
 
       - name: E2E testing
         run: pnpm --dir @todo-example/vite run test:e2e
