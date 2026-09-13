@@ -3,6 +3,22 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [13.2.0](https://github.com/christophehurpeau/liwi/compare/v13.1.1...v13.2.0) (2026-09-13)
+
+### Features
+
+* **deps:** update dependency alp-node to v10.1.1 ([#714](https://github.com/christophehurpeau/liwi/issues/714))
+* **deps:** update dependency alp-node to v11 ([#724](https://github.com/christophehurpeau/liwi/issues/724))
+* **deps:** update dependency mongodb to ^7.5.0 ([#722](https://github.com/christophehurpeau/liwi/issues/722))
+* **deps:** update dependency router-segments to v12.2.1 ([#723](https://github.com/christophehurpeau/liwi/issues/723))
+* **indexes:** implement index management functionality
+* websocket node transport support
+
+### Bug Fixes
+
+* **deps:** update dependency ws to ^8.21.1 ([#720](https://github.com/christophehurpeau/liwi/issues/720))
+* **deps:** update dependency ws to ^8.21.3 ([#728](https://github.com/christophehurpeau/liwi/issues/728))
+
 ## [13.1.1](https://github.com/christophehurpeau/liwi/compare/v13.1.0...v13.1.1) (2026-07-27)
 
 ### Bug Fixes

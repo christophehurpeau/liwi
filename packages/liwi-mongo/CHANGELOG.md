@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [13.2.0](https://github.com/christophehurpeau/liwi/compare/v13.1.1...v13.2.0) (2026-09-13)
+
+### Features
+
+* **deps:** update dependency mongodb to ^7.5.0 ([#722](https://github.com/christophehurpeau/liwi/issues/722))
+* **indexes:** implement index management functionality
+
+Version bump for dependency: liwi-store
+Version bump for dependency: liwi-subscribe-store
+
+
 ## [13.1.1](https://github.com/christophehurpeau/liwi/compare/v13.1.0...v13.1.1) (2026-07-27)
 
 Version bump for dependency: liwi-store
