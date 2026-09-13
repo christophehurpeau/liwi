@@ -3,6 +3,11 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [13.3.2](https://github.com/christophehurpeau/liwi/compare/v13.3.1...v13.3.2) (2026-09-13)
+
+Note: no notable changes
+
+
 ## [13.3.1](https://github.com/christophehurpeau/liwi/compare/v13.3.0...v13.3.1) (2026-09-13)
 
 Note: no notable changes
