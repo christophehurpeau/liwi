@@ -75,7 +75,7 @@ export default [
   ...applyTs({
     mode: "directory",
     files: [
-      "packages/liwi-{mongo,resources,resources-client,resources-direct-client,resources-server,resources-void-client,resources-websocket-client,resources-websocket-node-client,resources-websocket-server,store,subscribe-store}/src/",
+      "packages/liwi-{mongo,resources,resources-client,resources-direct-client,resources-server,resources-void-client,resources-websocket-client,resources-websocket-client-node,resources-websocket-server,store,subscribe-store}/src/",
     ],
     configs: [
       warnUnsafeConfig,

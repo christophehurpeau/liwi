@@ -376,7 +376,7 @@ importers:
         specifier: npm:@typescript/typescript6@6.0.2
         version: '@typescript/typescript6@6.0.2'
 
-  packages/liwi-resources-websocket-node-client:
+  packages/liwi-resources-websocket-client-node:
     dependencies:
       liwi-resources-client:
         specifier: workspace:*

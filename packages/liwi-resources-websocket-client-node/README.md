@@ -1,5 +1,5 @@
 <h1 align="center">
-  liwi-resources-websocket-node-client
+  liwi-resources-websocket-client-node
 </h1>
 
 <p align="center">
@@ -7,10 +7,10 @@
 </p>
 
 <p align="center">
-  <a href="https://npmjs.org/package/liwi-resources-websocket-node-client"><img src="https://img.shields.io/npm/v/liwi-resources-websocket-node-client.svg?style=flat-square" alt="npm version"></a>
-  <a href="https://npmjs.org/package/liwi-resources-websocket-node-client"><img src="https://img.shields.io/npm/dw/liwi-resources-websocket-node-client.svg?style=flat-square" alt="npm downloads"></a>
-  <a href="https://npmjs.org/package/liwi-resources-websocket-node-client"><img src="https://img.shields.io/node/v/liwi-resources-websocket-node-client.svg?style=flat-square" alt="node version"></a>
-  <a href="https://npmjs.org/package/liwi-resources-websocket-node-client"><img src="https://img.shields.io/npm/types/liwi-resources-websocket-node-client.svg?style=flat-square" alt="types"></a>
+  <a href="https://npmjs.org/package/liwi-resources-websocket-client-node"><img src="https://img.shields.io/npm/v/liwi-resources-websocket-client-node.svg?style=flat-square" alt="npm version"></a>
+  <a href="https://npmjs.org/package/liwi-resources-websocket-client-node"><img src="https://img.shields.io/npm/dw/liwi-resources-websocket-client-node.svg?style=flat-square" alt="npm downloads"></a>
+  <a href="https://npmjs.org/package/liwi-resources-websocket-client-node"><img src="https://img.shields.io/node/v/liwi-resources-websocket-client-node.svg?style=flat-square" alt="node version"></a>
+  <a href="https://npmjs.org/package/liwi-resources-websocket-client-node"><img src="https://img.shields.io/npm/types/liwi-resources-websocket-client-node.svg?style=flat-square" alt="types"></a>
 </p>
 
 ## About
@@ -24,13 +24,13 @@ Node [`TransportClient`](../liwi-resources-client#transportclient), to be used a
 ## Install
 
 ```bash
-npm install --save liwi-resources-websocket-node-client
+npm install --save liwi-resources-websocket-client-node
 ```
 
 ## Usage
 
 ```ts
-import { createNodeWebsocketTransportClient } from "liwi-resources-websocket-node-client";
+import { createNodeWebsocketTransportClient } from "liwi-resources-websocket-client-node";
 
 const transportClient = createNodeWebsocketTransportClient({
   url: "ws://localhost:4005/ws",

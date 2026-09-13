@@ -1,5 +1,5 @@
 {
-  "name": "liwi-resources-websocket-node-client",
+  "name": "liwi-resources-websocket-client-node",
   "version": "13.3.0",
   "description": "node websocket client implementation for liwi",
   "keywords": [
@@ -15,7 +15,7 @@
   "repository": {
     "type": "git",
     "url": "https://github.com/christophehurpeau/liwi.git",
-    "directory": "packages/liwi-resources-websocket-node-client"
+    "directory": "packages/liwi-resources-websocket-client-node"
   },
   "files": [
     "src",
@@ -40,7 +40,7 @@
     "clean": "yarn clean:build",
     "clean:build": "pob-esbuild-clean-out dist",
     "lint": "pnpm run lint:eslint",
-    "lint:eslint": "pnpm run --dir '../..' eslint --quiet 'packages/liwi-resources-websocket-node-client'",
+    "lint:eslint": "pnpm run --dir '../..' eslint --quiet 'packages/liwi-resources-websocket-client-node'",
     "tsc": "tsc",
     "watch": "yarn clean:build && rollup --config rollup.config.mjs --watch"
   },

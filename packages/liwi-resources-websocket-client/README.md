@@ -17,7 +17,7 @@
 
 Websocket [`TransportClient`](../liwi-resources-client#transportclient), to be used against [`liwi-resources-websocket-server`](../liwi-resources-websocket-server). Handles the connection lifecycle: ack correlation, reconnection with backoff, and re-opening subscriptions after a reconnect.
 
-It is host-agnostic: the `WebSocket` implementation and the page-visibility capability are both injectable, so it runs unchanged in a browser, in react-native, and in node. For node, prefer [`liwi-resources-websocket-node-client`](../liwi-resources-websocket-node-client), which wires `ws` and header authentication for you.
+It is host-agnostic: the `WebSocket` implementation and the page-visibility capability are both injectable, so it runs unchanged in a browser, in react-native, and in node. For node, prefer [`liwi-resources-websocket-client-node`](../liwi-resources-websocket-client-node), which wires `ws` and header authentication for you.
 
 ## Install
 
