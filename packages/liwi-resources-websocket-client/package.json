@@ -2,7 +2,10 @@
   "name": "liwi-resources-websocket-client",
   "version": "13.2.0",
   "description": "websocket client implementation for liwi",
-  "keywords": [],
+  "keywords": [
+    "liwi",
+    "websocket"
+  ],
   "homepage": "https://github.com/christophehurpeau/liwi",
   "bugs": {
     "url": "https://github.com/christophehurpeau/liwi/issues"
