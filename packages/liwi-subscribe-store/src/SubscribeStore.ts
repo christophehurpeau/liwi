@@ -180,13 +180,16 @@ export default class SubscribeStore<
       object,
       setOnInsertPartialObject,
     );
-    if (upsertedWithInfo.inserted) {
+    if (upsertedWithInfo.resolvedAs === "inserted") {
       this.callSubscribed({
         type: "inserted",
         next: [upsertedWithInfo.object],
       });
     } else {
-      throw new Error("TODO");
+      this.callSubscribed({
+        type: "updated",
+        changes: [[upsertedWithInfo.prev, upsertedWithInfo.object]],
+      });
     }
     return upsertedWithInfo;
   }

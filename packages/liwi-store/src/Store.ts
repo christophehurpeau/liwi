@@ -21,10 +21,21 @@ export type UpsertPartialObject<
   K extends Exclude<keyof Model, KeyPath | OptionalBaseModelKeysForInsert>,
 > = SetOptional<Model, K | KeyPath | OptionalBaseModelKeysForInsert>;
 
-export interface UpsertResult<Model extends BaseModel> {
-  object: Model;
-  inserted: boolean;
-}
+export type UpsertResult<Model extends BaseModel> =
+  | {
+      resolvedAs: "inserted";
+      /** Shorthand for `resolvedAs === "inserted"`. */
+      inserted: true;
+      object: Model;
+    }
+  | {
+      resolvedAs: "updated";
+      /** Shorthand for `resolvedAs === "inserted"`. */
+      inserted: false;
+      object: Model;
+      prev: Model;
+    };
+
 export interface Store<
   KeyPath extends keyof Model,
   KeyValue extends AllowedKeyValue,

@@ -39,13 +39,10 @@ import type {
   SyncIndexesOptions,
 } from "./indexes/types.ts";
 
-export interface MongoUpsertResult<
+export type MongoUpsertResult<
   KeyValue extends AllowedKeyValue,
   Model extends MongoBaseModel<KeyValue>,
-> extends UpsertResult<Model> {
-  object: Model;
-  inserted: boolean;
-}
+> = UpsertResult<Model>;
 
 export interface MongoStoreOptions<Model extends MongoBaseModel<any>> {
   indexes?: readonly MongoIndex<Model>[];
@@ -248,17 +245,29 @@ export default class MongoStore<
 
     const collection = await this.collection;
 
-    const { upsertedCount } = await collection.updateOne(
+    const prev = await collection.findOneAndUpdate(
       { _id: object._id } as Filter<Model>,
       { $set, $setOnInsert } as UpdateFilter<Model>,
-      { upsert: true },
+      { upsert: true, returnDocument: "before" },
     );
 
-    if (upsertedCount) {
+    if (!prev) {
       Object.assign(object, $setOnInsert);
+      return {
+        resolvedAs: "inserted",
+        inserted: true,
+        object: object as unknown as Model,
+      };
     }
 
-    return { object: object as unknown as Model, inserted: !!upsertedCount };
+    const next = { ...prev, ...$set };
+
+    return {
+      resolvedAs: "updated",
+      inserted: false,
+      object: next as Model,
+      prev: prev as Model,
+    };
   }
 
   replaceSeveral(objects: Model[]): Promise<Model[]> {

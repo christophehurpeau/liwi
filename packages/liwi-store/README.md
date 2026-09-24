@@ -51,13 +51,21 @@ interface BaseModel {
 | `cursor(criteria?, sort?)`                                                   | An `AbstractStoreCursor`                                                  |
 | `insertOne(object)`                                                          | Inserts, returns the model with `created` / `updated` set                 |
 | `replaceOne(object)` / `replaceSeveral(objects)`                             | Full replace                                                              |
-| `upsertOne(object, setOnInsert?)`                                            | Insert or update; `upsertOneWithInfo` also returns `{ object, inserted }` |
+| `upsertOne(object, setOnInsert?)`                                            | Inserts or updates; `upsertOneWithInfo` returns an `UpsertResult` (below) |
 | `partialUpdateByKey(key, update, criteria?)`                                 | Partial update by key, returns the updated model                          |
 | `partialUpdateOne(object, update)`                                           | Partial update of an already-loaded model                                 |
 | `partialUpdateMany(criteria, update)`                                        | Bulk partial update                                                       |
 | `deleteByKey(key, criteria?)` / `deleteOne(object)` / `deleteMany(criteria)` | Deletions                                                                 |
 
 `criteria`, `sort` and `update` (`$set`, `$push`, `$setOnInsert`, …) follow the mongo query/update shape, typed against the model.
+
+`UpsertResult` tells how the upsert resolved. `prev` is the document as it was before the update, read atomically with the write. `inserted` is a shorthand for `resolvedAs === "inserted"`.
+
+```ts
+type UpsertResult<Model> =
+  | { resolvedAs: "inserted"; inserted: true; object: Model }
+  | { resolvedAs: "updated"; inserted: false; object: Model; prev: Model };
+```
 
 ## Queries
 
