@@ -1,6 +1,6 @@
 {
   "name": "@todo-example/modules",
-  "version": "13.3.0",
+  "version": "13.3.3",
   "private": true,
   "description": "shared types of the todo example",
   "homepage": "https://github.com/christophehurpeau/liwi",

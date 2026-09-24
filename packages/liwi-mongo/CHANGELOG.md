@@ -3,6 +3,16 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [13.3.3](https://github.com/christophehurpeau/liwi/compare/v13.3.2...v13.3.3) (2026-09-24)
+
+### Bug Fixes
+
+* support update in upsert functionality with detailed result structure and tests
+
+Version bump for dependency: liwi-store
+Version bump for dependency: liwi-subscribe-store
+
+
 ## [13.3.0](https://github.com/christophehurpeau/liwi/compare/v13.2.0...v13.3.0) (2026-09-13)
 
 ### Features
