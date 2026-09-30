@@ -2765,8 +2765,8 @@ packages:
   js-tokens@4.0.0:
     resolution: {integrity: sha512-RdJUflcE3cUzKiMqQgsCu06FPu9UdIJO0beYbPhHN4k6apgJtifcoCtT9bcxOpYBtpD2kCM6Sbzg4CausW/PKQ==}
 
-  js-yaml@5.2.2:
-    resolution: {integrity: sha512-dayzUzKkJ1MkuUtZglSebU43utNXH0OWQByK9rKOOuYIO8M5TV1y+n8ALMdG0rdzBnfNkOmZEqrURepb0ejqBw==}
+  js-yaml@5.4.2:
+    resolution: {integrity: sha512-m+aqu+LwO1O6sIopafj8HUVl5aawITwZQe/yHpMCKjaWBaA/d07B/QdMb3529REftiU+RMMHL3Vlsw3hON7vWg==}
     hasBin: true
 
   jsdoc-type-pratt-parser@7.2.0:
@@ -4883,7 +4883,7 @@ snapshots:
 
   alp-rollup-plugin-config@4.1.1(rollup@4.60.4):
     dependencies:
-      js-yaml: 5.2.2
+      js-yaml: 5.4.2
       rollup: 4.60.4
 
   ansi-styles@6.2.3: {}
@@ -6059,7 +6059,7 @@ snapshots:
 
   js-tokens@4.0.0: {}
 
-  js-yaml@5.2.2:
+  js-yaml@5.4.2:
     dependencies:
       argparse: 2.0.1
 
