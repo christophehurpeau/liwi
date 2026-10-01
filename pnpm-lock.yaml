@@ -16,7 +16,7 @@ importers:
         version: 67.4.0(@typescript-eslint/utils@8.65.0(@typescript/typescript6@6.0.2)(eslint@10.11.0(supports-color@7.2.0))(supports-color@7.2.0))(@typescript/typescript6@6.0.2)(eslint@10.11.0(supports-color@7.2.0))(supports-color@7.2.0)
       '@pob/rollup-esbuild':
         specifier: 10.0.0
-        version: 10.0.0(@typescript/typescript6@6.0.2)(rollup@4.60.4)(supports-color@7.2.0)
+        version: 10.0.0(@typescript/typescript6@6.0.2)(supports-color@7.2.0)
       '@pob/root':
         specifier: 27.5.0
         version: 27.5.0
@@ -41,7 +41,7 @@ importers:
     devDependencies:
       '@pob/rollup-esbuild':
         specifier: 10.0.0
-        version: 10.0.0(@typescript/typescript6@6.0.2)(rollup@4.60.4)(supports-color@7.2.0)
+        version: 10.0.0(@typescript/typescript6@6.0.2)(supports-color@7.2.0)
       '@typescript/native':
         specifier: npm:typescript@7.0.2
         version: typescript@7.0.2
@@ -75,7 +75,7 @@ importers:
     devDependencies:
       '@pob/rollup-esbuild':
         specifier: 10.0.0
-        version: 10.0.0(@typescript/typescript6@6.0.2)(rollup@4.60.4)(supports-color@7.2.0)
+        version: 10.0.0(@typescript/typescript6@6.0.2)(supports-color@7.2.0)
       '@typescript/native':
         specifier: npm:typescript@7.0.2
         version: typescript@7.0.2
@@ -153,8 +153,8 @@ importers:
         specifier: 6.1.1
         version: 6.1.1(vite@8.2.1(@types/node@24.10.1)(esbuild@0.28.1)(yaml@2.9.0))
       mongodb-memory-server-core:
-        specifier: 11.2.0
-        version: 11.2.0(supports-color@7.2.0)
+        specifier: 11.3.0
+        version: 11.3.0(supports-color@7.2.0)
       playwright:
         specifier: 1.63.0
         version: 1.63.0
@@ -172,7 +172,7 @@ importers:
     devDependencies:
       '@pob/rollup-esbuild':
         specifier: 10.0.0
-        version: 10.0.0(@typescript/typescript6@6.0.2)(rollup@4.60.4)(supports-color@7.2.0)
+        version: 10.0.0(@typescript/typescript6@6.0.2)(supports-color@7.2.0)
       '@types/node':
         specifier: 24.10.1
         version: 24.10.1
@@ -205,13 +205,13 @@ importers:
     devDependencies:
       '@pob/rollup-esbuild':
         specifier: 10.0.0
-        version: 10.0.0(@typescript/typescript6@6.0.2)(rollup@4.60.4)(supports-color@7.2.0)
+        version: 10.0.0(@typescript/typescript6@6.0.2)(supports-color@7.2.0)
       '@typescript/native':
         specifier: npm:typescript@7.0.2
         version: typescript@7.0.2
       mongodb-memory-server-core:
-        specifier: 11.2.0
-        version: 11.2.0(supports-color@7.2.0)
+        specifier: 11.3.0
+        version: 11.3.0(supports-color@7.2.0)
       typescript:
         specifier: npm:@typescript/typescript6@6.0.2
         version: '@typescript/typescript6@6.0.2'
@@ -224,7 +224,7 @@ importers:
     devDependencies:
       '@pob/rollup-esbuild':
         specifier: 10.0.0
-        version: 10.0.0(@typescript/typescript6@6.0.2)(rollup@4.60.4)(supports-color@7.2.0)
+        version: 10.0.0(@typescript/typescript6@6.0.2)(supports-color@7.2.0)
       '@typescript/native':
         specifier: npm:typescript@7.0.2
         version: typescript@7.0.2
@@ -243,7 +243,7 @@ importers:
     devDependencies:
       '@pob/rollup-esbuild':
         specifier: 10.0.0
-        version: 10.0.0(@typescript/typescript6@6.0.2)(rollup@4.60.4)(supports-color@7.2.0)
+        version: 10.0.0(@typescript/typescript6@6.0.2)(supports-color@7.2.0)
       '@typescript/native':
         specifier: npm:typescript@7.0.2
         version: typescript@7.0.2
@@ -268,7 +268,7 @@ importers:
     devDependencies:
       '@pob/rollup-esbuild':
         specifier: 10.0.0
-        version: 10.0.0(@typescript/typescript6@6.0.2)(rollup@4.60.4)(supports-color@7.2.0)
+        version: 10.0.0(@typescript/typescript6@6.0.2)(supports-color@7.2.0)
       '@typescript/native':
         specifier: npm:typescript@7.0.2
         version: typescript@7.0.2
@@ -293,7 +293,7 @@ importers:
     devDependencies:
       '@pob/rollup-esbuild':
         specifier: 10.0.0
-        version: 10.0.0(@typescript/typescript6@6.0.2)(rollup@4.60.4)(supports-color@7.2.0)
+        version: 10.0.0(@typescript/typescript6@6.0.2)(supports-color@7.2.0)
       '@types/backo2':
         specifier: 1.0.4
         version: 1.0.4
@@ -321,7 +321,7 @@ importers:
     devDependencies:
       '@pob/rollup-esbuild':
         specifier: 10.0.0
-        version: 10.0.0(@typescript/typescript6@6.0.2)(rollup@4.60.4)(supports-color@7.2.0)
+        version: 10.0.0(@typescript/typescript6@6.0.2)(supports-color@7.2.0)
       '@typescript/native':
         specifier: npm:typescript@7.0.2
         version: typescript@7.0.2
@@ -340,7 +340,7 @@ importers:
     devDependencies:
       '@pob/rollup-esbuild':
         specifier: 10.0.0
-        version: 10.0.0(@typescript/typescript6@6.0.2)(rollup@4.60.4)(supports-color@7.2.0)
+        version: 10.0.0(@typescript/typescript6@6.0.2)(supports-color@7.2.0)
       '@typescript/native':
         specifier: npm:typescript@7.0.2
         version: typescript@7.0.2
@@ -365,7 +365,7 @@ importers:
     devDependencies:
       '@pob/rollup-esbuild':
         specifier: 10.0.0
-        version: 10.0.0(@typescript/typescript6@6.0.2)(rollup@4.60.4)(supports-color@7.2.0)
+        version: 10.0.0(@typescript/typescript6@6.0.2)(supports-color@7.2.0)
       '@types/backo2':
         specifier: 1.0.4
         version: 1.0.4
@@ -390,7 +390,7 @@ importers:
     devDependencies:
       '@pob/rollup-esbuild':
         specifier: 10.0.0
-        version: 10.0.0(@typescript/typescript6@6.0.2)(rollup@4.60.4)(supports-color@7.2.0)
+        version: 10.0.0(@typescript/typescript6@6.0.2)(supports-color@7.2.0)
       '@types/ws':
         specifier: 8.18.1
         version: 8.18.1
@@ -421,7 +421,7 @@ importers:
     devDependencies:
       '@pob/rollup-esbuild':
         specifier: 10.0.0
-        version: 10.0.0(@typescript/typescript6@6.0.2)(rollup@4.60.4)(supports-color@7.2.0)
+        version: 10.0.0(@typescript/typescript6@6.0.2)(supports-color@7.2.0)
       '@types/ws':
         specifier: 8.18.1
         version: 8.18.1
@@ -443,7 +443,7 @@ importers:
     devDependencies:
       '@pob/rollup-esbuild':
         specifier: 10.0.0
-        version: 10.0.0(@typescript/typescript6@6.0.2)(rollup@4.60.4)(supports-color@7.2.0)
+        version: 10.0.0(@typescript/typescript6@6.0.2)(supports-color@7.2.0)
       '@typescript/native':
         specifier: npm:typescript@7.0.2
         version: typescript@7.0.2
@@ -459,7 +459,7 @@ importers:
     devDependencies:
       '@pob/rollup-esbuild':
         specifier: 10.0.0
-        version: 10.0.0(@typescript/typescript6@6.0.2)(rollup@4.60.4)(supports-color@7.2.0)
+        version: 10.0.0(@typescript/typescript6@6.0.2)(supports-color@7.2.0)
       '@typescript/native':
         specifier: npm:typescript@7.0.2
         version: typescript@7.0.2
@@ -484,7 +484,7 @@ importers:
     devDependencies:
       '@pob/rollup-esbuild':
         specifier: 10.0.0
-        version: 10.0.0(@typescript/typescript6@6.0.2)(rollup@4.60.4)(supports-color@7.2.0)
+        version: 10.0.0(@typescript/typescript6@6.0.2)(supports-color@7.2.0)
       '@types/react':
         specifier: 19.2.17
         version: 19.2.17
@@ -984,11 +984,7 @@ packages:
     engines: {node: '>=22.18.0'}
     hasBin: true
     peerDependencies:
-      rollup: 4.60.4
       typescript: ^4.0.3 || ^5.0.0 || ^6.0.0 || ^7.0.0
-    peerDependenciesMeta:
-      rollup:
-        optional: true
 
   '@pob/rollup@8.1.2':
     resolution: {integrity: sha512-0lZ54n98PFs0DBuhGtyUSj/dtgmELadnEHOlkz09nK3jL9pw6gdSO8Jz5Lk0Z3COceRN+hlklf1ByK76O//a0A==}
@@ -2986,9 +2982,36 @@ packages:
     resolution: {integrity: sha512-h0AZ9A7IDVwwHyMxmdMXKy+9oNlF0zFoahHiX3vQ8e3KFcSP3VmsmfvtRSuLPxmyv2vjIDxqty8smTgie/SNRQ==}
     engines: {node: '>=20.19.0'}
 
-  mongodb-memory-server-core@11.2.0:
-    resolution: {integrity: sha512-vOoDtn0JiLrHvZY81Rp/UtKXXK0rtJHZGZFVnccvJwYitPLNspO0Ty0grqFQOe7iAET8+GI4zAQcphg+R3vxQg==}
+  mongodb-memory-server-core@11.3.0:
+    resolution: {integrity: sha512-QBu/RsRpBfcNd5CrBDfCzqcaFPaYpivUzGYUy9YgVc3up78ff0gIHQVD9PLmBLOOxFX6BM9hU6YT0HocZH+s1g==}
     engines: {node: '>=20.19.0'}
+
+  mongodb@7.5.0:
+    resolution: {integrity: sha512-5FnrEDLnvp6ycUOGLNLLU33BfCx2qmp2mJjGPDwKLruYsVzXVSK5fsGpoDXvsXJwBfBsD7ebMRdawbDxC2814g==}
+    engines: {node: '>=20.19.0'}
+    peerDependencies:
+      '@aws-sdk/credential-providers': ^3.806.0
+      '@mongodb-js/zstd': ^7.0.0
+      gcp-metadata: ^7.0.1
+      kerberos: ^7.0.0
+      mongodb-client-encryption: ^7.2.0
+      snappy: ^7.3.2
+      socks: ^2.8.6
+    peerDependenciesMeta:
+      '@aws-sdk/credential-providers':
+        optional: true
+      '@mongodb-js/zstd':
+        optional: true
+      gcp-metadata:
+        optional: true
+      kerberos:
+        optional: true
+      mongodb-client-encryption:
+        optional: true
+      snappy:
+        optional: true
+      socks:
+        optional: true
 
   mongodb@7.6.0:
     resolution: {integrity: sha512-WbZ6OCjYw2c53LOjfkQa+reXr7kIiOVpXXglnASFuiMtif0BvsMwHe3ClJHLm1/r7wJFwaasfFtD6iYIktB01g==}
@@ -3568,8 +3591,8 @@ packages:
     resolution: {integrity: sha512-uxc/zpqFg6x7C8vOE7lh6Lbda8eEL9zmVm/PLeTPBRhh1xCgdWaQ+J1CUieGpIfm2HdtsUpRv+HshiasBMcc6A==}
     engines: {node: '>=6'}
 
-  tar-stream@3.2.0:
-    resolution: {integrity: sha512-ojzvCvVaNp6aOTFmG7jaRD0meowIAuPc3cMMhSgKiVWws1GyHbGd/xvnyuRKcKlMpt3qvxx6r0hreCNITP9hIg==}
+  tar-stream@3.2.1:
+    resolution: {integrity: sha512-nqsEO8zLZJvrOMdEwkA0QdCLFbetHMn95Zqu4fKwX+hkaTWJPZZOrxx/PwtxoK0MMGQmBQNRW3CPs8IFYQz4cQ==}
 
   teex@1.0.1:
     resolution: {integrity: sha512-eYE6iEI62Ni1H8oIa7KlDU6uQBtqr4Eajni3wX7rpfXD8ysFx8z0+dri+KWEPWpBsxXfxu58x/0jvTVT1ekOSg==}
@@ -3844,7 +3867,7 @@ snapshots:
 
   '@commitlint/format@21.0.1':
     dependencies:
-      '@commitlint/types': 21.1.0
+      '@commitlint/types': 21.0.1
       picocolors: 1.1.1
 
   '@commitlint/is-ignored@21.1.0':
@@ -3857,7 +3880,7 @@ snapshots:
       '@commitlint/is-ignored': 21.1.0
       '@commitlint/parse': 21.1.0
       '@commitlint/rules': 21.1.0
-      '@commitlint/types': 21.1.0
+      '@commitlint/types': 21.0.1
 
   '@commitlint/message@21.0.2': {}
 
@@ -4201,18 +4224,17 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
-  '@pob/rollup-esbuild@10.0.0(@typescript/typescript6@6.0.2)(rollup@4.60.4)(supports-color@7.2.0)':
+  '@pob/rollup-esbuild@10.0.0(@typescript/typescript6@6.0.2)(supports-color@7.2.0)':
     dependencies:
       '@pob/rollup': 8.1.2
       '@rollup/plugin-node-resolve': 16.0.3(rollup@4.60.4)
       '@rollup/plugin-replace': 6.0.3(rollup@4.60.4)
       '@rollup/plugin-run': 3.1.0(rollup@4.60.4)
       esbuild: 0.28.1
+      rollup: 4.60.4
       rollup-config-external-dependencies: 3.0.1
       rollup-plugin-esbuild: 6.2.1(esbuild@0.28.1)(rollup@4.60.4)(supports-color@7.2.0)
       typescript: '@typescript/typescript6@6.0.2'
-    optionalDependencies:
-      rollup: 4.60.4
     transitivePeerDependencies:
       - supports-color
 
@@ -4576,8 +4598,8 @@ snapshots:
 
   '@typescript-eslint/project-service@8.63.0(@typescript/typescript6@6.0.2)(supports-color@7.2.0)':
     dependencies:
-      '@typescript-eslint/tsconfig-utils': 8.65.0(@typescript/typescript6@6.0.2)
-      '@typescript-eslint/types': 8.65.0
+      '@typescript-eslint/tsconfig-utils': 8.63.0(@typescript/typescript6@6.0.2)
+      '@typescript-eslint/types': 8.63.0
       debug: 4.4.3(supports-color@7.2.0)
       typescript: '@typescript/typescript6@6.0.2'
     transitivePeerDependencies:
@@ -6265,7 +6287,7 @@ snapshots:
       '@types/whatwg-url': 13.0.0
       whatwg-url: 14.2.0
 
-  mongodb-memory-server-core@11.2.0(supports-color@7.2.0):
+  mongodb-memory-server-core@11.3.0(supports-color@7.2.0):
     dependencies:
       async-mutex: 0.5.0
       camelcase: 6.3.0
@@ -6273,10 +6295,10 @@ snapshots:
       find-cache-dir: 3.3.2
       follow-redirects: 1.16.0(debug@4.4.3(supports-color@7.2.0))
       https-proxy-agent: 7.0.6(supports-color@7.2.0)
-      mongodb: 7.6.0
+      mongodb: 7.5.0
       new-find-package-json: 2.0.0(supports-color@7.2.0)
       semver: 7.8.5
-      tar-stream: 3.2.0
+      tar-stream: 3.2.1
       tslib: 2.8.1
       yauzl: 3.4.0
     transitivePeerDependencies:
@@ -6291,6 +6313,12 @@ snapshots:
       - snappy
       - socks
       - supports-color
+
+  mongodb@7.5.0:
+    dependencies:
+      '@mongodb-js/saslprep': 1.4.11
+      bson: 7.3.1
+      mongodb-connection-string-url: 7.0.1
 
   mongodb@7.6.0:
     dependencies:
@@ -6976,7 +7004,7 @@ snapshots:
 
   tapable@2.3.3: {}
 
-  tar-stream@3.2.0:
+  tar-stream@3.2.1:
     dependencies:
       b4a: 1.8.1
       bare-fs: 4.7.2
