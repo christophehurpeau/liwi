@@ -16,7 +16,7 @@ importers:
         version: 67.4.0(@typescript-eslint/utils@8.65.0(@typescript/typescript6@6.0.2)(eslint@10.11.0(supports-color@7.2.0))(supports-color@7.2.0))(@typescript/typescript6@6.0.2)(eslint@10.11.0(supports-color@7.2.0))(supports-color@7.2.0)
       '@pob/rollup-esbuild':
         specifier: 10.1.0
-        version: 10.1.0(@typescript/typescript6@6.0.2)(supports-color@7.2.0)
+        version: 10.1.0(@typescript/typescript6@6.0.2)(rollup@4.60.4)(supports-color@7.2.0)
       '@pob/root':
         specifier: 27.5.0
         version: 27.5.0
@@ -41,7 +41,7 @@ importers:
     devDependencies:
       '@pob/rollup-esbuild':
         specifier: 10.1.0
-        version: 10.1.0(@typescript/typescript6@6.0.2)(supports-color@7.2.0)
+        version: 10.1.0(@typescript/typescript6@6.0.2)(rollup@4.60.4)(supports-color@7.2.0)
       '@typescript/native':
         specifier: npm:typescript@7.0.2
         version: typescript@7.0.2
@@ -75,7 +75,7 @@ importers:
     devDependencies:
       '@pob/rollup-esbuild':
         specifier: 10.1.0
-        version: 10.1.0(@typescript/typescript6@6.0.2)(supports-color@7.2.0)
+        version: 10.1.0(@typescript/typescript6@6.0.2)(rollup@4.60.4)(supports-color@7.2.0)
       '@typescript/native':
         specifier: npm:typescript@7.0.2
         version: typescript@7.0.2
@@ -172,7 +172,7 @@ importers:
     devDependencies:
       '@pob/rollup-esbuild':
         specifier: 10.1.0
-        version: 10.1.0(@typescript/typescript6@6.0.2)(supports-color@7.2.0)
+        version: 10.1.0(@typescript/typescript6@6.0.2)(rollup@4.60.4)(supports-color@7.2.0)
       '@types/node':
         specifier: 24.10.1
         version: 24.10.1
@@ -205,7 +205,7 @@ importers:
     devDependencies:
       '@pob/rollup-esbuild':
         specifier: 10.1.0
-        version: 10.1.0(@typescript/typescript6@6.0.2)(supports-color@7.2.0)
+        version: 10.1.0(@typescript/typescript6@6.0.2)(rollup@4.60.4)(supports-color@7.2.0)
       '@typescript/native':
         specifier: npm:typescript@7.0.2
         version: typescript@7.0.2
@@ -224,7 +224,7 @@ importers:
     devDependencies:
       '@pob/rollup-esbuild':
         specifier: 10.1.0
-        version: 10.1.0(@typescript/typescript6@6.0.2)(supports-color@7.2.0)
+        version: 10.1.0(@typescript/typescript6@6.0.2)(rollup@4.60.4)(supports-color@7.2.0)
       '@typescript/native':
         specifier: npm:typescript@7.0.2
         version: typescript@7.0.2
@@ -243,7 +243,7 @@ importers:
     devDependencies:
       '@pob/rollup-esbuild':
         specifier: 10.1.0
-        version: 10.1.0(@typescript/typescript6@6.0.2)(supports-color@7.2.0)
+        version: 10.1.0(@typescript/typescript6@6.0.2)(rollup@4.60.4)(supports-color@7.2.0)
       '@typescript/native':
         specifier: npm:typescript@7.0.2
         version: typescript@7.0.2
@@ -268,7 +268,7 @@ importers:
     devDependencies:
       '@pob/rollup-esbuild':
         specifier: 10.1.0
-        version: 10.1.0(@typescript/typescript6@6.0.2)(supports-color@7.2.0)
+        version: 10.1.0(@typescript/typescript6@6.0.2)(rollup@4.60.4)(supports-color@7.2.0)
       '@typescript/native':
         specifier: npm:typescript@7.0.2
         version: typescript@7.0.2
@@ -293,7 +293,7 @@ importers:
     devDependencies:
       '@pob/rollup-esbuild':
         specifier: 10.1.0
-        version: 10.1.0(@typescript/typescript6@6.0.2)(supports-color@7.2.0)
+        version: 10.1.0(@typescript/typescript6@6.0.2)(rollup@4.60.4)(supports-color@7.2.0)
       '@types/backo2':
         specifier: 1.0.4
         version: 1.0.4
@@ -321,7 +321,7 @@ importers:
     devDependencies:
       '@pob/rollup-esbuild':
         specifier: 10.1.0
-        version: 10.1.0(@typescript/typescript6@6.0.2)(supports-color@7.2.0)
+        version: 10.1.0(@typescript/typescript6@6.0.2)(rollup@4.60.4)(supports-color@7.2.0)
       '@typescript/native':
         specifier: npm:typescript@7.0.2
         version: typescript@7.0.2
@@ -340,7 +340,7 @@ importers:
     devDependencies:
       '@pob/rollup-esbuild':
         specifier: 10.1.0
-        version: 10.1.0(@typescript/typescript6@6.0.2)(supports-color@7.2.0)
+        version: 10.1.0(@typescript/typescript6@6.0.2)(rollup@4.60.4)(supports-color@7.2.0)
       '@typescript/native':
         specifier: npm:typescript@7.0.2
         version: typescript@7.0.2
@@ -365,7 +365,7 @@ importers:
     devDependencies:
       '@pob/rollup-esbuild':
         specifier: 10.1.0
-        version: 10.1.0(@typescript/typescript6@6.0.2)(supports-color@7.2.0)
+        version: 10.1.0(@typescript/typescript6@6.0.2)(rollup@4.60.4)(supports-color@7.2.0)
       '@types/backo2':
         specifier: 1.0.4
         version: 1.0.4
@@ -390,7 +390,7 @@ importers:
     devDependencies:
       '@pob/rollup-esbuild':
         specifier: 10.1.0
-        version: 10.1.0(@typescript/typescript6@6.0.2)(supports-color@7.2.0)
+        version: 10.1.0(@typescript/typescript6@6.0.2)(rollup@4.60.4)(supports-color@7.2.0)
       '@types/ws':
         specifier: 8.18.1
         version: 8.18.1
@@ -421,7 +421,7 @@ importers:
     devDependencies:
       '@pob/rollup-esbuild':
         specifier: 10.1.0
-        version: 10.1.0(@typescript/typescript6@6.0.2)(supports-color@7.2.0)
+        version: 10.1.0(@typescript/typescript6@6.0.2)(rollup@4.60.4)(supports-color@7.2.0)
       '@types/ws':
         specifier: 8.18.1
         version: 8.18.1
@@ -443,7 +443,7 @@ importers:
     devDependencies:
       '@pob/rollup-esbuild':
         specifier: 10.1.0
-        version: 10.1.0(@typescript/typescript6@6.0.2)(supports-color@7.2.0)
+        version: 10.1.0(@typescript/typescript6@6.0.2)(rollup@4.60.4)(supports-color@7.2.0)
       '@typescript/native':
         specifier: npm:typescript@7.0.2
         version: typescript@7.0.2
@@ -459,7 +459,7 @@ importers:
     devDependencies:
       '@pob/rollup-esbuild':
         specifier: 10.1.0
-        version: 10.1.0(@typescript/typescript6@6.0.2)(supports-color@7.2.0)
+        version: 10.1.0(@typescript/typescript6@6.0.2)(rollup@4.60.4)(supports-color@7.2.0)
       '@typescript/native':
         specifier: npm:typescript@7.0.2
         version: typescript@7.0.2
@@ -484,7 +484,7 @@ importers:
     devDependencies:
       '@pob/rollup-esbuild':
         specifier: 10.1.0
-        version: 10.1.0(@typescript/typescript6@6.0.2)(supports-color@7.2.0)
+        version: 10.1.0(@typescript/typescript6@6.0.2)(rollup@4.60.4)(supports-color@7.2.0)
       '@types/react':
         specifier: 19.2.17
         version: 19.2.17
@@ -984,7 +984,11 @@ packages:
     engines: {node: '>=22.18.0'}
     hasBin: true
     peerDependencies:
+      rollup: 4.60.4
       typescript: ^4.0.3 || ^5.0.0 || ^6.0.0 || ^7.0.0
+    peerDependenciesMeta:
+      rollup:
+        optional: true
 
   '@pob/rollup@8.2.0':
     resolution: {integrity: sha512-NHT9xbiTNFhgOvs0iDL5gykTvmkmjOoxU9QT31mJQNvahg1A+083SNc4FbGe0doluPTRUibCO+81waXUr40TAQ==}
@@ -3480,8 +3484,8 @@ packages:
     resolution: {integrity: sha512-2wcC/oGxHis/BoHkkPwldgiPSYcpZK3JU28WoMVv55yHJgcZ8rlXvuG9iZggz+sU1d4bRgIGASwyWqjxu3FM0g==}
     engines: {node: '>=18'}
 
-  source-map-js@1.2.1:
-    resolution: {integrity: sha512-UXWMKhLOwVKb728IUtQPXxfYU+usdybtUrK/8uGE8CQMvrhOpwvzDBwj0QhSL7MQc7vIsISBG8VQ8+IDQxpfQA==}
+  source-map-js@1.2.2:
+    resolution: {integrity: sha512-KGj/8Y43x35aZVDtt+J4mK1hoLGHULMYfSkODJNQjNDC3oW1PqPoxMwo0pLUsWM/UEGzON/NxeHywEfNXNP3Vw==}
     engines: {node: '>=0.10.0'}
 
   source-map@0.6.1:
@@ -4197,17 +4201,18 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
-  '@pob/rollup-esbuild@10.1.0(@typescript/typescript6@6.0.2)(supports-color@7.2.0)':
+  '@pob/rollup-esbuild@10.1.0(@typescript/typescript6@6.0.2)(rollup@4.60.4)(supports-color@7.2.0)':
     dependencies:
       '@pob/rollup': 8.2.0
       '@rollup/plugin-node-resolve': 16.0.3(rollup@4.60.4)
       '@rollup/plugin-replace': 6.0.3(rollup@4.60.4)
       '@rollup/plugin-run': 3.1.0(rollup@4.60.4)
       esbuild: 0.28.2
-      rollup: 4.60.4
       rollup-config-external-dependencies: 3.0.1
       rollup-plugin-esbuild: 6.2.1(esbuild@0.28.2)(rollup@4.60.4)(supports-color@7.2.0)
       typescript: '@typescript/typescript6@6.0.2'
+    optionalDependencies:
+      rollup: 4.60.4
     transitivePeerDependencies:
       - supports-color
 
@@ -6556,7 +6561,7 @@ snapshots:
     dependencies:
       nanoid: 3.3.18
       picocolors: 1.1.1
-      source-map-js: 1.2.1
+      source-map-js: 1.2.2
 
   prelude-ls@1.2.1: {}
 
@@ -6865,7 +6870,7 @@ snapshots:
       mrmime: 2.0.1
       totalist: 3.0.1
 
-  source-map-js@1.2.1: {}
+  source-map-js@1.2.2: {}
 
   source-map@0.6.1: {}
 
