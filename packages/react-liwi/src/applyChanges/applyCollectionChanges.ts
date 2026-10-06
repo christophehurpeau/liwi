@@ -4,11 +4,7 @@ import { Lazy } from "mingo/lazy";
 import { $sort } from "mingo/operators/pipeline";
 
 function sortCollection<T>(collection: T[], sort: Record<string, -1 | 1>): T[] {
-  return $sort(
-    Lazy(collection),
-    sort,
-    initOptions({ idKey: "_id" }),
-  ).value() as T[];
+  return $sort(Lazy(collection), sort, initOptions({ idKey: "_id" })).value();
 }
 
 const copy = <Value>(state: Value[]): Value[] => [...state];
