@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [13.4.0](https://github.com/christophehurpeau/liwi/compare/v13.3.3...v13.4.0) (2026-10-06)
+
+### Features
+
+* **deps:** update dependency mongodb to ^7.7.0 ([#749](https://github.com/christophehurpeau/liwi/issues/749))
+* **liwi-mongo:** add authSource option to MongoConfig ([#744](https://github.com/christophehurpeau/liwi/issues/744))
+
+Version bump for dependency: liwi-store
+Version bump for dependency: liwi-subscribe-store
+
+
 ## [13.3.3](https://github.com/christophehurpeau/liwi/compare/v13.3.2...v13.3.3) (2026-09-24)
 
 ### Bug Fixes

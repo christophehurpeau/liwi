@@ -3,6 +3,19 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [13.4.0](https://github.com/christophehurpeau/liwi/compare/v13.3.3...v13.4.0) (2026-10-06)
+
+### Features
+
+* **deps:** update react monorepo to v19.3.0 ([#675](https://github.com/christophehurpeau/liwi/issues/675))
+
+Version bump for dependency: @todo-example/modules
+Version bump for dependency: liwi-resources-client
+Version bump for dependency: liwi-resources-void-client
+Version bump for dependency: liwi-resources-websocket-client
+Version bump for dependency: react-liwi
+
+
 ## [13.3.3](https://github.com/christophehurpeau/liwi/compare/v13.3.2...v13.3.3) (2026-09-24)
 
 ### Bug Fixes
