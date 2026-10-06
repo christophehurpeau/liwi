@@ -1,4 +1,4 @@
-/* eslint-disable camelcase */
+/* oxlint-disable eslint-js/camelcase */
 import type { BaseModel, Criteria } from "./types";
 
 interface Test1 extends BaseModel {

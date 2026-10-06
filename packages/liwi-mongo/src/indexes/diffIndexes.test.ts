@@ -256,9 +256,9 @@ describe("diffIndexes", () => {
           key: { _fts: "text", _ftsx: 1 },
           name: "label_text",
           weights: { label: 1 },
-          // eslint-disable-next-line camelcase -- mongo option name
+          // oxlint-disable-next-line eslint-js/camelcase -- mongo option name
           default_language: "english",
-          // eslint-disable-next-line camelcase -- mongo option name
+          // oxlint-disable-next-line eslint-js/camelcase -- mongo option name
           language_override: "language",
           textIndexVersion: 3,
         },
