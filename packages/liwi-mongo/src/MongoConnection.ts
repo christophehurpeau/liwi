@@ -10,7 +10,35 @@ export interface MongoConfig {
   database: string;
   user?: string;
   password?: string;
+  authSource?: string;
 }
+
+interface BuildMongoConnectionStringParams extends MongoConfig {
+  redactCredentials: boolean;
+}
+
+export const buildMongoConnectionString = ({
+  host = "localhost",
+  port = "27017",
+  database,
+  user,
+  password,
+  authSource,
+  redactCredentials,
+}: BuildMongoConnectionStringParams): string =>
+  `mongodb://${
+    user
+      ? `${
+          redactCredentials
+            ? `${user.slice(0, 2)}[redacted]`
+            : encodeURIComponent(user)
+        }:${
+          redactCredentials ? "[redacted]" : encodeURIComponent(password ?? "")
+        }@`
+      : ""
+  }${host}:${port}/${encodeURIComponent(database)}${
+    authSource ? `?authSource=${encodeURIComponent(authSource)}` : ""
+  }`;
 
 export default class MongoConnection extends AbstractConnection {
   _connection?: mongodb.MongoClient;
@@ -20,36 +48,21 @@ export default class MongoConnection extends AbstractConnection {
   connectionFailed?: boolean;
 
   // TODO interface
-  constructor({
-    host = "localhost",
-    port = "27017",
-    database,
-    user,
-    password,
-  }: MongoConfig) {
+  constructor(config: MongoConfig) {
     super();
 
-    if (!database) {
+    if (!config.database) {
       throw new Error("Missing config database");
     }
 
-    const buildConnectionString = (redactCredentials: boolean): string =>
-      `mongodb://${
-        user
-          ? `${
-              redactCredentials
-                ? `${user.slice(0, 2)}[redacted]`
-                : encodeURIComponent(user)
-            }:${
-              redactCredentials
-                ? "[redacted]"
-                : encodeURIComponent(password ?? "")
-            }@`
-          : ""
-      }${host}:${port}/${encodeURIComponent(database)}`;
-
-    const connectionString = buildConnectionString(false);
-    const connectionStringRedacted = buildConnectionString(true);
+    const connectionString = buildMongoConnectionString({
+      ...config,
+      redactCredentials: false,
+    });
+    const connectionStringRedacted = buildMongoConnectionString({
+      ...config,
+      redactCredentials: true,
+    });
 
     this.connect(connectionString, connectionStringRedacted);
   }
