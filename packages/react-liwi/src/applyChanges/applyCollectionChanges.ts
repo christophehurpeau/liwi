@@ -1,14 +1,13 @@
 import type { Change, Changes, QueryInfo, QueryMeta } from "liwi-store";
-import { initOptions } from "mingo/core";
 import { Lazy } from "mingo/lazy";
 import { $sort } from "mingo/operators/pipeline";
+import type { Options } from "mingo/types";
+
+// $sort only reads `collation` from options
+const sortOptions: Partial<Options> = { idKey: "_id" };
 
 function sortCollection<T>(collection: T[], sort: Record<string, -1 | 1>): T[] {
-  return $sort(
-    Lazy(collection),
-    sort,
-    initOptions({ idKey: "_id" }),
-  ).value() as T[];
+  return $sort(Lazy(collection), sort, sortOptions as Options).collect<T>();
 }
 
 const copy = <Value>(state: Value[]): Value[] => [...state];
