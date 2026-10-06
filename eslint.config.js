@@ -114,4 +114,14 @@ export default [
       { rules: { "import-x/extensions": "off" } },
     ],
   }),
+  {
+    files: ["packages/liwi-mongo/package.json"],
+    rules: {
+      // dev only: mongodb-memory-server-core pins an older mongodb minor
+      "check-package-dependencies/no-direct-duplicate-dependencies": [
+        "error",
+        { onlyWarnsFor: { "mongodb-memory-server-core": ["mongodb"] } },
+      ],
+    },
+  },
 ];
