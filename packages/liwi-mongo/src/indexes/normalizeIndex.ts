@@ -57,11 +57,11 @@ const buildDescription = (
   if (index.collation) description.collation = index.collation;
   if (index.weights) description.weights = index.weights;
   if (index.default_language) {
-    // eslint-disable-next-line camelcase -- mongo option name
+    // oxlint-disable-next-line eslint-js/camelcase -- mongo option name
     description.default_language = index.default_language;
   }
   if (index.language_override) {
-    // eslint-disable-next-line camelcase -- mongo option name
+    // oxlint-disable-next-line eslint-js/camelcase -- mongo option name
     description.language_override = index.language_override;
   }
   if (index.wildcardProjection) {
