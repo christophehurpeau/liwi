@@ -11,6 +11,7 @@ export type TransportClientSubscribeCallback<Result = ExtendedJsonValue> = (
 
 export interface TransportClientSubscribeResult<
   Result,
+  // oxlint-disable-next-line no-unused-vars -- kept for public API compatibility
   Payload extends Record<string & keyof Payload, ExtendedJsonValue | undefined>,
 > extends PromiseLike<Result> {
   cancel: () => void;

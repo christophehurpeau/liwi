@@ -1,6 +1,6 @@
-export { default as AbstractConnection } from "./AbstractConnection";
-export { default as AbstractCursor } from "./AbstractCursor";
-export { default as AbstractStoreCursor } from "./AbstractStoreCursor";
+export { default as AbstractConnection } from "./AbstractConnection.ts";
+export { default as AbstractCursor } from "./AbstractCursor.ts";
+export { default as AbstractStoreCursor } from "./AbstractStoreCursor.ts";
 
 export type { InternalCommonStoreClient } from "./InternalCommonStoreClient";
 

@@ -7,17 +7,17 @@ import type { Changes, InitialChange, QueryInfo, QueryMeta } from "liwi-store";
 import { Logger } from "nightingale-logger";
 import { useEffect, useMemo, useReducer, useRef } from "react";
 import type { ApplyChanges } from "./applyChanges/ApplyChanges";
-import { applyCollectionChanges } from "./applyChanges/applyCollectionChanges";
-import { applySingleItemChanges } from "./applyChanges/applySingleItemChanges";
+import { applyCollectionChanges } from "./applyChanges/applyCollectionChanges.ts";
+import { applySingleItemChanges } from "./applyChanges/applySingleItemChanges.ts";
 import type { ResourceResult } from "./createResourceResultFromState";
-import { createResourceResultFromState } from "./createResourceResultFromState";
+import { createResourceResultFromState } from "./createResourceResultFromState.ts";
 import type {
   Action,
   ResourceReducerInitializerReturn,
   State,
 } from "./reducer";
-import reducer, { initReducer } from "./reducer";
-import { useVisibilityChangeSubscriber } from "./utils/useVisibilityChangeSubscriber";
+import reducer, { initReducer } from "./reducer.ts";
+import { useVisibilityChangeSubscriber } from "./utils/useVisibilityChangeSubscriber.ts";
 
 export interface UseResourceAndSubscribeOptions {
   visibleTimeout: number;

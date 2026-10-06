@@ -31,8 +31,9 @@
     "clean:build": "pob-esbuild-clean-out build",
     "indexes:plan": "node scripts/syncIndexes.ts plan",
     "indexes:sync": "node scripts/syncIndexes.ts sync",
-    "lint": "pnpm run lint:eslint",
-    "lint:eslint": "pnpm run --dir '../..' eslint --quiet '@todo-example/server'",
+    "lint": "pnpm run lint:oxlint && pnpm run lint:eslint",
+    "lint:eslint": "pnpm --dir '../..' exec eslint --quiet '@todo-example/server'",
+    "lint:oxlint": "pnpm --dir '../..' exec oxlint --quiet '@todo-example/server'",
     "start": "pnpm run clean:build && rollup --config rollup.config.mjs --watch",
     "tsc": "tsc"
   },

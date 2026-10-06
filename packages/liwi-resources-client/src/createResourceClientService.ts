@@ -1,5 +1,5 @@
 import type { ServiceInterface as ClientServiceInterface } from "liwi-resources";
-import { ClientQuery } from "./ClientQuery";
+import { ClientQuery } from "./ClientQuery.ts";
 import type { TransportClient } from "./TransportClient";
 
 const getKeys = <T extends Record<keyof T, unknown>>(o: T): (keyof T)[] =>

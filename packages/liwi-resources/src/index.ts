@@ -115,6 +115,7 @@ export interface ToServerSimpleMessages {
 }
 
 export interface ToServerSubscribeMessages<
+  // oxlint-disable-next-line no-unused-vars -- kept for public API compatibility
   Params extends Record<keyof Params, ExtendedJsonValue> | undefined = never,
   Result = unknown,
 > {

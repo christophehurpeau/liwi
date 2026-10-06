@@ -33,8 +33,9 @@
     "build": "pnpm run clean:build && rollup --config rollup.config.mjs",
     "clean": "pnpm run clean:build",
     "clean:build": "pob-esbuild-clean-out build",
-    "lint": "pnpm run lint:eslint",
-    "lint:eslint": "pnpm run --dir '../..' eslint --quiet '@todo-example/modules'",
+    "lint": "pnpm run lint:oxlint && pnpm run lint:eslint",
+    "lint:eslint": "pnpm --dir '../..' exec eslint --quiet '@todo-example/modules'",
+    "lint:oxlint": "pnpm --dir '../..' exec oxlint --quiet '@todo-example/modules'",
     "start": "pnpm run clean:build && rollup --config rollup.config.mjs --watch",
     "tsc": "tsc",
     "watch": "yarn clean:build && rollup --config rollup.config.mjs --watch"

@@ -68,8 +68,9 @@ const buildService = ({
 
   return {
     getServiceResource: (name: string) => {
-      if (name !== "posts")
+      if (name !== "posts") {
         throw new Error(`Invalid service resource: ${name}`);
+      }
       return resource;
     },
   } as unknown as ResourcesServerService;

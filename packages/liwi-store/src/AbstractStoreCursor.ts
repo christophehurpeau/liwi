@@ -1,4 +1,4 @@
-import AbstractCursor from "./AbstractCursor";
+import AbstractCursor from "./AbstractCursor.ts";
 import type { InternalCommonStoreClient } from "./InternalCommonStoreClient";
 import type { AllowedKeyValue, BaseModel } from "./types";
 

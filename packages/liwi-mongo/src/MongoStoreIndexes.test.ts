@@ -1,8 +1,12 @@
 import assert from "node:assert/strict";
 import { beforeEach, describe, it, mock } from "node:test";
+import mongodb from "mongodb";
 import type { IndexDescription, IndexDescriptionInfo } from "mongodb";
 import type { MongoBaseModel } from "./MongoBaseModel.ts";
+import MongoConnection from "./MongoConnection.ts";
+import MongoRegistry from "./MongoRegistry.ts";
 import type { MongoStoreOptions } from "./MongoStore.ts";
+import MongoStore from "./MongoStore.ts";
 
 interface TestModel extends MongoBaseModel {
   completed: boolean;
@@ -47,30 +51,12 @@ const db = {
   },
 };
 
-// eslint-disable-next-line n/no-unsupported-features/node-builtins
-mock.module("mongodb", {
-  // @ts-expect-error: not yet typed
-  exports: {
-    default: {
-      MongoClient: {
-        connect: () =>
-          Promise.resolve({
-            on: () => undefined,
-            db: () => db,
-          }),
-      },
-      ObjectId: class {
-        toString(): string {
-          return "generated-id";
-        }
-      },
-    },
-  },
-});
-
-const { default: MongoConnection } = await import("./MongoConnection.ts");
-const { default: MongoStore } = await import("./MongoStore.ts");
-const { default: MongoRegistry } = await import("./MongoRegistry.ts");
+mock.method(mongodb.MongoClient, "connect", () =>
+  Promise.resolve({
+    on: () => undefined,
+    db: () => db,
+  } as unknown as mongodb.MongoClient),
+);
 
 const createStore = (
   options?: MongoStoreOptions<TestModel>,

@@ -32,7 +32,7 @@ Examples: `@todo-example/*` (workspace), plus `packages/liwi-mongo-example`.
 
 ## Conventions
 
-- ESM only (`"type": "module"`), TypeScript, Node >= 22.14, pnpm >= 11.
+- ESM only (`"type": "module"`), TypeScript, Node >= 22.18, pnpm >= 11.
 - Package entry points are `src/index.ts`; each package re-exports its public surface there.
 - Files ending in `.ts.txt` are intentionally disabled/legacy source, not compiled.
 - Built with rollup (`@pob/rollup-esbuild`) + `tsc -b` for declarations; repo scaffolding is `@pob/root`.
@@ -42,7 +42,7 @@ Examples: `@todo-example/*` (workspace), plus `packages/liwi-mongo-example`.
 - Build: `pnpm run build` (rollup + `build:definitions`)
 - Typecheck: `pnpm run tsc`
 - Test: `pnpm test` (Node built-in test runner, `TZ=UTC`, matches `**/*.test.ts`)
-- Lint: `pnpm run lint` (oxfmt format + eslint)
+- Lint: `pnpm run lint` (oxfmt format + oxlint + eslint)
 - Format check: `pnpm run format:check`
 
 Tests are colocated as `src/**/*.test.ts` and run directly via `node --test` (no separate transpile step).
