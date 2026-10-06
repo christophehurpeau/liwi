@@ -1,5 +1,5 @@
 import type { Query } from "liwi-resources-client";
-import { useResource } from "./useResource";
+import { useResource } from "./useResource.ts";
 
 // eslint-disable-next-line @typescript-eslint/no-empty-object-type
 interface Test {}

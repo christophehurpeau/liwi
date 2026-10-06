@@ -22,12 +22,13 @@
     "clean:build": "pnpm -r --parallel run clean:build",
     "format": "oxfmt",
     "format:check": "oxfmt --check .",
-    "lint": "pnpm run format && pnpm run lint:eslint",
+    "lint": "pnpm run format && pnpm run lint:oxlint && pnpm run lint:eslint",
     "lint:eslint": "NODE_OPTIONS=--max_old_space_size=4096 eslint --quiet .",
+    "lint:oxlint": "oxlint --quiet",
     "prepare": "pob-root-postinstall",
-    "test": "TZ=UTC node --test --experimental-test-module-mocks '@(packages|@todo-example)/*/src/**/*.test.ts'",
-    "test:coverage": "TZ=UTC node --test --experimental-test-module-mocks --experimental-test-coverage --test-coverage-include=\"src/**/*.ts\" '@(packages|@todo-example)/*/src/**/*.test.ts'",
-    "test:coverage:generate": "mkdir -p generate-docs && TZ=UTC node --test --experimental-test-module-mocks --experimental-test-coverage --test-reporter=spec --test-reporter-destination=stdout --test-reporter=lcov --test-reporter-destination=generate-docs/coverage.lcov --test-coverage-include=\"src/**/*.ts\" '@(packages|@todo-example)/*/src/**/*.test.ts'",
+    "test": "TZ=UTC node --test '@(packages|@todo-example)/*/src/**/*.test.ts'",
+    "test:coverage": "TZ=UTC node --test --experimental-test-coverage --test-coverage-include=\"src/**/*.ts\" '@(packages|@todo-example)/*/src/**/*.test.ts'",
+    "test:coverage:generate": "mkdir -p generated-docs && TZ=UTC node --test --experimental-test-coverage --test-reporter=spec --test-reporter-destination=stdout --test-reporter=lcov --test-reporter-destination=generated-docs/coverage.lcov --test-coverage-include=\"src/**/*.ts\" '@(packages|@todo-example)/*/src/**/*.test.ts'",
     "test:watch": "TZ=UTC node --test '@(packages|@todo-example)/*/src/**/*.test.ts'",
     "tsc": "tsc -b",
     "watch": "pnpm run clean:build && rollup --config rollup.config.mjs --watch"
@@ -36,7 +37,7 @@
     "@pob/eslint-config": "67.10.0",
     "@pob/eslint-config-typescript-react": "67.10.0",
     "@pob/rollup-esbuild": "10.1.0",
-    "@pob/root": "27.5.0",
+    "@pob/root": "27.11.0",
     "@typescript/native": "npm:typescript@7.0.2",
     "eslint": "10.12.0",
     "typescript": "npm:@typescript/typescript6@6.0.2"
@@ -59,7 +60,7 @@
     ]
   },
   "engines": {
-    "node": ">=22.14.0",
+    "node": ">=22.18.0",
     "pnpm": ">= 11.0.0"
   }
 }

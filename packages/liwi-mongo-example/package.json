@@ -25,8 +25,9 @@
     "build": "pnpm run clean:build && rollup --config rollup.config.mjs",
     "clean": "pnpm run clean:build",
     "clean:build": "pob-esbuild-clean-out build",
-    "lint": "pnpm run lint:eslint",
-    "lint:eslint": "pnpm run --dir '../..' eslint --quiet 'packages/liwi-mongo-example'",
+    "lint": "pnpm run lint:oxlint && pnpm run lint:eslint",
+    "lint:eslint": "pnpm --dir '../..' exec eslint --quiet 'packages/liwi-mongo-example'",
+    "lint:oxlint": "pnpm --dir '../..' exec oxlint --quiet 'packages/liwi-mongo-example'",
     "start": "pnpm run clean:build && rollup --config rollup.config.mjs --watch",
     "tsc": "tsc",
     "watch": "yarn clean:build && rollup --config rollup.config.mjs --watch"

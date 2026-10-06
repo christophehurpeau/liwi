@@ -1,12 +1,12 @@
 import type { ConnectionStates } from "liwi-resources-client";
 
-export { useResource } from "./useResource";
+export { useResource } from "./useResource.ts";
 export type {
   PaginatedQueryRequiredParams,
   Pagination,
 } from "./usePaginatedResource";
-export { usePaginatedResource } from "./usePaginatedResource";
-export { useOperation } from "./useOperation";
+export { usePaginatedResource } from "./usePaginatedResource.ts";
+export { useOperation } from "./useOperation.ts";
 export type { OperationCallWrapper } from "./useOperation";
 export type { ResourceResult } from "./createResourceResultFromState";
 export {
@@ -16,7 +16,7 @@ export {
   TransportClientReadyContext,
   useTransportClientState,
   useTransportClientIsReady,
-} from "./TransportClientProvider";
+} from "./TransportClientProvider.tsx";
 export { ResourcesServerError } from "liwi-resources-client";
 
 export type SimplifiedConnectionState =

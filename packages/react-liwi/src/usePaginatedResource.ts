@@ -6,7 +6,7 @@ import type {
   ResourceResultLoaded,
 } from "./createResourceResultFromState";
 import type { UseResourceOptions } from "./useResource";
-import { useResource } from "./useResource";
+import { useResource } from "./useResource.ts";
 
 export interface PaginatedQueryRequiredParams {
   page: number;

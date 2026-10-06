@@ -10,7 +10,7 @@ import type {
 } from "liwi-store";
 import type { Actions } from "liwi-subscribe-store";
 import { AbstractSubscribableStoreQuery } from "liwi-subscribe-store";
-import mingo from "mingo";
+import { Query as MingoQuery } from "mingo";
 import type {
   MongoBaseModel,
   MongoInsertType,
@@ -66,7 +66,7 @@ export default class MongoQuerySingleItem<
         return () => true;
       }
 
-      const mingoQuery = new mingo.Query(this.options.criteria);
+      const mingoQuery = new MingoQuery(this.options.criteria);
       this.testCriteria = mingoQuery.test.bind(mingoQuery);
     }
 

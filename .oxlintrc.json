@@ -1,0 +1,53 @@
+{
+  "extends": [
+    "./node_modules/@pob/eslint-config/oxlint/base.json",
+    "./node_modules/@pob/eslint-config/oxlint/module.json",
+    "./node_modules/@pob/eslint-config/oxlint/node.json",
+    "./node_modules/@pob/eslint-config/oxlint/typescript.json"
+  ],
+  "ignorePatterns": [
+    ".yarn",
+    "**/dist/",
+    "**/build/",
+    "**/coverage/",
+    "**/.next/",
+    "**/.tamagui/",
+    "**/.expo/",
+    "**/*.d.ts",
+    "/rollup.config.mjs",
+    "/@todo-example/vite/playwright-report/",
+    "/@todo-example/vite/test-results/"
+  ],
+  "overrides": [
+    {
+      "files": [
+        "@todo-example/*/src/**",
+        "packages/liwi-{mongo,resources,resources-client,resources-direct-client,resources-server,resources-void-client,resources-websocket-client,resources-websocket-client-node,resources-websocket-server,store,subscribe-store}/src/**",
+        "packages/react-liwi/src/**"
+      ],
+      "rules": {
+        "typescript/no-unsafe-argument": "warn",
+        "typescript/no-unsafe-assignment": "warn",
+        "typescript/no-unsafe-call": "warn",
+        "typescript/no-unsafe-member-access": "warn",
+        "typescript/no-unsafe-return": "warn",
+        "typescript/use-unknown-in-catch-callback-variable": "warn"
+      }
+    },
+    {
+      "files": [
+        "packages/liwi-{mongo,resources,resources-client,resources-direct-client,resources-server,resources-void-client,resources-websocket-client,resources-websocket-client-node,resources-websocket-server,store,subscribe-store}/src/**",
+        "packages/react-liwi/src/**"
+      ],
+      "rules": {
+        "typescript/no-floating-promises": "warn"
+      }
+    },
+    {
+      "files": ["@todo-example/vite/src/**"],
+      "rules": {
+        "import/extensions": "off"
+      }
+    }
+  ]
+}

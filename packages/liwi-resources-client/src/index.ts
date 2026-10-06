@@ -1,6 +1,6 @@
 export type { ServiceInterface as ClientServiceInterface } from "liwi-resources";
 export { ResourcesServerError } from "liwi-resources";
-export { createResourceClientService } from "./createResourceClientService";
+export { createResourceClientService } from "./createResourceClientService.ts";
 export type {
   AckError,
   ToClientMessage,

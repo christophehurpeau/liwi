@@ -1,6 +1,9 @@
 import assert from "node:assert/strict";
 import { beforeEach, describe, it, mock } from "node:test";
+import mongodb from "mongodb";
 import type { MongoBaseModel } from "./MongoBaseModel.ts";
+import MongoConnection from "./MongoConnection.ts";
+import MongoStore from "./MongoStore.ts";
 
 interface TestModel extends MongoBaseModel {
   name: string;
@@ -50,29 +53,12 @@ const collection = {
   countDocuments: () => Promise.resolve(documents.length),
 };
 
-// eslint-disable-next-line n/no-unsupported-features/node-builtins
-mock.module("mongodb", {
-  // @ts-expect-error: not yet typed
-  exports: {
-    default: {
-      MongoClient: {
-        connect: () =>
-          Promise.resolve({
-            on: () => undefined,
-            db: () => ({ collection: () => collection }),
-          }),
-      },
-      ObjectId: class {
-        toString(): string {
-          return "generated-id";
-        }
-      },
-    },
-  },
-});
-
-const { default: MongoConnection } = await import("./MongoConnection.ts");
-const { default: MongoStore } = await import("./MongoStore.ts");
+mock.method(mongodb.MongoClient, "connect", () =>
+  Promise.resolve({
+    on: () => undefined,
+    db: () => ({ collection: () => collection }),
+  } as unknown as mongodb.MongoClient),
+);
 
 const createStore = (): InstanceType<typeof MongoStore<TestModel>> => {
   const connection = new MongoConnection({ database: "test" });

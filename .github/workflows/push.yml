@@ -55,6 +55,9 @@ jobs:
       - name: Typescript
         run: pnpm run tsc
 
+      - name: Oxlint
+        run: pnpm run lint:oxlint
+
       - name: Eslint
         run: pnpm run lint:eslint
 
@@ -63,7 +66,7 @@ jobs:
 
     strategy:
       matrix:
-        node-version: [24]
+        node-version: [22, 24]
 
     steps:
       - uses: actions/checkout@v7

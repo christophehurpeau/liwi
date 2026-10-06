@@ -89,9 +89,9 @@ export const createFakeWebSocket = ({
         emit("error", event);
       },
       emitUnexpectedResponse: (response) => {
-        emitterListeners
-          .get("unexpected-response")
-          ?.forEach((listener) => listener({}, response));
+        emitterListeners.get("unexpected-response")?.forEach((listener) => {
+          listener({}, response);
+        });
       },
     };
 
