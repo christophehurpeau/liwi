@@ -18,8 +18,8 @@ importers:
         specifier: 10.2.0
         version: 10.2.0(@typescript/typescript6@6.0.2)(supports-color@7.2.0)
       '@pob/root':
-        specifier: 27.11.0
-        version: 27.11.0
+        specifier: 27.12.0
+        version: 27.12.0
       '@typescript/native':
         specifier: npm:typescript@7.0.2
         version: typescript@7.0.2
@@ -1143,13 +1143,13 @@ packages:
     engines: {node: '>=22.18.0'}
     hasBin: true
 
-  '@pob/root@27.11.0':
-    resolution: {integrity: sha512-eQQlgVtDZr29G8qa3sYgpo5eF9za2VEw/6fGWK+a+qGJ0mtpvZ4C9E3aW4DrgyzdWsRFF7dA+dibeUlwJaqTSA==}
+  '@pob/root@27.12.0':
+    resolution: {integrity: sha512-BbXf0kVo2HQ4ZwghFcWvROdTe9grdPkr1CAbN0dv+m1vJrPKJXi8WtVg6EG/zsOf9n4aEF+x9oYBIlsEDiT52Q==}
     engines: {node: '>=22.18.0'}
     hasBin: true
 
-  '@pob/version@6.4.0':
-    resolution: {integrity: sha512-Z5MKanOHrCAAI8u8nKT89V9WbkfURxxV7GJb68L4UlSW8pvMrjSCugbnOWlnVPWpGueUR4UxFEX8Gff3fNCfHg==}
+  '@pob/version@6.5.0':
+    resolution: {integrity: sha512-CKW/4dyCMs6onpC6ajpghQ6/ytvFEv9eHePmO9XMXXhbgPejpn+2p0QDiLBv0OvPNFD/AMWdXJKWE7MfNq808A==}
     engines: {node: '>=24.14.1'}
     hasBin: true
 
@@ -3460,8 +3460,8 @@ packages:
     resolution: {integrity: sha512-Nc3IT5yHzflTfbjgqWcCPpo7DaKy4FnpB0l/zCAW0Tc7jxAiuqSxHasntB3D7887LSrA93kDJ9IXovxJYxyLCA==}
     engines: {node: '>=4'}
 
-  pob-dependencies@27.10.0:
-    resolution: {integrity: sha512-0KyS0kc2OEVQpy3BFL5yNnaZr50zYMW+sJvwTt73JNEYIVKO2KMUw5qNaHYP5SilkyqILieNalo0YXwI/LSERQ==}
+  pob-dependencies@27.11.0:
+    resolution: {integrity: sha512-XcoM88YjlizR0VxzbLfBr8J9mbEz8SZpMdGY3q5mNzc8ivzYTXSXg897HHHvNU7mo++9vvEHallMfi3r8yIaqA==}
     engines: {node: '>=22.18.0'}
 
   possible-typed-array-names@1.1.0:
@@ -4486,12 +4486,12 @@ snapshots:
     dependencies:
       rollup: 4.60.4
 
-  '@pob/root@27.11.0':
+  '@pob/root@27.12.0':
     dependencies:
       '@commitlint/format': 21.0.1
       '@commitlint/lint': 21.0.2
       '@commitlint/types': 21.0.1
-      '@pob/version': 6.4.0
+      '@pob/version': 6.5.0
       conventional-changelog-conventionalcommits: 9.3.1
       conventional-changelog-writer: 8.4.0
       conventional-commits-parser: 6.4.0
@@ -4501,13 +4501,13 @@ snapshots:
       oxlint: 1.85.0(oxlint-tsgolint@7.0.2002)
       oxlint-tsgolint: 7.0.2002
       picomatch: 4.0.7
-      pob-dependencies: 27.10.0
+      pob-dependencies: 27.11.0
       semver: 7.8.5
     transitivePeerDependencies:
       - svelte
       - vite-plus
 
-  '@pob/version@6.4.0':
+  '@pob/version@6.5.0':
     dependencies:
       commander: 14.0.3
       conventional-changelog-conventionalcommits: 9.3.1
@@ -6859,7 +6859,7 @@ snapshots:
 
   pluralize@8.0.0: {}
 
-  pob-dependencies@27.10.0: {}
+  pob-dependencies@27.11.0: {}
 
   possible-typed-array-names@1.1.0: {}
 
