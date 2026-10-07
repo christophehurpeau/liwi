@@ -51,7 +51,7 @@
     "nightingale-logger": "^18.2.0"
   },
   "devDependencies": {
-    "@pob/rollup-esbuild": "10.1.0",
+    "@pob/rollup-esbuild": "10.2.0",
     "@typescript/native": "npm:typescript@7.0.2",
     "mongodb-memory-server-core": "11.3.0",
     "typescript": "npm:@typescript/typescript6@6.0.2"
