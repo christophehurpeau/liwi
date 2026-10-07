@@ -15,8 +15,8 @@ importers:
         specifier: 67.11.0
         version: 67.11.0(@typescript-eslint/utils@8.65.0(@typescript/typescript6@6.0.2)(eslint@10.12.0(supports-color@7.2.0))(supports-color@7.2.0))(@typescript/typescript6@6.0.2)(eslint@10.12.0(supports-color@7.2.0))(supports-color@7.2.0)
       '@pob/rollup-esbuild':
-        specifier: 10.1.0
-        version: 10.1.0(@typescript/typescript6@6.0.2)(supports-color@7.2.0)
+        specifier: 10.2.0
+        version: 10.2.0(@typescript/typescript6@6.0.2)(supports-color@7.2.0)
       '@pob/root':
         specifier: 27.11.0
         version: 27.11.0
@@ -40,8 +40,8 @@ importers:
         version: link:../../packages/liwi-resources-client
     devDependencies:
       '@pob/rollup-esbuild':
-        specifier: 10.1.0
-        version: 10.1.0(@typescript/typescript6@6.0.2)(supports-color@7.2.0)
+        specifier: 10.2.0
+        version: 10.2.0(@typescript/typescript6@6.0.2)(supports-color@7.2.0)
       '@typescript/native':
         specifier: npm:typescript@7.0.2
         version: typescript@7.0.2
@@ -74,8 +74,8 @@ importers:
         version: 12.2.1
     devDependencies:
       '@pob/rollup-esbuild':
-        specifier: 10.1.0
-        version: 10.1.0(@typescript/typescript6@6.0.2)(supports-color@7.2.0)
+        specifier: 10.2.0
+        version: 10.2.0(@typescript/typescript6@6.0.2)(supports-color@7.2.0)
       '@typescript/native':
         specifier: npm:typescript@7.0.2
         version: typescript@7.0.2
@@ -171,8 +171,8 @@ importers:
   packages/extended-json:
     devDependencies:
       '@pob/rollup-esbuild':
-        specifier: 10.1.0
-        version: 10.1.0(@typescript/typescript6@6.0.2)(supports-color@7.2.0)
+        specifier: 10.2.0
+        version: 10.2.0(@typescript/typescript6@6.0.2)(supports-color@7.2.0)
       '@types/node':
         specifier: 24.10.1
         version: 24.10.1
@@ -204,8 +204,8 @@ importers:
         version: 18.2.0
     devDependencies:
       '@pob/rollup-esbuild':
-        specifier: 10.1.0
-        version: 10.1.0(@typescript/typescript6@6.0.2)(supports-color@7.2.0)
+        specifier: 10.2.0
+        version: 10.2.0(@typescript/typescript6@6.0.2)(supports-color@7.2.0)
       '@typescript/native':
         specifier: npm:typescript@7.0.2
         version: typescript@7.0.2
@@ -223,8 +223,8 @@ importers:
         version: link:../liwi-mongo
     devDependencies:
       '@pob/rollup-esbuild':
-        specifier: 10.1.0
-        version: 10.1.0(@typescript/typescript6@6.0.2)(supports-color@7.2.0)
+        specifier: 10.2.0
+        version: 10.2.0(@typescript/typescript6@6.0.2)(supports-color@7.2.0)
       '@typescript/native':
         specifier: npm:typescript@7.0.2
         version: typescript@7.0.2
@@ -242,8 +242,8 @@ importers:
         version: link:../liwi-store
     devDependencies:
       '@pob/rollup-esbuild':
-        specifier: 10.1.0
-        version: 10.1.0(@typescript/typescript6@6.0.2)(supports-color@7.2.0)
+        specifier: 10.2.0
+        version: 10.2.0(@typescript/typescript6@6.0.2)(supports-color@7.2.0)
       '@typescript/native':
         specifier: npm:typescript@7.0.2
         version: typescript@7.0.2
@@ -267,8 +267,8 @@ importers:
         version: 18.2.0
     devDependencies:
       '@pob/rollup-esbuild':
-        specifier: 10.1.0
-        version: 10.1.0(@typescript/typescript6@6.0.2)(supports-color@7.2.0)
+        specifier: 10.2.0
+        version: 10.2.0(@typescript/typescript6@6.0.2)(supports-color@7.2.0)
       '@typescript/native':
         specifier: npm:typescript@7.0.2
         version: typescript@7.0.2
@@ -292,8 +292,8 @@ importers:
         version: 18.2.0
     devDependencies:
       '@pob/rollup-esbuild':
-        specifier: 10.1.0
-        version: 10.1.0(@typescript/typescript6@6.0.2)(supports-color@7.2.0)
+        specifier: 10.2.0
+        version: 10.2.0(@typescript/typescript6@6.0.2)(supports-color@7.2.0)
       '@types/backo2':
         specifier: 1.0.4
         version: 1.0.4
@@ -320,8 +320,8 @@ importers:
         version: 18.2.0
     devDependencies:
       '@pob/rollup-esbuild':
-        specifier: 10.1.0
-        version: 10.1.0(@typescript/typescript6@6.0.2)(supports-color@7.2.0)
+        specifier: 10.2.0
+        version: 10.2.0(@typescript/typescript6@6.0.2)(supports-color@7.2.0)
       '@typescript/native':
         specifier: npm:typescript@7.0.2
         version: typescript@7.0.2
@@ -339,8 +339,8 @@ importers:
         version: link:../liwi-resources-server
     devDependencies:
       '@pob/rollup-esbuild':
-        specifier: 10.1.0
-        version: 10.1.0(@typescript/typescript6@6.0.2)(supports-color@7.2.0)
+        specifier: 10.2.0
+        version: 10.2.0(@typescript/typescript6@6.0.2)(supports-color@7.2.0)
       '@typescript/native':
         specifier: npm:typescript@7.0.2
         version: typescript@7.0.2
@@ -364,8 +364,8 @@ importers:
         version: 18.2.0
     devDependencies:
       '@pob/rollup-esbuild':
-        specifier: 10.1.0
-        version: 10.1.0(@typescript/typescript6@6.0.2)(supports-color@7.2.0)
+        specifier: 10.2.0
+        version: 10.2.0(@typescript/typescript6@6.0.2)(supports-color@7.2.0)
       '@types/backo2':
         specifier: 1.0.4
         version: 1.0.4
@@ -389,8 +389,8 @@ importers:
         version: 8.22.0(bufferutil@4.1.0)(utf-8-validate@6.0.6)
     devDependencies:
       '@pob/rollup-esbuild':
-        specifier: 10.1.0
-        version: 10.1.0(@typescript/typescript6@6.0.2)(supports-color@7.2.0)
+        specifier: 10.2.0
+        version: 10.2.0(@typescript/typescript6@6.0.2)(supports-color@7.2.0)
       '@types/ws':
         specifier: 8.18.2
         version: 8.18.2
@@ -420,8 +420,8 @@ importers:
         version: 8.22.0(bufferutil@4.1.0)(utf-8-validate@6.0.6)
     devDependencies:
       '@pob/rollup-esbuild':
-        specifier: 10.1.0
-        version: 10.1.0(@typescript/typescript6@6.0.2)(supports-color@7.2.0)
+        specifier: 10.2.0
+        version: 10.2.0(@typescript/typescript6@6.0.2)(supports-color@7.2.0)
       '@types/ws':
         specifier: 8.18.2
         version: 8.18.2
@@ -442,8 +442,8 @@ importers:
   packages/liwi-store:
     devDependencies:
       '@pob/rollup-esbuild':
-        specifier: 10.1.0
-        version: 10.1.0(@typescript/typescript6@6.0.2)(supports-color@7.2.0)
+        specifier: 10.2.0
+        version: 10.2.0(@typescript/typescript6@6.0.2)(supports-color@7.2.0)
       '@typescript/native':
         specifier: npm:typescript@7.0.2
         version: typescript@7.0.2
@@ -458,8 +458,8 @@ importers:
         version: link:../liwi-store
     devDependencies:
       '@pob/rollup-esbuild':
-        specifier: 10.1.0
-        version: 10.1.0(@typescript/typescript6@6.0.2)(supports-color@7.2.0)
+        specifier: 10.2.0
+        version: 10.2.0(@typescript/typescript6@6.0.2)(supports-color@7.2.0)
       '@typescript/native':
         specifier: npm:typescript@7.0.2
         version: typescript@7.0.2
@@ -483,8 +483,8 @@ importers:
         version: 18.2.0
     devDependencies:
       '@pob/rollup-esbuild':
-        specifier: 10.1.0
-        version: 10.1.0(@typescript/typescript6@6.0.2)(supports-color@7.2.0)
+        specifier: 10.2.0
+        version: 10.2.0(@typescript/typescript6@6.0.2)(supports-color@7.2.0)
       '@types/react':
         specifier: 19.3.0
         version: 19.3.0
@@ -1131,15 +1131,15 @@ packages:
       typescript:
         optional: true
 
-  '@pob/rollup-esbuild@10.1.0':
-    resolution: {integrity: sha512-iGOv/L1hndrxKYdrPCtFKYKXGzz66jFWpwafm8RpumqVNAJN0yN0r4LkrnzI8KWyd+PKtocO8uyo0w4gfHr0fA==}
+  '@pob/rollup-esbuild@10.2.0':
+    resolution: {integrity: sha512-W3GGrdQVO/TGMuw7wAuvK/8+03BtfrzhSFg7/JaEIfC/ipvkpNotLQycFdFjqkoHNldhuywuE/73783KXR3wsQ==}
     engines: {node: '>=22.18.0'}
     hasBin: true
     peerDependencies:
       typescript: ^4.0.3 || ^5.0.0 || ^6.0.0 || ^7.0.0
 
-  '@pob/rollup@8.2.0':
-    resolution: {integrity: sha512-NHT9xbiTNFhgOvs0iDL5gykTvmkmjOoxU9QT31mJQNvahg1A+083SNc4FbGe0doluPTRUibCO+81waXUr40TAQ==}
+  '@pob/rollup@8.3.0':
+    resolution: {integrity: sha512-EkIcxwnlrsYgDIJnDN8rW3m8Mp+oPaXCky+dNy/n0TP2rbVy37E5PP7FMh15/t3nSwQDpVn3EQev9k+vdUMGmw==}
     engines: {node: '>=22.18.0'}
     hasBin: true
 
@@ -4468,9 +4468,9 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
-  '@pob/rollup-esbuild@10.1.0(@typescript/typescript6@6.0.2)(supports-color@7.2.0)':
+  '@pob/rollup-esbuild@10.2.0(@typescript/typescript6@6.0.2)(supports-color@7.2.0)':
     dependencies:
-      '@pob/rollup': 8.2.0
+      '@pob/rollup': 8.3.0
       '@rollup/plugin-node-resolve': 16.0.3(rollup@4.60.4)
       '@rollup/plugin-replace': 6.0.3(rollup@4.60.4)
       '@rollup/plugin-run': 3.1.0(rollup@4.60.4)
@@ -4482,7 +4482,7 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
-  '@pob/rollup@8.2.0':
+  '@pob/rollup@8.3.0':
     dependencies:
       rollup: 4.60.4
 

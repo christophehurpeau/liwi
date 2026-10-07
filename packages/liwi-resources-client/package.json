@@ -54,7 +54,7 @@
     "nightingale-logger": "^18.2.0"
   },
   "devDependencies": {
-    "@pob/rollup-esbuild": "10.1.0",
+    "@pob/rollup-esbuild": "10.2.0",
     "@typescript/native": "npm:typescript@7.0.2",
     "typescript": "npm:@typescript/typescript6@6.0.2"
   },
