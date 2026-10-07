@@ -8,10 +8,9 @@ type JsonReviver = <T extends ExtendedJsonValue>(
   value: T,
 ) => ExtendedJsonValue;
 
-const internalReviver: JsonReviver = function <T extends ExtendedJsonValue>(
-  key: string,
-  value: T,
-): Date | T {
+const internalReviver: JsonReviver = function internalReviver<
+  T extends ExtendedJsonValue,
+>(key: string, value: T): Date | T {
   if (typeof value === "string") {
     const matchDate = regexpStringDate.exec(value);
     if (matchDate) {

@@ -16,13 +16,13 @@
     "#/*": "./src/*"
   },
   "scripts": {
-    "build": "yarn run build:client && yarn run build:server",
+    "build": "pnpm run build:client && pnpm run build:server",
     "build:client": "vite build --outDir dist/client",
     "build:server": "vite build --ssr src/entry-server.tsx --outDir dist/server",
     "lint": "pnpm run lint:oxlint && pnpm run lint:eslint",
     "lint:eslint": "pnpm --dir '../..' exec eslint --quiet '@todo-example/vite'",
     "lint:oxlint": "pnpm --dir '../..' exec oxlint --quiet '@todo-example/vite'",
-    "preview": "yarn run build && yarn run start:prod",
+    "preview": "pnpm run build && pnpm run start:prod",
     "start": "node server.js",
     "start:prod": "NODE_ENV=production node server.js",
     "test:e2e": "playwright test -c e2e/playwright.config.ts",
