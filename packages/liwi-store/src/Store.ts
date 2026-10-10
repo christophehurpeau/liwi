@@ -36,6 +36,28 @@ export type UpsertResult<Model extends BaseModel> =
       prev: Model;
     };
 
+export interface WriteResult<Model extends BaseModel> {
+  /** The stored document the write applied to. */
+  prev: Model;
+  /** The stored document after the write. */
+  next: Model;
+}
+
+export interface PartialUpdateResult<Model extends BaseModel> {
+  /** The stored document the update applied to. */
+  prev: Model;
+  /**
+   * The stored document read back after the update. `undefined` when a
+   * concurrent write deleted it first: the update was still applied.
+   */
+  next: Model | undefined;
+}
+
+export interface DeleteResult<Model extends BaseModel> {
+  /** The stored document as it was deleted. */
+  prev: Model;
+}
+
 export interface Store<
   KeyPath extends keyof Model,
   KeyValue extends AllowedKeyValue,
@@ -84,6 +106,11 @@ export interface Store<
 
   replaceOne: (object: Model) => Promise<Model>;
 
+  /** Resolves `undefined` when no stored document has the object's key. */
+  replaceOneWithInfo?: (
+    object: Model,
+  ) => Promise<WriteResult<Model> | undefined>;
+
   replaceSeveral: (objects: Model[]) => Promise<Model[]>;
 
   upsertOne: <
@@ -106,6 +133,13 @@ export interface Store<
     criteria?: Criteria<Model>,
   ) => Promise<Model>;
 
+  /** Resolves `undefined` when no stored document matches the key and criteria. */
+  partialUpdateByKeyWithInfo?: (
+    key: KeyValue,
+    partialUpdate: Update<Model>,
+    criteria?: Criteria<Model>,
+  ) => Promise<PartialUpdateResult<Model> | undefined>;
+
   partialUpdateOne: (
     object: Model,
     partialUpdate: Update<Model>,
@@ -117,6 +151,12 @@ export interface Store<
   ) => Promise<void>;
 
   deleteByKey: (key: KeyValue, criteria?: Criteria<Model>) => Promise<void>;
+
+  /** Resolves `undefined` when no stored document matches the key and criteria. */
+  deleteByKeyWithInfo?: (
+    key: KeyValue,
+    criteria?: Criteria<Model>,
+  ) => Promise<DeleteResult<Model> | undefined>;
 
   deleteOne: (object: Model) => Promise<void>;
 

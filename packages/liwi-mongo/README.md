@@ -81,7 +81,7 @@ interface MongoBaseModel<KeyValue extends AllowedKeyValue = string> {
 }
 ```
 
-The key path is always `_id`. `MongoInsertType<Model>` makes `_id`, `created` and `updated` optional; the store fills `created` / `updated` on insert and `updated` on every update. `insertOne` mutates and returns the object you passed.
+The key path is always `_id`. `MongoInsertType<Model>` makes `_id`, `created` and `updated` optional. The store fills `created` / `updated` on insert, and `updated` on `replaceOne` / `upsertOne` only when the object has none; partial updates never touch it. `insertOne` mutates and returns the object you passed; `replaceOne` sets `updated` on the object you passed and returns a copy.
 
 ## `MongoConnection`
 
@@ -110,6 +110,26 @@ const set: Update<Task>["$set"] = { completed: true };
 ```
 
 The store also exposes the underlying driver handles when you need them: `store.collection` resolves the `mongodb` collection.
+
+### Writes and their cost
+
+The plain methods do one round trip and do not read the previous document:
+
+| Method               | Driver call                                       | Missing key            |
+| -------------------- | ------------------------------------------------- | ---------------------- |
+| `partialUpdateByKey` | `findOneAndUpdate` with `returnDocument: "after"` | throws `NotFoundError` |
+| `replaceOne`         | `replaceOne`, checking `matchedCount`             | throws `NotFoundError` |
+| `deleteByKey`        | `deleteOne`                                       | no-op                  |
+
+The [`…WithInfo` variants](../liwi-store#writes-with-info) also return the previous document, read atomically with the write. The subscribe store uses them:
+
+| Method                       | Driver calls                                                                                 |
+| ---------------------------- | -------------------------------------------------------------------------------------------- |
+| `partialUpdateByKeyWithInfo` | `findOneAndUpdate` with `returnDocument: "before"`, then `findOne` for `next`                |
+| `replaceOneWithInfo`         | `findOneAndReplace` with `returnDocument: "before"`; `next` is the replacement, no read back |
+| `deleteByKeyWithInfo`        | `findOneAndDelete`                                                                           |
+
+Mongo cannot return both the before and after documents of one update, so `partialUpdateByKeyWithInfo` reads `next` back. That read may already include a later concurrent write (which emits its own change), and it finds nothing if a concurrent delete landed first: `next` is then `undefined` although the update was applied.
 
 ## Indexes
 
@@ -259,7 +279,7 @@ const subscription = query.fetchAndSubscribe((error, changes) => {
 subscription.stop();
 ```
 
-`createQuerySingleItem` behaves the same but resolves a single item.
+`createQuerySingleItem` behaves the same but resolves a single item. Without `sort`, its criteria must match at most one document: when one update moves several matching documents, the subscription reports the error `should not match more than 1, use sort if you can have multiple match` through its callback. With `sort`, it refetches on every relevant update.
 
 Subscriptions are driven in-process: writes going through the subscribe store are matched against the query criteria with [mingo](https://github.com/kofrasa/mingo).
 

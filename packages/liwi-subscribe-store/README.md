@@ -81,6 +81,25 @@ type Actions<Model> =
   | { type: "deleted"; prev: Model[] };
 ```
 
+`prev` is always the **stored** document, never the object passed by the caller: queries decide whether a document entered or left their result by testing `prev` and `next` against their criteria, so a stale copy would leave rows in lists they no longer belong to.
+
+| Write                                     | Where `prev` comes from                                                                                                 |
+| ----------------------------------------- | ----------------------------------------------------------------------------------------------------------------------- |
+| `partialUpdateByKey` / `partialUpdateOne` | `partialUpdateByKeyWithInfo` of the wrapped store (atomic with the write), else `findOne` just before the write         |
+| `replaceOne` / `replaceSeveral`           | `replaceOneWithInfo` (atomic), else `findByKey` just before the write                                                   |
+| `deleteByKey` / `deleteOne`               | `deleteByKeyWithInfo` (atomic), else `findByKey` just before the write                                                  |
+| `upsertOne` / `upsertOneWithInfo`         | `upsertOneWithInfo` of the wrapped store                                                                                |
+| `partialUpdateMany`                       | per document, as `partialUpdateByKey`; documents that no longer match `criteria` when their turn comes are skipped      |
+| `deleteMany`                              | a cursor read before the delete: not atomic, a document inserted or changed in between can be missed or wrongly emitted |
+
+See [Writes with info](../liwi-store#writes-with-info) for the `…WithInfo` contract.
+
+### Missing keys and failures
+
+- A write on a key that does not exist emits nothing. `partialUpdateByKey`, `partialUpdateOne`, `replaceOne` and `replaceSeveral` throw [`NotFoundError`](../liwi-store#errors); `deleteByKey` and `deleteOne` resolve.
+- When a concurrent delete lands between a partial update and its read-back, the update was applied but there is no `next`: nothing is emitted (the delete emits its own `deleted` action) and `partialUpdateByKey` / `partialUpdateOne` throw `DeletedAfterUpdateError`, a subclass of `NotFoundError`. `partialUpdateMany` skips that document.
+- `replaceSeveral` and `partialUpdateMany` emit the writes that succeeded before rethrowing the first failure, so listeners stay in sync with what was written.
+
 ### `AbstractSubscribableStoreQuery`
 
 Base class for store implementations providing subscribable queries. It holds the subscribe store (`setSubscribeStore` / `getSubscribeStore`) and implements `fetchAndSubscribe` / `subscribe` on top of an abstract `_subscribe`; implementations turn store actions into query `Changes` by testing each affected model against the query criteria. `liwi-mongo` does this in memory with [mingo](https://github.com/kofrasa/mingo).

@@ -1,3 +1,4 @@
+import { DeletedAfterUpdateError, NotFoundError } from "liwi-store";
 import type {
   AbstractConnection,
   AbstractStoreCursor,
@@ -7,6 +8,7 @@ import type {
   Criteria,
   InsertType,
   OptionalBaseModelKeysForInsert,
+  PartialUpdateResult,
   QueryParams,
   Sort,
   Store as StoreInterface,
@@ -66,6 +68,57 @@ export default class SubscribeStore<
 
   callSubscribed(action: Actions<Model>): void {
     this.listeners.forEach((listener) => listener(action));
+  }
+
+  private async replaceOneAndGetChange(object: Model): Promise<[Model, Model]> {
+    const key = object[this.keyPath];
+    if (this.store.replaceOneWithInfo) {
+      const result = await this.store.replaceOneWithInfo(object);
+      if (!result) {
+        throw new NotFoundError(`Document not found: ${String(key)}`);
+      }
+      return [result.prev, result.next];
+    }
+    const prev = await this.store.findByKey(key);
+    if (!prev) throw new NotFoundError(`Document not found: ${String(key)}`);
+    return [prev, await this.store.replaceOne(object)];
+  }
+
+  private async partialUpdateByKeyAndGetResult(
+    key: KeyValue,
+    partialUpdate: Update<Model>,
+    criteria?: Criteria<Model>,
+  ): Promise<PartialUpdateResult<Model> | undefined> {
+    if (this.store.partialUpdateByKeyWithInfo) {
+      return this.store.partialUpdateByKeyWithInfo(
+        key,
+        partialUpdate,
+        criteria,
+      );
+    }
+    const prev = await this.store.findOne({
+      [this.keyPath]: key,
+      ...criteria,
+    });
+    if (!prev) return undefined;
+    return {
+      prev,
+      next: await this.store.partialUpdateByKey(key, partialUpdate, criteria),
+    };
+  }
+
+  private async deleteByKeyAndGetPrev(
+    key: KeyValue,
+    criteria?: Criteria<Model>,
+  ): Promise<Model | undefined> {
+    if (this.store.deleteByKeyWithInfo) {
+      const result = await this.store.deleteByKeyWithInfo(key, criteria);
+      return result?.prev;
+    }
+    const prev = await this.store.findByKey(key, criteria);
+    if (!prev) return undefined;
+    await this.store.deleteByKey(key, criteria);
+    return prev;
   }
 
   createQuerySingleItem<
@@ -143,18 +196,25 @@ export default class SubscribeStore<
   }
 
   async replaceOne(object: Model): Promise<Model> {
-    const replaced = await this.store.replaceOne(object);
-    this.callSubscribed({ type: "updated", changes: [[object, replaced]] });
-    return replaced;
+    const change = await this.replaceOneAndGetChange(object);
+    this.callSubscribed({ type: "updated", changes: [change] });
+    return change[1];
   }
 
   async replaceSeveral(objects: Model[]): Promise<Model[]> {
-    const replacedObjects = await this.store.replaceSeveral(objects);
-    this.callSubscribed({
-      type: "updated",
-      changes: objects.map((prev, index) => [prev, replacedObjects[index]!]),
-    });
-    return replacedObjects;
+    const results = await Promise.allSettled(
+      objects.map((object) => this.replaceOneAndGetChange(object)),
+    );
+    const changes = results.flatMap((result) =>
+      result.status === "fulfilled" ? [result.value] : [],
+    );
+    if (changes.length > 0) this.callSubscribed({ type: "updated", changes });
+
+    const failure = results.find(
+      (result): result is PromiseRejectedResult => result.status === "rejected",
+    );
+    if (failure) throw failure.reason;
+    return changes.map(([, next]) => next);
   }
 
   async upsertOne<
@@ -199,22 +259,29 @@ export default class SubscribeStore<
     partialUpdate: Update<Model>,
     criteria?: Criteria<Model>,
   ): Promise<Model> {
-    return this.partialUpdateOne(
-      (await this.findOne({
-        [this.store.keyPath]: key,
-        ...criteria,
-      }))!,
+    const result = await this.partialUpdateByKeyAndGetResult(
+      key,
       partialUpdate,
+      criteria,
     );
+    if (!result) throw new NotFoundError(`Document not found: ${String(key)}`);
+    if (!result.next) {
+      throw new DeletedAfterUpdateError(
+        `Document deleted after update: ${String(key)}`,
+      );
+    }
+    this.callSubscribed({
+      type: "updated",
+      changes: [[result.prev, result.next]],
+    });
+    return result.next;
   }
 
-  async partialUpdateOne(
+  partialUpdateOne(
     object: Model,
     partialUpdate: Update<Model>,
   ): Promise<Model> {
-    const updated = await this.store.partialUpdateOne(object, partialUpdate);
-    this.callSubscribed({ type: "updated", changes: [[object, updated]] });
-    return updated;
+    return this.partialUpdateByKey(object[this.keyPath], partialUpdate);
   }
 
   async partialUpdateMany(
@@ -224,25 +291,28 @@ export default class SubscribeStore<
     const cursor = await this.store.cursor(criteria);
     const changes: [Model, Model][] = [];
 
-    await cursor.forEach(async (model) => {
-      const key = model[this.store.keyPath];
-      const updated = await this.store.partialUpdateByKey(
-        key,
-        partialUpdate,
-        criteria,
-      );
-      changes.push([model, updated]);
-    });
-    this.callSubscribed({ type: "updated", changes });
+    try {
+      await cursor.forEach(async (model) => {
+        const result = await this.partialUpdateByKeyAndGetResult(
+          model[this.keyPath],
+          partialUpdate,
+          criteria,
+        );
+        if (result?.next) changes.push([result.prev, result.next]);
+      });
+    } finally {
+      if (changes.length > 0) this.callSubscribed({ type: "updated", changes });
+    }
   }
 
   async deleteByKey(key: KeyValue, criteria?: Criteria<Model>): Promise<void> {
-    return this.deleteOne((await this.findByKey(key, criteria))!);
+    const prev = await this.deleteByKeyAndGetPrev(key, criteria);
+    if (!prev) return;
+    this.callSubscribed({ type: "deleted", prev: [prev] });
   }
 
-  async deleteOne(object: Model): Promise<void> {
-    await this.store.deleteOne(object);
-    this.callSubscribed({ type: "deleted", prev: [object] });
+  deleteOne(object: Model): Promise<void> {
+    return this.deleteByKey(object[this.keyPath]);
   }
 
   async deleteMany(criteria: Criteria<Model>): Promise<void> {

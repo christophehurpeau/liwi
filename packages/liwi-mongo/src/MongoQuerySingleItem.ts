@@ -90,6 +90,56 @@ export default class MongoQuerySingleItem<
     });
   }
 
+  private async computeChanges(
+    action: Actions<Model>,
+    testCriteria: TestCriteria,
+  ): Promise<Changes<KeyValue, Result>> {
+    switch (action.type) {
+      case "inserted": {
+        const filtered = action.next.filter(testCriteria);
+        if (filtered.length === 0) return [];
+        return [{ type: "updated", result: this.transformer(filtered[0]!) }];
+      }
+      case "deleted": {
+        const filtered = action.prev.filter(testCriteria);
+        if (filtered.length === 0) return [];
+        return [
+          {
+            type: "deleted",
+            keys: filtered.map((object) => object[this.store.keyPath]),
+          },
+        ];
+      }
+      case "updated": {
+        const filtered = action.changes.filter(
+          ([prev, next]) => testCriteria(prev) || testCriteria(next),
+        );
+        if (filtered.length === 0) return [];
+
+        if (this.options.sort) {
+          const { result } = await this.fetch((res) => res);
+          return [{ type: "updated", result }];
+        }
+
+        if (filtered.length > 1) {
+          throw new Error(
+            "should not match more than 1, use sort if you can have multiple match",
+          );
+        }
+
+        const [, next] = filtered[0]!;
+        return [
+          {
+            type: "updated",
+            result: testCriteria(next) ? this.transformer(next) : null!,
+          },
+        ];
+      }
+      default:
+        throw new Error("Unsupported type");
+    }
+  }
+
   _subscribe(
     callback: SubscribeCallback<KeyValue, Result>,
     _includeInitial: boolean,
@@ -111,56 +161,12 @@ export default class MongoQuerySingleItem<
       : Promise.resolve();
 
     const unsubscribe = store.subscribe(async (action: Actions<Model>) => {
-      const changes: Changes<KeyValue, Result> = [];
-      switch (action.type) {
-        case "inserted": {
-          const filtered = action.next.filter(testCriteria);
-          if (filtered.length > 0) {
-            changes.push({
-              type: "updated",
-              result: this.transformer(filtered[0]!),
-            });
-          }
-          break;
-        }
-        case "deleted": {
-          const filtered = action.prev.filter(testCriteria);
-          if (filtered.length > 0) {
-            changes.push({
-              type: "deleted",
-              keys: filtered.map((object) => object[this.store.keyPath]),
-            });
-          }
-          break;
-        }
-        case "updated": {
-          const filtered = action.changes.filter(([prev, next]) =>
-            testCriteria(prev),
-          );
-          if (filtered.length > 0) {
-            if (this.options.sort) {
-              const { result } = await this.fetch((res) => res);
-              changes.push({
-                type: "updated",
-                result,
-              });
-            } else if (filtered.length !== 1) {
-              throw new Error(
-                "should not match more than 1, use sort if you can have multiple match",
-              );
-            } else {
-              const [, next] = filtered[0]!;
-              changes.push({
-                type: "updated",
-                result: testCriteria(next) ? this.transformer(next) : null!,
-              });
-            }
-          } else if (filtered.length === 0) {
-          }
-          break;
-        }
-        default:
-          throw new Error("Unsupported type");
+      let changes: Changes<KeyValue, Result>;
+      try {
+        changes = await this.computeChanges(action, testCriteria);
+      } catch (error: unknown) {
+        callback(error as Error, []);
+        return;
       }
 
       if (changes.length === 0) return;

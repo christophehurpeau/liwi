@@ -1,15 +1,19 @@
+import { NotFoundError } from "liwi-store";
 import type {
   AllowedKeyValue,
   CreateQueryOptions,
   Criteria,
+  DeleteResult,
   Fields,
   OptionalBaseModelKeysForInsert,
+  PartialUpdateResult,
   QueryParams,
   Sort,
   SubscribableStore,
   Update,
   UpsertPartialObject,
   UpsertResult,
+  WriteResult,
 } from "liwi-store";
 import type {
   Collection,
@@ -201,8 +205,30 @@ export default class MongoStore<
     if (!object.updated) object.updated = new Date();
 
     const collection = await this.collection;
-    await collection.replaceOne({ _id: object._id } as Filter<Model>, object);
-    return object;
+    const { matchedCount } = await collection.replaceOne(
+      { _id: object._id } as Filter<Model>,
+      object,
+    );
+    if (matchedCount === 0) {
+      throw new NotFoundError(`Document not found: ${String(object._id)}`);
+    }
+    return { ...object };
+  }
+
+  async replaceOneWithInfo(
+    object: Model,
+  ): Promise<WriteResult<Model> | undefined> {
+    if (!object.updated) object.updated = new Date();
+
+    const collection = await this.collection;
+    const prev = await collection.findOneAndReplace(
+      { _id: object._id } as Filter<Model>,
+      object,
+      { returnDocument: "before" },
+    );
+    if (!prev) return undefined;
+
+    return { prev: prev as Model, next: { ...object } };
   }
 
   async upsertOne<
@@ -280,16 +306,34 @@ export default class MongoStore<
     criteria?: Criteria<Model>,
   ): Promise<Model> {
     const collection = await this.collection;
-    const commandResult = await collection.updateOne(
+    const next = await collection.findOneAndUpdate(
       { _id: key, ...criteria } as Filter<Model>,
       partialUpdate as UpdateFilter<Model>,
+      { returnDocument: "after" },
     );
-    if (!commandResult.acknowledged) {
-      console.error(commandResult);
-      throw new Error("Update failed");
-    }
-    const object = await this.findByKey(key);
-    return object!;
+    if (!next) throw new NotFoundError(`Document not found: ${String(key)}`);
+    return next as Model;
+  }
+
+  /**
+   * `prev` is read atomically with the write. `next` is read right after it,
+   * so it may already include a later concurrent write, which emits its own change.
+   * Resolves `undefined` when no document matches.
+   */
+  async partialUpdateByKeyWithInfo(
+    key: KeyValue,
+    partialUpdate: Update<Model>,
+    criteria?: Criteria<Model>,
+  ): Promise<PartialUpdateResult<Model> | undefined> {
+    const collection = await this.collection;
+    const prev = await collection.findOneAndUpdate(
+      { _id: key, ...criteria } as Filter<Model>,
+      partialUpdate as UpdateFilter<Model>,
+      { returnDocument: "before" },
+    );
+    if (!prev) return undefined;
+
+    return { prev: prev as Model, next: await this.findByKey(key) };
   }
 
   partialUpdateOne(
@@ -311,12 +355,23 @@ export default class MongoStore<
       .then((res) => undefined); // TODO return updated object
   }
 
-  deleteByKey(key: KeyValue, criteria?: Criteria<Model>): Promise<void> {
-    return this.collection
-      .then((collection) =>
-        collection.deleteOne({ _id: key, ...criteria } as Filter<Model>),
-      )
-      .then(() => undefined);
+  async deleteByKey(key: KeyValue, criteria?: Criteria<Model>): Promise<void> {
+    const collection = await this.collection;
+    await collection.deleteOne({ _id: key, ...criteria } as Filter<Model>);
+  }
+
+  async deleteByKeyWithInfo(
+    key: KeyValue,
+    criteria?: Criteria<Model>,
+  ): Promise<DeleteResult<Model> | undefined> {
+    const collection = await this.collection;
+    const prev = await collection.findOneAndDelete({
+      _id: key,
+      ...criteria,
+    } as Filter<Model>);
+    if (!prev) return undefined;
+
+    return { prev: prev as Model };
   }
 
   deleteOne(object: Model): Promise<void> {

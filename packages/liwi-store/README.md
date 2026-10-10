@@ -40,22 +40,22 @@ interface BaseModel {
 
 `Store<KeyPath, KeyValue, Model, ModelInsertType, Connection>` exposes:
 
-| Method                                                                       | Description                                                               |
-| ---------------------------------------------------------------------------- | ------------------------------------------------------------------------- |
-| `createQuerySingleItem(options)`                                             | Builds a `Query<Result, Params>` resolving one item                       |
-| `createQueryCollection(options)`                                             | Builds a `Query<Item[], Params>`                                          |
-| `findAll(criteria?, sort?)`                                                  | All matching models                                                       |
-| `findByKey(key, criteria?)`                                                  | One model by key, or `undefined`                                          |
-| `findOne(criteria, sort?)`                                                   | First matching model, or `undefined`                                      |
-| `count(criteria?)`                                                           | Number of matching models                                                 |
-| `cursor(criteria?, sort?)`                                                   | An `AbstractStoreCursor`                                                  |
-| `insertOne(object)`                                                          | Inserts, returns the model with `created` / `updated` set                 |
-| `replaceOne(object)` / `replaceSeveral(objects)`                             | Full replace                                                              |
-| `upsertOne(object, setOnInsert?)`                                            | Inserts or updates; `upsertOneWithInfo` returns an `UpsertResult` (below) |
-| `partialUpdateByKey(key, update, criteria?)`                                 | Partial update by key, returns the updated model                          |
-| `partialUpdateOne(object, update)`                                           | Partial update of an already-loaded model                                 |
-| `partialUpdateMany(criteria, update)`                                        | Bulk partial update                                                       |
-| `deleteByKey(key, criteria?)` / `deleteOne(object)` / `deleteMany(criteria)` | Deletions                                                                 |
+| Method                                                                       | Description                                                                                   |
+| ---------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------- |
+| `createQuerySingleItem(options)`                                             | Builds a `Query<Result, Params>` resolving one item                                           |
+| `createQueryCollection(options)`                                             | Builds a `Query<Item[], Params>`                                                              |
+| `findAll(criteria?, sort?)`                                                  | All matching models                                                                           |
+| `findByKey(key, criteria?)`                                                  | One model by key, or `undefined`                                                              |
+| `findOne(criteria, sort?)`                                                   | First matching model, or `undefined`                                                          |
+| `count(criteria?)`                                                           | Number of matching models                                                                     |
+| `cursor(criteria?, sort?)`                                                   | An `AbstractStoreCursor`                                                                      |
+| `insertOne(object)`                                                          | Inserts, returns the model with `created` / `updated` set                                     |
+| `replaceOne(object)` / `replaceSeveral(objects)`                             | Full replace; throws [`NotFoundError`](#errors) when a key does not exist                     |
+| `upsertOne(object, setOnInsert?)`                                            | Inserts or updates; `upsertOneWithInfo` returns an `UpsertResult` (below)                     |
+| `partialUpdateByKey(key, update, criteria?)`                                 | Partial update by key, returns the updated model; throws `NotFoundError` when nothing matches |
+| `partialUpdateOne(object, update)`                                           | Partial update of an already-loaded model, by its key; throws `NotFoundError` when it is gone |
+| `partialUpdateMany(criteria, update)`                                        | Bulk partial update                                                                           |
+| `deleteByKey(key, criteria?)` / `deleteOne(object)` / `deleteMany(criteria)` | Deletions; deleting a missing key is a no-op                                                  |
 
 `criteria`, `sort` and `update` (`$set`, `$push`, `$setOnInsert`, …) follow the mongo query/update shape, typed against the model.
 
@@ -66,6 +66,45 @@ type UpsertResult<Model> =
   | { resolvedAs: "inserted"; inserted: true; object: Model }
   | { resolvedAs: "updated"; inserted: false; object: Model; prev: Model };
 ```
+
+### Writes with info
+
+Three optional methods return the stored document the write applied to, so that callers (and [`liwi-subscribe-store`](../liwi-subscribe-store)) do not have to trust an object loaded earlier:
+
+| Method                                               | Resolves                                  |
+| ---------------------------------------------------- | ----------------------------------------- |
+| `partialUpdateByKeyWithInfo(key, update, criteria?)` | `PartialUpdateResult<Model> \| undefined` |
+| `replaceOneWithInfo(object)`                         | `WriteResult<Model> \| undefined`         |
+| `deleteByKeyWithInfo(key, criteria?)`                | `DeleteResult<Model> \| undefined`        |
+
+```ts
+interface WriteResult<Model> {
+  prev: Model; // the stored document the write applied to
+  next: Model; // the stored document after the write
+}
+
+interface PartialUpdateResult<Model> {
+  prev: Model;
+  // undefined when a concurrent write deleted the document before it could
+  // be read back: the update was still applied
+  next: Model | undefined;
+}
+
+interface DeleteResult<Model> {
+  prev: Model; // the stored document as it was deleted
+}
+```
+
+`undefined` means no stored document matched the key (and criteria): nothing was written. These methods never throw `NotFoundError`.
+
+An implementation must read `prev` atomically with the write (in mongo, `findOneAnd*` with `returnDocument: "before"`). They are optional so that existing implementations keep compiling; the subscribe store falls back to reading `prev` before the write when they are missing, which is not atomic.
+
+### Errors
+
+Both are exported as classes, so they can be checked with `instanceof`.
+
+- **`NotFoundError`**: the document targeted by the write does not exist, or no longer matches `criteria`. Thrown by `replaceOne`, `replaceSeveral`, `partialUpdateByKey` and `partialUpdateOne`. Deletions do not throw it. It states that the document is gone.
+- **`DeletedAfterUpdateError`** extends `NotFoundError`: the partial update **was applied**, then a concurrent write deleted the document before it could be read back. The document is gone either way, so it is a `NotFoundError`; check for the subclass only when you need to know whether the update happened. Thrown by the subscribe store's `partialUpdateByKey` / `partialUpdateOne`.
 
 ## Queries
 
@@ -129,8 +168,14 @@ Implement `Store` and extend the provided abstract classes:
 - `AbstractStoreCursor` — cursor bound to a store and its key path.
 
 ```ts
-import { AbstractConnection, AbstractStoreCursor } from "liwi-store";
+import {
+  AbstractConnection,
+  AbstractStoreCursor,
+  NotFoundError,
+} from "liwi-store";
 import type { Store, SubscribableStore } from "liwi-store";
 ```
+
+Implement the [`…WithInfo` methods](#writes-with-info) when the database can return the previous document atomically: subscribers then get a true `prev`.
 
 See [`liwi-mongo`](../liwi-mongo) for a complete implementation.

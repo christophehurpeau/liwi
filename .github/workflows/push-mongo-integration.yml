@@ -1,0 +1,45 @@
+name: Mongo integration tests
+permissions:
+  contents: read
+on:
+  push:
+    paths:
+      - "packages/liwi-mongo/**"
+      - "packages/liwi-store/**"
+      - "packages/liwi-subscribe-store/**"
+      - "pnpm-lock.yaml"
+      - ".github/workflows/push-mongo-integration.yml"
+
+jobs:
+  test-mongo-integration:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v7
+
+      - name: Install pnpm
+        uses: pnpm/action-setup@v6
+        with:
+          version: 12
+
+      - uses: actions/setup-node@v7
+        with:
+          node-version: 24
+
+      - name: Cache mongodb binaries
+        uses: actions/cache@v4
+        with:
+          path: ~/.cache/mongodb-binaries
+          key: mongodb-binaries-${{ runner.os }}-${{ hashFiles('pnpm-lock.yaml') }}
+
+      - name: Install Dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Build
+        run: pnpm run build
+
+      - name: Integration tests
+        run: node --test 'packages/liwi-mongo/src/**/*.integration.test.ts'
+        env:
+          TZ: UTC
+          LIWI_MONGO_INTEGRATION: 1
