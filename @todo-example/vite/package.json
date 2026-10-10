@@ -32,7 +32,7 @@
   "dependencies": {
     "@todo-example/modules": "workspace:*",
     "compression": "1.8.2",
-    "express": "5.2.1",
+    "express": "5.3.0",
     "liwi-resources-client": "workspace:*",
     "liwi-resources-void-client": "workspace:*",
     "liwi-resources-websocket-client": "workspace:*",
