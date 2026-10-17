@@ -9,11 +9,11 @@ importers:
   .:
     devDependencies:
       '@pob/eslint-config':
-        specifier: 67.12.0
-        version: 67.12.0(@typescript-eslint/utils@8.65.0(@typescript/typescript6@6.0.2)(eslint@10.12.0(supports-color@7.2.0))(supports-color@7.2.0))(@typescript/typescript6@6.0.2)(eslint@10.12.0(supports-color@7.2.0))(supports-color@7.2.0)
+        specifier: 67.14.0
+        version: 67.14.0(@typescript-eslint/utils@8.65.0(@typescript/typescript6@6.0.2)(eslint@10.12.0(supports-color@7.2.0))(supports-color@7.2.0))(@typescript/typescript6@6.0.2)(eslint@10.12.0(supports-color@7.2.0))(supports-color@7.2.0)
       '@pob/eslint-config-typescript-react':
-        specifier: 67.12.0
-        version: 67.12.0(@typescript-eslint/utils@8.65.0(@typescript/typescript6@6.0.2)(eslint@10.12.0(supports-color@7.2.0))(supports-color@7.2.0))(@typescript/typescript6@6.0.2)(eslint@10.12.0(supports-color@7.2.0))(supports-color@7.2.0)
+        specifier: 67.14.0
+        version: 67.14.0(@typescript-eslint/utils@8.65.0(@typescript/typescript6@6.0.2)(eslint@10.12.0(supports-color@7.2.0))(supports-color@7.2.0))(@typescript/typescript6@6.0.2)(eslint@10.12.0(supports-color@7.2.0))(supports-color@7.2.0)
       '@pob/rollup-esbuild':
         specifier: 10.2.0
         version: 10.2.0(@typescript/typescript6@6.0.2)(supports-color@7.2.0)
@@ -787,16 +787,12 @@ packages:
       eslint:
         optional: true
 
-  '@eslint/json@1.2.0':
-    resolution: {integrity: sha512-CEFEyNgvzu8zn5QwVYDg3FaG+ZKUeUsNYitFpMYJAqoAlnw68EQgNbUfheSmexZr4n0wZPrAkPLuvsLaXO6wRw==}
+  '@eslint/json@2.1.1':
+    resolution: {integrity: sha512-ffVzPZALaJzxuo46ggBtJ9c8YBWKLMh/R35aFBHk/dRobmFNortJlHJfBWbHGuydoFeVZbvPy0PLX2wvCI9T9w==}
     engines: {node: ^20.19.0 || ^22.13.0 || >=24}
 
   '@eslint/object-schema@3.0.5':
     resolution: {integrity: sha512-vqTaUEgxzm+YDSdElad6PiRoX4t8VGDjCtt05zn4nU810UIx/uNEV7/lZJ6KwFThKZOzOxzXy48da+No7HZaMw==}
-    engines: {node: ^20.19.0 || ^22.13.0 || >=24}
-
-  '@eslint/plugin-kit@0.6.1':
-    resolution: {integrity: sha512-iH1B076HoAshH1mLpHMgwdGeTs0CYwL0SPMkGuSebZrwBp16v415e9NZXg2jtrqPVQjf6IANe2Vtlr5KswtcZQ==}
     engines: {node: ^20.19.0 || ^22.13.0 || >=24}
 
   '@eslint/plugin-kit@0.7.3':
@@ -834,8 +830,8 @@ packages:
     resolution: {integrity: sha512-bxveV4V8v5Yb4ncFTT3rPSgZBOpCkjfK0y4oVVVJwIuDVBRMDXrPyXRL988i5ap9m9bnyEEjWfm5WkBmtffLfA==}
     engines: {node: '>=12.22'}
 
-  '@humanwhocodes/momoa@3.3.10':
-    resolution: {integrity: sha512-KWiFQpSAqEIyrTXko3hFNLeQvSK8zXlJQzhhxsyVn58WFRYXST99b3Nqnu+ttOtjds2Pl2grUHGpe2NzhPynuQ==}
+  '@humanwhocodes/momoa@3.3.13':
+    resolution: {integrity: sha512-AbKq3EW41+HY6pNMJgAOrz68iyiTTf0Nr1JRHHfuG5zwniJ9Dw8J3U7oa1I2ptpqYwmEf1sXKOGK6lbdZ9eqmg==}
     engines: {node: '>=18'}
 
   '@humanwhocodes/retry@0.4.3':
@@ -1145,15 +1141,15 @@ packages:
     engines: {node: '>=20'}
     hasBin: true
 
-  '@pob/eslint-config-typescript-react@67.12.0':
-    resolution: {integrity: sha512-iswKfXCVhd/bqCTYq2m3iuofronNkpvhdTzU/Sx9a7GmK3xXHOCRmWUD/0NMfzemHw4en12SXL79eavrQ2jkOA==}
+  '@pob/eslint-config-typescript-react@67.14.0':
+    resolution: {integrity: sha512-/AlUuIrjg6M4UpkBfe2jR4mrrzA2cncRj0fJ1PviwxlRpevevrI+bmdMJm4DtV+SrD67rNzEJO2R7rVZgTF7Rg==}
     engines: {node: '>=22.18.0'}
     peerDependencies:
       eslint: ^10.8.0
       typescript: '>=5.0.0 <8.0.0'
 
-  '@pob/eslint-config@67.12.0':
-    resolution: {integrity: sha512-fvAgQvI/91LtpBys8SP0FM1zMlMuDGMsZ61i42SsaWpArRV0GdPloBHCn7W6XrCCeVJRucUUuiGx1ezIhskYLg==}
+  '@pob/eslint-config@67.14.0':
+    resolution: {integrity: sha512-Ge9f1K3pclwqk4cdP7/YKSFgd7r35uw5CGVs3o+s12YdMRQqp0EKHruCoHMBLAK2L34+ixO+aNxmFXC8d4qzww==}
     engines: {node: '>=22.18.0'}
     peerDependencies:
       eslint: ^10.8.0
@@ -1162,8 +1158,8 @@ packages:
       typescript:
         optional: true
 
-  '@pob/eslint-plugin@66.5.0':
-    resolution: {integrity: sha512-D7YketV0Sr28vd9FpoTtLQX/u+rIBvkOETiz6sO/vDbNw1yjsht4LqkuxrRpquVQ+3AxshUbEQocz4jLUia/Vg==}
+  '@pob/eslint-plugin@66.7.0':
+    resolution: {integrity: sha512-6pt5cfW3dvsUfFsNaMQ/yuag5ZdxMDVHvIH04kQxkSg898pgsDbPrRm+qz0dnZdzmmTKnDw1nu9LJS10rhD0WA==}
     engines: {node: '>=22.18.0'}
     peerDependencies:
       eslint: ^10.0.2
@@ -4240,19 +4236,14 @@ snapshots:
     optionalDependencies:
       eslint: 10.12.0(supports-color@7.2.0)
 
-  '@eslint/json@1.2.0':
+  '@eslint/json@2.1.1':
     dependencies:
       '@eslint/core': 1.2.1
-      '@eslint/plugin-kit': 0.6.1
-      '@humanwhocodes/momoa': 3.3.10
+      '@eslint/plugin-kit': 0.7.3
+      '@humanwhocodes/momoa': 3.3.13
       natural-compare: 1.4.0
 
   '@eslint/object-schema@3.0.5': {}
-
-  '@eslint/plugin-kit@0.6.1':
-    dependencies:
-      '@eslint/core': 1.2.1
-      levn: 0.4.1
 
   '@eslint/plugin-kit@0.7.3':
     dependencies:
@@ -4299,7 +4290,7 @@ snapshots:
 
   '@humanwhocodes/module-importer@1.0.1': {}
 
-  '@humanwhocodes/momoa@3.3.10': {}
+  '@humanwhocodes/momoa@3.3.13': {}
 
   '@humanwhocodes/retry@0.4.3': {}
 
@@ -4462,10 +4453,10 @@ snapshots:
     dependencies:
       playwright: 1.63.0
 
-  '@pob/eslint-config-typescript-react@67.12.0(@typescript-eslint/utils@8.65.0(@typescript/typescript6@6.0.2)(eslint@10.12.0(supports-color@7.2.0))(supports-color@7.2.0))(@typescript/typescript6@6.0.2)(eslint@10.12.0(supports-color@7.2.0))(supports-color@7.2.0)':
+  '@pob/eslint-config-typescript-react@67.14.0(@typescript-eslint/utils@8.65.0(@typescript/typescript6@6.0.2)(eslint@10.12.0(supports-color@7.2.0))(supports-color@7.2.0))(@typescript/typescript6@6.0.2)(eslint@10.12.0(supports-color@7.2.0))(supports-color@7.2.0)':
     dependencies:
-      '@pob/eslint-config': 67.12.0(@typescript-eslint/utils@8.65.0(@typescript/typescript6@6.0.2)(eslint@10.12.0(supports-color@7.2.0))(supports-color@7.2.0))(@typescript/typescript6@6.0.2)(eslint@10.12.0(supports-color@7.2.0))(supports-color@7.2.0)
-      '@pob/eslint-plugin': 66.5.0(@typescript/typescript6@6.0.2)(eslint@10.12.0(supports-color@7.2.0))(supports-color@7.2.0)
+      '@pob/eslint-config': 67.14.0(@typescript-eslint/utils@8.65.0(@typescript/typescript6@6.0.2)(eslint@10.12.0(supports-color@7.2.0))(supports-color@7.2.0))(@typescript/typescript6@6.0.2)(eslint@10.12.0(supports-color@7.2.0))(supports-color@7.2.0)
+      '@pob/eslint-plugin': 66.7.0(@typescript/typescript6@6.0.2)(eslint@10.12.0(supports-color@7.2.0))(supports-color@7.2.0)
       eslint: 10.12.0(supports-color@7.2.0)
       eslint-plugin-import-x: 4.17.1(@typescript-eslint/utils@8.65.0(@typescript/typescript6@6.0.2)(eslint@10.12.0(supports-color@7.2.0))(supports-color@7.2.0))(eslint@10.12.0(supports-color@7.2.0))(supports-color@7.2.0)
       eslint-plugin-jsx-a11y: 6.10.2(eslint@10.12.0(supports-color@7.2.0))
@@ -4477,11 +4468,11 @@ snapshots:
       - eslint-import-resolver-node
       - supports-color
 
-  '@pob/eslint-config@67.12.0(@typescript-eslint/utils@8.65.0(@typescript/typescript6@6.0.2)(eslint@10.12.0(supports-color@7.2.0))(supports-color@7.2.0))(@typescript/typescript6@6.0.2)(eslint@10.12.0(supports-color@7.2.0))(supports-color@7.2.0)':
+  '@pob/eslint-config@67.14.0(@typescript-eslint/utils@8.65.0(@typescript/typescript6@6.0.2)(eslint@10.12.0(supports-color@7.2.0))(supports-color@7.2.0))(@typescript/typescript6@6.0.2)(eslint@10.12.0(supports-color@7.2.0))(supports-color@7.2.0)':
     dependencies:
       '@eslint/js': 10.0.1(eslint@10.12.0(supports-color@7.2.0))
-      '@eslint/json': 1.2.0
-      '@pob/eslint-plugin': 66.5.0(@typescript/typescript6@6.0.2)(eslint@10.12.0(supports-color@7.2.0))(supports-color@7.2.0)
+      '@eslint/json': 2.1.1
+      '@pob/eslint-plugin': 66.7.0(@typescript/typescript6@6.0.2)(eslint@10.12.0(supports-color@7.2.0))(supports-color@7.2.0)
       '@typescript-eslint/eslint-plugin': 8.63.0(@typescript-eslint/parser@8.63.0(@typescript/typescript6@6.0.2)(eslint@10.12.0(supports-color@7.2.0))(supports-color@7.2.0))(@typescript/typescript6@6.0.2)(eslint@10.12.0(supports-color@7.2.0))(supports-color@7.2.0)
       '@typescript-eslint/parser': 8.63.0(@typescript/typescript6@6.0.2)(eslint@10.12.0(supports-color@7.2.0))(supports-color@7.2.0)
       check-package-dependencies: 13.2.0(eslint@10.12.0(supports-color@7.2.0))
@@ -4499,7 +4490,7 @@ snapshots:
       - eslint-import-resolver-node
       - supports-color
 
-  '@pob/eslint-plugin@66.5.0(@typescript/typescript6@6.0.2)(eslint@10.12.0(supports-color@7.2.0))(supports-color@7.2.0)':
+  '@pob/eslint-plugin@66.7.0(@typescript/typescript6@6.0.2)(eslint@10.12.0(supports-color@7.2.0))(supports-color@7.2.0)':
     dependencies:
       '@typescript-eslint/utils': 8.63.0(@typescript/typescript6@6.0.2)(eslint@10.12.0(supports-color@7.2.0))(supports-color@7.2.0)
       eslint: 10.12.0(supports-color@7.2.0)
