@@ -39,7 +39,7 @@
     "@pob/rollup-esbuild": "10.2.0",
     "@pob/root": "27.15.0",
     "@typescript/native": "npm:typescript@7.0.2",
-    "eslint": "10.12.0",
+    "eslint": "10.13.0",
     "typescript": "npm:@typescript/typescript6@6.0.2"
   },
   "commitlint": {
