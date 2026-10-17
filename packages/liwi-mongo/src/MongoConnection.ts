@@ -13,6 +13,11 @@ export interface MongoConfig {
   authSource?: string;
 }
 
+export interface MongoClientConfig {
+  /** Used as is, connected or connecting: `close()` closes it. */
+  client: mongodb.MongoClient;
+}
+
 interface BuildMongoConnectionStringParams extends MongoConfig {
   redactCredentials: boolean;
 }
@@ -47,9 +52,13 @@ export default class MongoConnection extends AbstractConnection {
 
   connectionFailed?: boolean;
 
-  // TODO interface
-  constructor(config: MongoConfig) {
+  constructor(config: MongoClientConfig | MongoConfig) {
     super();
+
+    if ("client" in config) {
+      this.useClient(config.client, "[client]");
+      return;
+    }
 
     if (!config.database) {
       throw new Error("Missing config database");
@@ -73,32 +82,7 @@ export default class MongoConnection extends AbstractConnection {
     const connectPromise = mongodb.MongoClient.connect(connectionString)
       .then((connection) => {
         logger.info("connected", { connectionStringRedacted });
-        connection.on("close", () => {
-          logger.warn("close", { connectionStringRedacted });
-          this.connectionFailed = true;
-          this.getConnection = () => {
-            throw new Error("MongoDB connection closed");
-          };
-        });
-        connection.on("timeout", () => {
-          logger.warn("timeout", { connectionStringRedacted });
-          this.connectionFailed = true;
-          this.getConnection = () => {
-            throw new Error("MongoDB connection timeout");
-          };
-        });
-        connection.on("reconnect", () => {
-          logger.warn("reconnect", { connectionStringRedacted });
-          this.connectionFailed = false;
-          this.getConnection = () => Promise.resolve(this._connection!);
-        });
-        connection.on("error", (err) => {
-          logger.warn("error", { connectionStringRedacted, err });
-        });
-
-        this._connection = connection;
-        this._connecting = undefined;
-        this.getConnection = () => Promise.resolve(this._connection!);
+        this.useClient(connection, connectionStringRedacted);
         return connection;
       })
       .catch((error: unknown) => {
@@ -115,6 +99,38 @@ export default class MongoConnection extends AbstractConnection {
 
     this.getConnection = () => Promise.resolve(connectPromise);
     this._connecting = this.getConnection();
+  }
+
+  private useClient(
+    connection: mongodb.MongoClient,
+    connectionStringRedacted: string,
+  ): void {
+    connection.on("close", () => {
+      logger.warn("close", { connectionStringRedacted });
+      this.connectionFailed = true;
+      this.getConnection = () => {
+        throw new Error("MongoDB connection closed");
+      };
+    });
+    connection.on("timeout", () => {
+      logger.warn("timeout", { connectionStringRedacted });
+      this.connectionFailed = true;
+      this.getConnection = () => {
+        throw new Error("MongoDB connection timeout");
+      };
+    });
+    connection.on("reconnect", () => {
+      logger.warn("reconnect", { connectionStringRedacted });
+      this.connectionFailed = false;
+      this.getConnection = () => Promise.resolve(this._connection!);
+    });
+    connection.on("error", (err) => {
+      logger.warn("error", { connectionStringRedacted, err });
+    });
+
+    this._connection = connection;
+    this._connecting = undefined;
+    this.getConnection = () => Promise.resolve(this._connection!);
   }
 
   getConnection(): Promise<mongodb.MongoClient> {

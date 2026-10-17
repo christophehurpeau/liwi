@@ -9,6 +9,7 @@ export type { Update } from "liwi-store";
 export { default as MongoStore, type MongoStoreOptions } from "./MongoStore.ts";
 export {
   default as MongoConnection,
+  type MongoClientConfig,
   type MongoConfig,
 } from "./MongoConnection.ts";
 export {

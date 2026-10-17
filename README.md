@@ -51,6 +51,7 @@ This repository is a monorepo using workspaces.
 - **Transports** — [websocket](packages/liwi-resources-websocket-client) for browsers and react-native, [websocket-client-node](packages/liwi-resources-websocket-client-node) for node hosts that need handshake auth headers, [http](packages/liwi-resources-http-client) for stateless `fetch` / `do` without subscriptions (SSR, scripts, serverless, networks that block websockets), [direct](packages/liwi-resources-direct-client) for in-process calls, [void](packages/liwi-resources-void-client) for SSR. Payloads are encoded with [`extended-json`](packages/extended-json) so `Date` values survive.
 - **React** — [`react-liwi`](packages/react-liwi) provides the transport, `useResource` / `usePaginatedResource` / `useOperation`.
 - **Indexes** — declared on the mongo store next to the queries that need them, collected in a `MongoRegistry`, applied by an explicit step. See [indexes](packages/liwi-mongo#indexes).
+- **Testing** — a real mongod, or the in-memory client of `liwi-mongo/memory` to keep the data in the test process. See [testing](packages/liwi-mongo#testing).
 
 ## Install
 

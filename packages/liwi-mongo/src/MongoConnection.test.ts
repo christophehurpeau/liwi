@@ -1,6 +1,28 @@
 import assert from "node:assert/strict";
-import { describe, it } from "node:test";
-import { buildMongoConnectionString } from "./MongoConnection.ts";
+import { describe, it, mock } from "node:test";
+import type mongodb from "mongodb";
+import MongoConnection, {
+  buildMongoConnectionString,
+} from "./MongoConnection.ts";
+
+describe("MongoConnection with a client", () => {
+  it("uses the client without connecting, and closes it", async () => {
+    const close = mock.fn(() => Promise.resolve());
+    const client = {
+      on: () => client,
+      close,
+    } as unknown as mongodb.MongoClient;
+
+    const connection = new MongoConnection({ client });
+
+    assert.equal(await connection.getConnection(), client);
+    await connection.close();
+    assert.equal(close.mock.callCount(), 1);
+    await assert.rejects(connection.getConnection(), {
+      message: "Connection closed",
+    });
+  });
+});
 
 describe("buildMongoConnectionString", () => {
   it("uses default host and port", () => {

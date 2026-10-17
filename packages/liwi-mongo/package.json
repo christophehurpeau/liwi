@@ -29,6 +29,12 @@
       "node": {
         "import": "./dist/index-node.mjs"
       }
+    },
+    "./memory": {
+      "types": "./dist/definitions/memory.d.ts",
+      "node": {
+        "import": "./dist/memory-node.mjs"
+      }
     }
   },
   "scripts": {
@@ -39,7 +45,7 @@
     "lint": "pnpm run lint:oxlint && pnpm run lint:eslint",
     "lint:eslint": "pnpm --dir '../..' exec eslint --quiet 'packages/liwi-mongo'",
     "lint:oxlint": "pnpm --dir '../..' exec oxlint --quiet 'packages/liwi-mongo'",
-    "test:integration": "LIWI_MONGO_INTEGRATION=1 TZ=UTC node --test 'src/**/*.integration.test.ts'",
+    "test:integration": "LIWI_MONGO_INTEGRATION=1 TZ=UTC node --test 'src/**/*.integration.test.ts' src/memory/contract.test.ts",
     "tsc": "tsc",
     "watch": "yarn clean:build && rollup --config rollup.config.mjs --watch"
   },
@@ -62,7 +68,8 @@
   "pob": {
     "bundler": "rollup-esbuild",
     "entries": [
-      "index"
+      "index",
+      "memory"
     ],
     "envs": [
       {

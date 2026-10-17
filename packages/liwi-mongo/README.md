@@ -93,6 +93,12 @@ new MongoConnection({ host, port, database, user, password });
 
 `host` defaults to `localhost` and `port` to `27017`; `database` is required. Connecting starts immediately in the constructor and is awaited lazily by store operations, so no explicit `connect()` call is needed. Credentials are redacted from logs. Call `connection.close()` on shutdown.
 
+```ts
+new MongoConnection({ client });
+```
+
+Uses a `MongoClient` you created yourself, connected or connecting: a connection string or client options `MongoConfig` does not cover, or the [in-memory client](#in-memory). `close()` closes it.
+
 ## `MongoStore`
 
 ```ts
@@ -293,3 +299,113 @@ Caveats:
 - Writes performed outside this process (other services, mongo shell, migrations) are not detected.
 - `$text` criteria cannot be matched in memory: such queries fetch correctly but never emit updates.
 - Queries returned by the subscribe store are fixed — `changeParams` throws; build a new query when parameters change.
+
+## Testing
+
+Two ways to give tests a database, both behind the same `MongoConnection`, so the stores and the app code under test do not change.
+
+### A real mongod
+
+The behaviour is mongod's by definition. Start one per test run with [`mongodb-memory-server`](https://github.com/typegoose/mongodb-memory-server) (it downloads a mongod binary once, then starts in about a second) or point at a mongod you already run:
+
+```ts
+import { MongoMemoryServer } from "mongodb-memory-server-core";
+import { MongoConnection, MongoRegistry } from "liwi-mongo";
+
+const mongod = await MongoMemoryServer.create();
+const connection = new MongoConnection({
+  host: "127.0.0.1",
+  port: mongod.instanceInfo!.port,
+  database: "app-test",
+});
+const stores = createStores(connection); // your app's MongoStore instances
+await new MongoRegistry(stores).syncIndexes();
+
+// between tests
+await Promise.all(stores.map((store) => store.deleteMany({})));
+
+// teardown
+await connection.close();
+await mongod.stop();
+```
+
+Nothing in liwi is needed for this. Every write is a round trip to another process, which is what makes a large e2e suite slow.
+
+### In memory
+
+`liwi-mongo/memory` is a mongo client that keeps the data in the test process: no binary, no port, no round trip. `MongoStore`, its queries, subscriptions and `MongoRegistry.syncIndexes` run unchanged on top of it; queries, sorts, projections, update operators and pipelines are evaluated by [mingo](https://github.com/kofrasa/mingo).
+
+```ts
+import { MongoConnection, MongoRegistry } from "liwi-mongo";
+import { createMemoryMongoClient } from "liwi-mongo/memory";
+
+const memory = createMemoryMongoClient();
+const connection = new MongoConnection({ client: memory.client });
+const stores = createStores(connection);
+await new MongoRegistry(stores).syncIndexes();
+
+// between tests: empties every collection, indexes stay
+memory.clear();
+```
+
+An e2e server can switch on an environment variable, and import the entry only in that mode:
+
+```ts
+const connection = process.env.E2E_MEMORY_DATABASE
+  ? new MongoConnection({
+      client: (await import("liwi-mongo/memory")).createMemoryMongoClient()
+        .client,
+    })
+  : new MongoConnection(config.mongo);
+```
+
+Sync the indexes as production does: the memory client only enforces the unique indexes it was asked to create.
+
+`createMemoryMongoClient({ database })` — `database` (default `liwi-memory`) is the one `client.db()` returns. Every client has its own data.
+
+#### Behaviour
+
+Documents are written and read back the way the driver serializes them: `undefined` becomes `null`, functions are dropped, a `Buffer` becomes a `Binary`, a class instance or a `Map` becomes a plain document. Every read returns a copy. A missing `_id` is generated as an `ObjectId`, set on the object passed in, as the driver does.
+
+Indexes are listed as mongod lists them, so a second `syncIndexes` plans nothing. Unique indexes are enforced, with `sparse`, `partialFilterExpression`, compound and array (multikey) keys, and a case-insensitive `collation` (strength 1 or 2). A violation throws a `MongoServerError` with code `11000`, `keyPattern` and `keyValue`.
+
+Errors carry mongod's codes where code reads them: `26` (missing collection on `listIndexes` / `dropIndex`), `27` (missing index), `40` (conflicting update paths), `66` (`_id` change), `85` / `86` (index conflicts), `11000` (duplicate key).
+
+Implemented driver methods:
+
+- client: `db`, `connect`, `close`, `on`
+- db: `collection`, `command` (`ping`, `collMod` of an index), `dropDatabase`
+- collection: `insertOne`, `insertMany`, `findOne`, `find` (`sort`, `project`, `skip`, `limit`), `countDocuments`, `estimatedDocumentCount`, `aggregate` (with `$lookup` on other collections of the database), `updateOne`, `updateMany`, `findOneAndUpdate` (`upsert`, `arrayFilters`, `sort`, `returnDocument`, `projection`), `deleteOne`, `deleteMany`, `findOneAndDelete`, `createIndex`, `createIndexes`, `listIndexes`, `indexes`, `dropIndex`, `drop`
+
+Reading any other method throws `liwi-mongo/memory: collection(<name>).<method> is not supported` rather than `undefined is not a function`.
+
+#### What differs from mongod
+
+- `$text` queries and `$meta` sorts throw; text indexes are created and listed, not searched.
+- TTL indexes (`expireAfterSeconds`) never expire documents.
+- No transactions, sessions, change streams (`watch`) or `bulkWrite`. Options such as `session`, `writeConcern` or `collation` on a query are ignored.
+- Writes are never concurrent: each operation runs to completion before the next one starts. Code relying on mongod interleaving two writes is not exercised.
+- `insertMany` stops at the first error and throws it as is, not as a `MongoBulkWriteError`.
+- `$out` and `$merge` stages do not write.
+- `$currentDate` reads this process clock.
+- Data is lost when the process exits, and invisible to any other process: an e2e test that reads the database directly must do so through the server.
+
+#### Contract suite
+
+[`src/memory/contract.test.ts`](src/memory/contract.test.ts) runs the same scenarios against the memory client and against a real mongod started with `mongodb-memory-server`. The mongod run is opt-in:
+
+```bash
+pnpm --filter liwi-mongo run test:integration
+```
+
+A behaviour difference found in an app belongs there first, as a scenario that passes on mongod and fails in memory.
+
+### Choosing
+
+|                  | Real mongod                                   | In memory                              |
+| ---------------- | --------------------------------------------- | -------------------------------------- |
+| Fidelity         | exact                                         | the [contract suite](#contract-suite)  |
+| Setup            | binary download (cache it in CI), a free port | none                                   |
+| Speed            | a round trip per operation                    | a function call                        |
+| Data shared with | any process connecting to it                  | the process that created it            |
+| Not covered      |                                               | [see above](#what-differs-from-mongod) |

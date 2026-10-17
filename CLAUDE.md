@@ -10,7 +10,7 @@ Core:
 
 - `liwi-store` — abstract `Store` / `SubscribableStore` interfaces, `Query`, cursors, connection. The contract every DB implementation satisfies.
 - `liwi-subscribe-store` — proxy that adds subscription support on top of a store.
-- `liwi-mongo` — MongoDB implementation of the store (uses `mingo` for in-memory query matching to drive subscriptions), plus declarative index management: stores declare `indexes`, `MongoRegistry` syncs them explicitly.
+- `liwi-mongo` — MongoDB implementation of the store (uses `mingo` for in-memory query matching to drive subscriptions), plus declarative index management: stores declare `indexes`, `MongoRegistry` syncs them explicitly. Its `liwi-mongo/memory` entry is an in-process fake of the `mongodb` driver surface `MongoStore` uses (mingo-based), plugged via `new MongoConnection({ client })`, for fast tests and e2e servers; `src/memory/contract.test.ts` runs the same scenarios against it and a real mongod (`LIWI_MONGO_INTEGRATION=1`): add a scenario there for any behaviour it must match.
 - `extended-json` — JSON with `Date` support via reviver; the wire format across the transport.
 - `liwi` — umbrella package.
 
