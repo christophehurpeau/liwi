@@ -12,7 +12,7 @@ import type {
   WebSocketConstructorLike,
   WebSocketLike,
   WebSocketMessageEvent,
-} from "./types";
+} from "./types.ts";
 
 export type StateChangeListener = (newState: ConnectionStates) => void;
 

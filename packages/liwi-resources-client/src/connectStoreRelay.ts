@@ -1,6 +1,6 @@
 import type { StoreRelayBatch, StoreRelayService } from "liwi-resources";
 import type { AllowedKeyValue } from "liwi-store";
-import type { TransportClient } from "./TransportClient";
+import type { TransportClient } from "./TransportClient.ts";
 import { createResourceClientService } from "./createResourceClientService.ts";
 
 /** A `SubscribeStore` of `liwi-subscribe-store` satisfies it. */

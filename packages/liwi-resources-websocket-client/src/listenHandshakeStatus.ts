@@ -1,4 +1,4 @@
-import type { HandshakeStatus, WebSocketLike } from "./types";
+import type { HandshakeStatus, WebSocketLike } from "./types.ts";
 
 interface UnexpectedResponse {
   statusCode?: number;

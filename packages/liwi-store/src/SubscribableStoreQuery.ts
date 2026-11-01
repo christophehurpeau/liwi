@@ -1,6 +1,6 @@
-import type { Query, QueryParams } from "./Query";
-import type { SubscribableStore } from "./SubscribableStore";
-import type { AllowedKeyValue, BaseModel } from "./types";
+import type { Query, QueryParams } from "./Query.ts";
+import type { SubscribableStore } from "./SubscribableStore.ts";
+import type { AllowedKeyValue, BaseModel } from "./types.ts";
 
 export interface SubscribableStoreQuery<
   KeyPath extends keyof Model,

@@ -1,8 +1,8 @@
 import { AbstractStoreCursor } from "liwi-store";
 import type { AllowedKeyValue } from "liwi-store";
 import type { FindCursor } from "mongodb";
-import type { MongoBaseModel } from "./MongoBaseModel";
-import type MongoStore from "./MongoStore";
+import type { MongoBaseModel } from "./MongoBaseModel.ts";
+import type MongoStore from "./MongoStore.ts";
 
 export default class MongoCursor<
   Model extends MongoBaseModel<KeyValue>,

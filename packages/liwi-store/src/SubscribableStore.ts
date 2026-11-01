@@ -1,13 +1,13 @@
-import type AbstractConnection from "./AbstractConnection";
-import type { QueryParams } from "./Query";
-import type { Store } from "./Store";
-import type { SubscribableStoreQuery } from "./SubscribableStoreQuery";
+import type AbstractConnection from "./AbstractConnection.ts";
+import type { QueryParams } from "./Query.ts";
+import type { Store } from "./Store.ts";
+import type { SubscribableStoreQuery } from "./SubscribableStoreQuery.ts";
 import type {
   AllowedKeyValue,
   BaseModel,
   CreateQueryOptions,
   InsertType,
-} from "./types";
+} from "./types.ts";
 
 export interface SubscribableStore<
   KeyPath extends keyof Model,

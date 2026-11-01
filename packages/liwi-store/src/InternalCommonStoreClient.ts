@@ -1,4 +1,4 @@
-import type { BaseModel, Criteria, Update } from "./types";
+import type { BaseModel, Criteria, Update } from "./types.ts";
 
 export interface InternalCommonStoreClient<Model extends BaseModel> {
   findByKey: (

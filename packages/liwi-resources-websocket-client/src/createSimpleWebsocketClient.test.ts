@@ -8,7 +8,7 @@ import type {
   ConnectionFailure,
   VisibilitySource,
   WebSocketMessageEvent,
-} from "./types";
+} from "./types.ts";
 
 const noop = (): void => {};
 

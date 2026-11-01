@@ -17,9 +17,9 @@ import type {
   MongoBaseModel,
   MongoInsertType,
   MongoKeyPath,
-} from "./MongoBaseModel";
-import type MongoCursor from "./MongoCursor";
-import type MongoStore from "./MongoStore";
+} from "./MongoBaseModel.ts";
+import type MongoCursor from "./MongoCursor.ts";
+import type MongoStore from "./MongoStore.ts";
 import { createActionQueue } from "./createActionQueue.ts";
 
 const identityTransformer = <

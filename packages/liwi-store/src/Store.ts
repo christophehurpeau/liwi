@@ -1,7 +1,7 @@
-import type AbstractConnection from "./AbstractConnection";
-import type AbstractStoreCursor from "./AbstractStoreCursor";
-import type { InternalCommonStoreClient } from "./InternalCommonStoreClient";
-import type { Query, QueryParams } from "./Query";
+import type AbstractConnection from "./AbstractConnection.ts";
+import type AbstractStoreCursor from "./AbstractStoreCursor.ts";
+import type { InternalCommonStoreClient } from "./InternalCommonStoreClient.ts";
+import type { Query, QueryParams } from "./Query.ts";
 import type {
   AllowedKeyValue,
   BaseModel,
@@ -12,7 +12,7 @@ import type {
   SetOptional,
   Sort,
   Update,
-} from "./types";
+} from "./types.ts";
 
 export type UpsertPartialObject<
   KeyPath extends keyof Model,

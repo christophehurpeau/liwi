@@ -4,11 +4,11 @@ export { useResource } from "./useResource.ts";
 export type {
   PaginatedQueryRequiredParams,
   Pagination,
-} from "./usePaginatedResource";
+} from "./usePaginatedResource.ts";
 export { usePaginatedResource } from "./usePaginatedResource.ts";
 export { useOperation } from "./useOperation.ts";
-export type { OperationCallWrapper } from "./useOperation";
-export type { ResourceResult } from "./createResourceResultFromState";
+export type { OperationCallWrapper } from "./useOperation.ts";
+export type { ResourceResult } from "./createResourceResultFromState.ts";
 export {
   TransportClientProvider,
   TransportClientContext,

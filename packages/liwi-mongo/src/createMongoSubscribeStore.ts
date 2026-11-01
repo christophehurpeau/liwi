@@ -4,9 +4,9 @@ import type {
   MongoBaseModel,
   MongoInsertType,
   MongoKeyPath,
-} from "./MongoBaseModel";
-import type MongoConnection from "./MongoConnection";
-import type MongoStore from "./MongoStore";
+} from "./MongoBaseModel.ts";
+import type MongoConnection from "./MongoConnection.ts";
+import type MongoStore from "./MongoStore.ts";
 
 export default function createMongoSubscribeStore<
   Model extends MongoBaseModel<KeyValue>,

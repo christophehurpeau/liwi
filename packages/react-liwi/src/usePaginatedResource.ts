@@ -4,8 +4,8 @@ import type {
   ResourceResultInitialError,
   ResourceResultInitialLoading,
   ResourceResultLoaded,
-} from "./createResourceResultFromState";
-import type { UseResourceOptions } from "./useResource";
+} from "./createResourceResultFromState.ts";
+import type { UseResourceOptions } from "./useResource.ts";
 import { useResource } from "./useResource.ts";
 
 export interface PaginatedQueryRequiredParams {

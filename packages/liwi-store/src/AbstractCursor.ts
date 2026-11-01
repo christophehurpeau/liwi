@@ -1,4 +1,4 @@
-import type { BaseModel } from "./types";
+import type { BaseModel } from "./types.ts";
 
 export default abstract class AbstractCursor<
   Model extends BaseModel,

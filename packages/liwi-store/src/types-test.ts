@@ -1,5 +1,5 @@
 /* oxlint-disable eslint-js/camelcase */
-import type { BaseModel, Criteria } from "./types";
+import type { BaseModel, Criteria } from "./types.ts";
 
 interface Test1 extends BaseModel {
   name: string;
