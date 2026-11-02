@@ -7,7 +7,7 @@ import type {
   ToServerQueryPayload,
 } from "liwi-resources";
 import { Logger } from "nightingale-logger";
-import type { TransportClient } from "./TransportClient";
+import type { TransportClient } from "./TransportClient.ts";
 
 const logger = new Logger("liwi:resources:query");
 

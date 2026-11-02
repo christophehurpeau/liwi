@@ -8,7 +8,7 @@ import type {
   QuerySubscription,
   SubscribeCallback,
 } from "liwi-store";
-import type SubscribeStore from "./SubscribeStore";
+import type SubscribeStore from "./SubscribeStore.ts";
 
 export default abstract class AbstractSubscribableStoreQuery<
   KeyPath extends keyof Model,

@@ -6,16 +6,16 @@ import type {
 import type { Changes, InitialChange, QueryInfo, QueryMeta } from "liwi-store";
 import { Logger } from "nightingale-logger";
 import { useEffect, useMemo, useReducer, useRef } from "react";
-import type { ApplyChanges } from "./applyChanges/ApplyChanges";
+import type { ApplyChanges } from "./applyChanges/ApplyChanges.ts";
 import { applyCollectionChanges } from "./applyChanges/applyCollectionChanges.ts";
 import { applySingleItemChanges } from "./applyChanges/applySingleItemChanges.ts";
-import type { ResourceResult } from "./createResourceResultFromState";
+import type { ResourceResult } from "./createResourceResultFromState.ts";
 import { createResourceResultFromState } from "./createResourceResultFromState.ts";
 import type {
   Action,
   ResourceReducerInitializerReturn,
   State,
-} from "./reducer";
+} from "./reducer.ts";
 import reducer, { initReducer } from "./reducer.ts";
 import { useVisibilityChangeSubscriber } from "./utils/useVisibilityChangeSubscriber.ts";
 

@@ -1,13 +1,13 @@
 import type { Query, QueryParams, QueryResult } from "liwi-resources-client";
 import { useCallback, useContext, useEffect, useReducer, useRef } from "react";
 import { TransportClientReadyContext } from "./TransportClientProvider.tsx";
-import type { ResourceResult } from "./createResourceResultFromState";
+import type { ResourceResult } from "./createResourceResultFromState.ts";
 import { createResourceResultFromState } from "./createResourceResultFromState.ts";
 import type {
   Action,
   ResourceReducerInitializerReturn,
   State,
-} from "./reducer";
+} from "./reducer.ts";
 import reducer, { initReducer } from "./reducer.ts";
 
 // eslint-disable-next-line @typescript-eslint/max-params

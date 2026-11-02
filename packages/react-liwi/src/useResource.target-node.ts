@@ -1,6 +1,6 @@
 import type { Query, QueryParams } from "liwi-resources-client";
-import type { ResourceResult } from "./createResourceResultFromState";
-import type { UseResourceOptions } from "./useResource";
+import type { ResourceResult } from "./createResourceResultFromState.ts";
+import type { UseResourceOptions } from "./useResource.ts";
 
 export function useResource<Result, Params extends QueryParams<Params>>(
   createQuery: (initialParams: Params) => Query<Result, Params>,

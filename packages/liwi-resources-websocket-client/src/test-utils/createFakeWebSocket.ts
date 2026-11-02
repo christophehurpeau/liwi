@@ -1,4 +1,4 @@
-import type { WebSocketConstructorLike, WebSocketLike } from "../types";
+import type { WebSocketConstructorLike, WebSocketLike } from "../types.ts";
 
 export interface FakeWebSocketInstance extends WebSocketLike {
   url: string;

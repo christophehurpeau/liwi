@@ -1,6 +1,6 @@
 {
   "name": "liwi-mongo-example",
-  "version": "15.0.0",
+  "version": "15.1.0",
   "private": true,
   "description": "minimal liwi-mongo usage example",
   "homepage": "https://github.com/christophehurpeau/liwi",

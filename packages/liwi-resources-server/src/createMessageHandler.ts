@@ -7,8 +7,8 @@ import type {
 } from "liwi-resources";
 import { ResourcesServerError } from "liwi-resources";
 import { Logger } from "nightingale-logger";
-import type { ResourcesServerService } from "./ResourcesServerService";
-import type { ServiceResource, SubscribeHook } from "./ServiceResource";
+import type { ResourcesServerService } from "./ResourcesServerService.ts";
+import type { ServiceResource, SubscribeHook } from "./ServiceResource.ts";
 
 const logger = new Logger("liwi:resources-websocket-client");
 

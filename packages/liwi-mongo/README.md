@@ -123,12 +123,12 @@ The store also exposes the underlying driver handles when you need them: `store.
 
 The plain methods do one round trip and do not read the previous document:
 
-| Method               | Driver call                                                           | Missing key            |
-| -------------------- | --------------------------------------------------------------------- | ---------------------- |
-| `partialUpdateByKey` | `findOneAndUpdate` with `returnDocument: "after"`                     | throws `NotFoundError` |
-| `partialUpdateMany`  | one `updateMany`; every document gets the same `updated`              | —                      |
-| `replaceOne`         | `findOneAndUpdate` with a replace pipeline, `returnDocument: "after"` | throws `NotFoundError` |
-| `deleteByKey`        | `deleteOne`                                                           | no-op                  |
+| Method               | Driver call                                                           | Missing key                                                 |
+| -------------------- | --------------------------------------------------------------------- | ----------------------------------------------------------- |
+| `partialUpdateByKey` | `findOneAndUpdate` with `returnDocument: "after"`                     | throws `NotFoundError`, or `undefined` with `allowNotFound` |
+| `partialUpdateMany`  | one `updateMany`; every document gets the same `updated`              | —                                                           |
+| `replaceOne`         | `findOneAndUpdate` with a replace pipeline, `returnDocument: "after"` | throws `NotFoundError`, or `undefined` with `allowNotFound` |
+| `deleteByKey`        | `deleteOne`                                                           | no-op                                                       |
 
 The replace pipeline is `$replaceWith` of the object (wrapped in `$literal`, so string values starting with `$` stay data) merged with the stored `created`. A plain `replaceOne` command could not keep `created`.
 

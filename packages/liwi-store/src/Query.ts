@@ -1,4 +1,9 @@
-import type { AllowedKeyValue, Changes, QueryInfo, QueryMeta } from "./types";
+import type {
+  AllowedKeyValue,
+  Changes,
+  QueryInfo,
+  QueryMeta,
+} from "./types.ts";
 
 export interface QuerySubscription extends PromiseLike<void> {
   cancel: () => void;

@@ -1,4 +1,4 @@
-import type { ConnectionFailureCause } from "./types";
+import type { ConnectionFailureCause } from "./types.ts";
 
 export const isUnrecoverableFailure = (
   cause: ConnectionFailureCause,

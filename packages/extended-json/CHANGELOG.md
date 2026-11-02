@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [15.0.2](https://github.com/christophehurpeau/liwi/compare/v15.0.1...v15.0.2) (2026-11-02)
+
+### Bug Fixes
+
+* add extensions to type imports
+
 ## [14.0.0](https://github.com/christophehurpeau/liwi/compare/v13.4.0...v14.0.0) (2026-10-11)
 
 Note: no notable changes
