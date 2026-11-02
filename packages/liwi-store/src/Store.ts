@@ -1,7 +1,7 @@
-import type AbstractConnection from "./AbstractConnection";
-import type AbstractStoreCursor from "./AbstractStoreCursor";
-import type { InternalCommonStoreClient } from "./InternalCommonStoreClient";
-import type { Query, QueryParams } from "./Query";
+import type AbstractConnection from "./AbstractConnection.ts";
+import type AbstractStoreCursor from "./AbstractStoreCursor.ts";
+import type { InternalCommonStoreClient } from "./InternalCommonStoreClient.ts";
+import type { Query, QueryParams } from "./Query.ts";
 import type {
   AllowedKeyValue,
   BaseModel,
@@ -12,7 +12,7 @@ import type {
   SetOptional,
   Sort,
   Update,
-} from "./types";
+} from "./types.ts";
 
 export type UpsertPartialObject<
   KeyPath extends keyof Model,
@@ -58,7 +58,7 @@ export interface DeleteResult<Model extends BaseModel> {
   prev: Model;
 }
 
-export interface PartialUpdateOptions {
+export interface TouchUpdatedOptions {
   /**
    * Set `updated` to the write time (the app clock). Defaults to `true`.
    *
@@ -73,6 +73,27 @@ export interface PartialUpdateOptions {
    */
   touchUpdated?: boolean;
 }
+
+export interface AllowNotFoundOptions {
+  /**
+   * Resolve `undefined` instead of throwing `NotFoundError` when no stored
+   * document matches. Defaults to `false`.
+   */
+  allowNotFound?: boolean;
+}
+
+export interface PartialUpdateOptions
+  extends TouchUpdatedOptions, AllowNotFoundOptions {}
+
+/** `Model`, or `Model | undefined` when `allowNotFound` may be `true`. */
+export type ResultAllowingNotFound<
+  Model,
+  Options extends object | undefined,
+> = Options extends { allowNotFound?: infer AllowNotFound }
+  ? true extends AllowNotFound
+    ? Model | undefined
+    : Model
+  : Model;
 
 export interface Store<
   KeyPath extends keyof Model,
@@ -120,7 +141,10 @@ export interface Store<
 
   insertOne: (object: ModelInsertType) => Promise<Model>;
 
-  replaceOne: (object: Model) => Promise<Model>;
+  replaceOne: <Options extends AllowNotFoundOptions | undefined = undefined>(
+    object: Model,
+    options?: Options,
+  ) => Promise<ResultAllowingNotFound<Model, Options>>;
 
   /** Resolves `undefined` when no stored document has the object's key. */
   replaceOneWithInfo?: (
@@ -143,31 +167,35 @@ export interface Store<
     setOnInsertPartialObject?: Update<Model>["$setOnInsert"],
   ) => Promise<UpsertResult<Model>>;
 
-  partialUpdateByKey: (
+  partialUpdateByKey: <
+    Options extends PartialUpdateOptions | undefined = undefined,
+  >(
     key: KeyValue,
     partialUpdate: Update<Model>,
     criteria?: Criteria<Model>,
-    options?: PartialUpdateOptions,
-  ) => Promise<Model>;
+    options?: Options,
+  ) => Promise<ResultAllowingNotFound<Model, Options>>;
 
   /** Resolves `undefined` when no stored document matches the key and criteria. */
   partialUpdateByKeyWithInfo?: (
     key: KeyValue,
     partialUpdate: Update<Model>,
     criteria?: Criteria<Model>,
-    options?: PartialUpdateOptions,
+    options?: TouchUpdatedOptions,
   ) => Promise<PartialUpdateResult<Model> | undefined>;
 
-  partialUpdateOne: (
+  partialUpdateOne: <
+    Options extends PartialUpdateOptions | undefined = undefined,
+  >(
     object: Model,
     partialUpdate: Update<Model>,
-    options?: PartialUpdateOptions,
-  ) => Promise<Model>;
+    options?: Options,
+  ) => Promise<ResultAllowingNotFound<Model, Options>>;
 
   partialUpdateMany: (
     criteria: Criteria<Model>,
     partialUpdate: Update<Model>,
-    options?: PartialUpdateOptions,
+    options?: TouchUpdatedOptions,
   ) => Promise<void>;
 
   deleteByKey: (key: KeyValue, criteria?: Criteria<Model>) => Promise<void>;

@@ -29,7 +29,7 @@ export type {
   StoreRelayBatch,
   StoreRelayService,
 } from "liwi-resources";
-export type { ClientQuery } from "./ClientQuery";
+export type { ClientQuery } from "./ClientQuery.ts";
 export type {
   TransportClient,
   TransportClientSubscribeCallback,
@@ -37,4 +37,4 @@ export type {
   ConnectionStateChangeListener,
   ConnectionStateChangeListenerCreator,
   ConnectionStates,
-} from "./TransportClient";
+} from "./TransportClient.ts";

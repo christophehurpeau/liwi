@@ -1,6 +1,6 @@
 import AbstractCursor from "./AbstractCursor.ts";
-import type { InternalCommonStoreClient } from "./InternalCommonStoreClient";
-import type { AllowedKeyValue, BaseModel } from "./types";
+import type { InternalCommonStoreClient } from "./InternalCommonStoreClient.ts";
+import type { AllowedKeyValue, BaseModel } from "./types.ts";
 
 export default abstract class AbstractStoreCursor<
   Store extends InternalCommonStoreClient<Model>,

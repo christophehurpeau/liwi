@@ -2,7 +2,7 @@ export type {
   MongoBaseModel,
   MongoKeyPath,
   MongoInsertType,
-} from "./MongoBaseModel";
+} from "./MongoBaseModel.ts";
 
 export type { Update } from "liwi-store";
 

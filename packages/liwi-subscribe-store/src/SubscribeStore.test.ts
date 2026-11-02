@@ -159,6 +159,36 @@ describe("SubscribeStore over a store with …WithInfo methods", () => {
     assert.deepEqual(actions, []);
   });
 
+  it("resolves undefined and emits nothing with allowNotFound, whether the key is missing or deleted after the update", async () => {
+    const { subscribeStore, actions } = createSubscribeStore({
+      partialUpdateByKeyWithInfo: (key) =>
+        Promise.resolve(
+          key === "1" ? undefined : { prev: stored, next: undefined },
+        ),
+    });
+
+    const options = { allowNotFound: true };
+    assert.equal(
+      await subscribeStore.partialUpdateByKey(
+        "1",
+        { $set: { label: "next" } },
+        undefined,
+        options,
+      ),
+      undefined,
+    );
+    assert.equal(
+      await subscribeStore.partialUpdateByKey(
+        "2",
+        { $set: { label: "next" } },
+        undefined,
+        options,
+      ),
+      undefined,
+    );
+    assert.deepEqual(actions, []);
+  });
+
   it("skips in partialUpdateMany a document deleted after its update", async () => {
     const { subscribeStore, actions } = createSubscribeStore({
       ...createCursorStore([staleCopy, { ...staleCopy, _id: "2" }]),
@@ -195,6 +225,18 @@ describe("SubscribeStore over a store with …WithInfo methods", () => {
     });
 
     await assert.rejects(subscribeStore.replaceOne(staleCopy), NotFoundError);
+    assert.deepEqual(actions, []);
+  });
+
+  it("resolves undefined and emits nothing on replaceOne of a missing key with allowNotFound", async () => {
+    const { subscribeStore, actions } = createSubscribeStore({
+      replaceOneWithInfo: () => Promise.resolve(undefined),
+    });
+
+    assert.equal(
+      await subscribeStore.replaceOne(staleCopy, { allowNotFound: true }),
+      undefined,
+    );
     assert.deepEqual(actions, []);
   });
 
@@ -350,7 +392,8 @@ describe("SubscribeStore over a store without …WithInfo methods", () => {
   it("reads prev before a partial update", async () => {
     const { subscribeStore, actions } = createSubscribeStore({
       findOne: () => Promise.resolve(stored),
-      partialUpdateByKey: () => Promise.resolve(next),
+      partialUpdateByKey: (() =>
+        Promise.resolve(next)) as TestStore["partialUpdateByKey"],
     });
 
     const result = await subscribeStore.partialUpdateOne(staleCopy, {
@@ -365,10 +408,10 @@ describe("SubscribeStore over a store without …WithInfo methods", () => {
     const replaced: TestModel[] = [];
     const { subscribeStore, actions } = createSubscribeStore({
       findByKey: (key) => Promise.resolve(key === "1" ? stored : undefined),
-      replaceOne: (object) => {
+      replaceOne: ((object: TestModel) => {
         replaced.push(object);
         return Promise.resolve(object);
-      },
+      }) as TestStore["replaceOne"],
     });
 
     const result = await subscribeStore.replaceOne(staleCopy);
@@ -392,6 +435,29 @@ describe("SubscribeStore over a store without …WithInfo methods", () => {
     await assert.rejects(
       subscribeStore.partialUpdateByKey("1", { $set: { label: "next" } }),
       NotFoundError,
+    );
+    assert.equal(
+      await subscribeStore.partialUpdateOne(
+        staleCopy,
+        { $set: { label: "next" } },
+        { allowNotFound: true },
+      ),
+      undefined,
+    );
+    assert.deepEqual(actions, []);
+  });
+
+  it("resolves undefined on a replace of a key deleted after prev was read, with allowNotFound", async () => {
+    const { subscribeStore, actions } = createSubscribeStore({
+      findByKey: () => Promise.resolve(stored),
+      replaceOne: (() =>
+        Promise.resolve(undefined)) as unknown as TestStore["replaceOne"],
+    });
+
+    await assert.rejects(subscribeStore.replaceOne(staleCopy), NotFoundError);
+    assert.equal(
+      await subscribeStore.replaceOne(staleCopy, { allowNotFound: true }),
+      undefined,
     );
     assert.deepEqual(actions, []);
   });
@@ -524,10 +590,10 @@ describe("SubscribeStore without listeners", () => {
   it("delegates partial updates to the wrapped store", async () => {
     const calls: unknown[][] = [];
     const subscribeStore = createUnsubscribedStore({
-      partialUpdateByKey: (...args) => {
+      partialUpdateByKey: ((...args: unknown[]) => {
         calls.push(["partialUpdateByKey", ...args]);
         return Promise.resolve(next);
-      },
+      }) as TestStore["partialUpdateByKey"],
       partialUpdateMany: (...args) => {
         calls.push(["partialUpdateMany", ...args]);
         return Promise.resolve();
@@ -568,10 +634,10 @@ describe("SubscribeStore without listeners", () => {
   it("delegates replaces to the wrapped store", async () => {
     const replaced: unknown[] = [];
     const subscribeStore = createUnsubscribedStore({
-      replaceOne: (object) => {
+      replaceOne: ((object: TestModel) => {
         replaced.push(object);
         return Promise.resolve(next);
-      },
+      }) as TestStore["replaceOne"],
       replaceSeveral: (objects) => {
         replaced.push(objects);
         return Promise.resolve([next]);

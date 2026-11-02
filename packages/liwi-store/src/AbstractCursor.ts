@@ -1,4 +1,4 @@
-import type { BaseModel } from "./types";
+import type { BaseModel } from "./types.ts";
 
 export default abstract class AbstractCursor<
   Model extends BaseModel,
@@ -37,13 +37,25 @@ export default abstract class AbstractCursor<
     );
   }
 
+  /**
+   * Ends only once a yielded key has resolved empty: await each promise before
+   * reading the next one, the last resolves `undefined`. Prefer `keysAsyncIterator`.
+   */
   *keysIterator(): Generator<Promise<any>, void, undefined> {
-    // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
-    while (true) {
-      yield this.next();
+    let ended = false;
+    const markEndedIfEmpty = <Key>(key: Key): Key => {
+      if (!key) ended = true;
+      return key;
+    };
+    while (!ended) {
+      yield this.next().then(markEndedIfEmpty);
     }
   }
 
+  /**
+   * Ends only once a yielded result has resolved empty: await each promise before
+   * reading the next one, the last resolves `undefined`. Prefer `for await`.
+   */
   *[Symbol.iterator](): Generator<Promise<Result>, void, undefined> {
     for (const keyPromise of this.keysIterator()) {
       // eslint-disable-next-line @typescript-eslint/no-unsafe-return
@@ -51,21 +63,20 @@ export default abstract class AbstractCursor<
     }
   }
 
-  // TODO Symbol.asyncIterator, https://phabricator.babeljs.io/T7356
-  /*
-    async *keysAsyncIterator() {
-        while (true) {
-             const key = await this.next();
-             if (!key) return;
+  async *keysAsyncIterator(): AsyncGenerator<any, void, undefined> {
+    // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
+    while (true) {
+      // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
+      const key = await this.next();
+      if (!key) return;
 
-             yield key;
-        }
-     }
+      yield key;
+    }
+  }
 
-     async *[Symbol.asyncIterator] {
-        for await (let key of this.keysAsyncIterator()) {
-            yield await this.result();
-        }
-     }
-     */
+  async *[Symbol.asyncIterator](): AsyncGenerator<Result, void, undefined> {
+    while (await this.next()) {
+      yield await this.result();
+    }
+  }
 }

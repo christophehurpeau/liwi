@@ -4,9 +4,9 @@ export type {
   StateChangeListener,
   StateChangeListenerCreator,
   WebsocketTransport,
-} from "./createSimpleWebsocketClient";
+} from "./createSimpleWebsocketClient.ts";
 export { default as createWebsocketTransportClient } from "./createWebsocketTransportClient.ts";
-export type { WebsocketTransportClientOptions } from "./createWebsocketTransportClient";
+export type { WebsocketTransportClientOptions } from "./createWebsocketTransportClient.ts";
 export { detectVisibilitySource } from "./detectVisibilitySource.ts";
 export { isUnrecoverableFailure } from "./isUnrecoverableFailure.ts";
 export type {
@@ -20,4 +20,4 @@ export type {
   WebSocketConstructorLike,
   WebSocketLike,
   WebSocketMessageEvent,
-} from "./types";
+} from "./types.ts";

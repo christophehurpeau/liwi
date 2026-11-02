@@ -1,4 +1,4 @@
-import type { ExtendedJsonValue } from "./ExtendedJsonValue";
+import type { ExtendedJsonValue } from "./ExtendedJsonValue.ts";
 
 type JsonReplacer = (
   key: string,

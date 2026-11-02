@@ -11,7 +11,7 @@ import type {
   TransportClientSubscribeResult,
 } from "liwi-resources-client";
 import { Logger } from "nightingale-logger";
-import type { SimpleWebsocketClientOptions } from "./createSimpleWebsocketClient";
+import type { SimpleWebsocketClientOptions } from "./createSimpleWebsocketClient.ts";
 import createSimpleWebsocketClient from "./createSimpleWebsocketClient.ts";
 
 const logger = new Logger("liwi:resources-websocket-client");

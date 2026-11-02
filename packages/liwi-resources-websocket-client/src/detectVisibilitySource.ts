@@ -1,4 +1,4 @@
-import type { VisibilitySource } from "./types";
+import type { VisibilitySource } from "./types.ts";
 
 interface VisibilityDocument {
   visibilityState: string;

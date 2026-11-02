@@ -4,21 +4,25 @@ export { default as AbstractStoreCursor } from "./AbstractStoreCursor.ts";
 export { default as DeletedAfterUpdateError } from "./DeletedAfterUpdateError.ts";
 export { default as NotFoundError } from "./NotFoundError.ts";
 export { default as ProtectedFieldUpdateError } from "./ProtectedFieldUpdateError.ts";
+export { resolveAllowingNotFound } from "./resolveAllowingNotFound.ts";
 
-export type { InternalCommonStoreClient } from "./InternalCommonStoreClient";
+export type { InternalCommonStoreClient } from "./InternalCommonStoreClient.ts";
 
-export type { SubscribableStore } from "./SubscribableStore";
-export type { SubscribableStoreQuery } from "./SubscribableStoreQuery";
+export type { SubscribableStore } from "./SubscribableStore.ts";
+export type { SubscribableStoreQuery } from "./SubscribableStoreQuery.ts";
 
 export type {
+  AllowNotFoundOptions,
   DeleteResult,
   PartialUpdateOptions,
   PartialUpdateResult,
+  ResultAllowingNotFound,
   Store,
+  TouchUpdatedOptions,
   UpsertResult,
   UpsertPartialObject,
   WriteResult,
-} from "./Store";
+} from "./Store.ts";
 
 export type {
   Query,
@@ -26,6 +30,6 @@ export type {
   QueryParams,
   QueryResult,
   SubscribeCallback,
-} from "./Query";
+} from "./Query.ts";
 
-export type * from "./types";
+export type * from "./types.ts";

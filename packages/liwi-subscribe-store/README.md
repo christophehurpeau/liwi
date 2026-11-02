@@ -109,8 +109,8 @@ When nothing is subscribed (no `subscribe` listener and no open query subscripti
 
 ### Missing keys and failures
 
-- A write on a key that does not exist emits nothing. `partialUpdateByKey`, `partialUpdateOne`, `replaceOne` and `replaceSeveral` throw [`NotFoundError`](../liwi-store#errors); `deleteByKey` and `deleteOne` resolve.
-- When a concurrent delete lands between a partial update and its read-back, the update was applied but there is no `next`: nothing is emitted (the delete emits its own `deleted` action) and `partialUpdateByKey` / `partialUpdateOne` throw `DeletedAfterUpdateError`, a subclass of `NotFoundError`. `partialUpdateMany` skips that document.
+- A write on a key that does not exist emits nothing. `partialUpdateByKey`, `partialUpdateOne`, `replaceOne` and `replaceSeveral` throw [`NotFoundError`](../liwi-store#errors), or resolve `undefined` with [`allowNotFound`](../liwi-store#missing-documents); `deleteByKey` and `deleteOne` resolve.
+- When a concurrent delete lands between a partial update and its read-back, the update was applied but there is no `next`: nothing is emitted (the delete emits its own `deleted` action) and `partialUpdateByKey` / `partialUpdateOne` throw `DeletedAfterUpdateError`, a subclass of `NotFoundError` (or resolve `undefined` with `allowNotFound`). `partialUpdateMany` skips that document.
 - `replaceSeveral`, `partialUpdateMany` and `deleteMany` emit the writes that succeeded before rethrowing the first failure, so listeners stay in sync with what was written.
 
 ### `updated`

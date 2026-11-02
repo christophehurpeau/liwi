@@ -1,6 +1,6 @@
 {
   "name": "@todo-example/vite",
-  "version": "15.0.0",
+  "version": "15.1.0",
   "private": true,
   "description": "SSR React frontend of the todo example",
   "homepage": "https://github.com/christophehurpeau/liwi",
@@ -57,7 +57,7 @@
     "playwright": "1.63.0",
     "springbokjs-daemon": "10.1.0",
     "typescript": "npm:@typescript/typescript6@6.0.2",
-    "vite": "8.2.1"
+    "vite": "8.2.4"
   },
   "engines": {
     "node": ">=22.18.0"

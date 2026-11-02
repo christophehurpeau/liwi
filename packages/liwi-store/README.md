@@ -50,7 +50,7 @@ interface BaseModel {
 | `count(criteria?)`                                                           | Number of matching models                                                                     |
 | `cursor(criteria?, sort?)`                                                   | An `AbstractStoreCursor`                                                                      |
 | `insertOne(object)`                                                          | Inserts, returns the model with `created` / `updated` set                                     |
-| `replaceOne(object)` / `replaceSeveral(objects)`                             | Full replace; throws [`NotFoundError`](#errors) when a key does not exist                     |
+| `replaceOne(object, options?)` / `replaceSeveral(objects)`                   | Full replace; throws [`NotFoundError`](#errors) when a key does not exist                     |
 | `upsertOne(object, setOnInsert?)`                                            | Inserts or updates; `upsertOneWithInfo` returns an `UpsertResult` (below)                     |
 | `partialUpdateByKey(key, update, criteria?, options?)`                       | Partial update by key, returns the updated model; throws `NotFoundError` when nothing matches |
 | `partialUpdateOne(object, update, options?)`                                 | Partial update of an already-loaded model, by its key; throws `NotFoundError` when it is gone |
@@ -81,8 +81,29 @@ interface PartialUpdateOptions {
   // false: leave `updated` as stored, for backfills, migrations and technical
   // flags that must not count as a change. Defaults to true. Costs nothing.
   touchUpdated?: boolean;
+  // see "Missing documents" below
+  allowNotFound?: boolean;
 }
 ```
+
+`partialUpdateMany` and `partialUpdateByKeyWithInfo` take `TouchUpdatedOptions` (`touchUpdated` only).
+
+### Missing documents
+
+`replaceOne`, `partialUpdateByKey` and `partialUpdateOne` throw [`NotFoundError`](#errors) when no stored document matches. Pass `allowNotFound: true` to resolve `undefined` instead; the return type then becomes `Model | undefined`:
+
+```ts
+const task = await tasks.partialUpdateByKey(
+  id,
+  { $set: { done: true } },
+  undefined,
+  { allowNotFound: true },
+); // Task | undefined
+
+const replaced = await tasks.replaceOne(task, { allowNotFound: true }); // Task | undefined
+```
+
+The type follows the option: `Model` when it is absent or `false`, `Model | undefined` when it is `true` or a `boolean`. It also covers [`DeletedAfterUpdateError`](#errors): `undefined` then means the update was applied but the document is gone. `replaceSeveral` has no such option.
 
 `UpsertResult` tells how the upsert resolved. `prev` is the document as it was before the update, read atomically with the write. `inserted` is a shorthand for `resolvedAs === "inserted"`.
 
@@ -130,7 +151,7 @@ They are exported as classes, so they can be checked with `instanceof`.
 
 - **`ProtectedFieldUpdateError`**: a partial update touched `created`, or touched `updated` with an operator other than `$set`, `$currentDate` or `$max` (see [`created` and `updated`](#created-and-updated)); an upsert passed `updated` in `setOnInsert`. Thrown before anything is written.
 
-- **`NotFoundError`**: the document targeted by the write does not exist, or no longer matches `criteria`. Thrown by `replaceOne`, `replaceSeveral`, `partialUpdateByKey` and `partialUpdateOne`. Deletions do not throw it. It states that the document is gone.
+- **`NotFoundError`**: the document targeted by the write does not exist, or no longer matches `criteria`. Thrown by `replaceOne`, `replaceSeveral`, `partialUpdateByKey` and `partialUpdateOne`, unless [`allowNotFound`](#missing-documents) is passed. Deletions do not throw it. It states that the document is gone.
 - **`DeletedAfterUpdateError`** extends `NotFoundError`: the partial update **was applied**, then a concurrent write deleted the document before it could be read back. The document is gone either way, so it is a `NotFoundError`; check for the subclass only when you need to know whether the update happened. Thrown by the subscribe store's `partialUpdateByKey` / `partialUpdateOne`.
 
 ## Queries

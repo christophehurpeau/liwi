@@ -23,7 +23,11 @@
     {
       "files": ["**/*.{ts,cts,mts,tsx}"],
       "rules": {
-        "import/extensions": ["error", "ignorePackages"]
+        "import/extensions": [
+          "error",
+          "ignorePackages",
+          { "checkTypeImports": true }
+        ]
       }
     },
     {

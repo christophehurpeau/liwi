@@ -254,6 +254,27 @@ describe("MongoStore writes with info", () => {
     );
   });
 
+  it("resolves undefined with allowNotFound when the partial update matches nothing", async () => {
+    existingDocument = null;
+
+    const store = createStore();
+
+    assert.equal(
+      await store.partialUpdateByKey("1", { $set: { label: "x" } }, undefined, {
+        allowNotFound: true,
+      }),
+      undefined,
+    );
+    assert.equal(
+      await store.partialUpdateOne(
+        { _id: "1", label: "x", created, updated },
+        { $set: { label: "x" } },
+        { allowNotFound: true },
+      ),
+      undefined,
+    );
+  });
+
   it("replaces atomically, keeping the stored created and stamping updated", async () => {
     const callerCreated = new Date("2025-01-01");
     const object: TestModel = {
@@ -327,6 +348,18 @@ describe("MongoStore writes with info", () => {
     await assert.rejects(
       createStore().replaceOne({ _id: "1", label: "x", created, updated }),
       NotFoundError,
+    );
+  });
+
+  it("resolves undefined with allowNotFound when replacing a missing document", async () => {
+    existingDocument = null;
+
+    assert.equal(
+      await createStore().replaceOne(
+        { _id: "1", label: "x", created, updated },
+        { allowNotFound: true },
+      ),
+      undefined,
     );
   });
 

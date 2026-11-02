@@ -5,7 +5,7 @@ import type {
   ResourcesServerError,
 } from "liwi-resources-client";
 import type { QueryInfo } from "liwi-store";
-import type { State } from "./reducer";
+import type { State } from "./reducer.ts";
 
 export interface ResourceResultInitialLoading<
   Data,
