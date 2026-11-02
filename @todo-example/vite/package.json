@@ -1,6 +1,6 @@
 {
   "name": "@todo-example/vite",
-  "version": "15.0.0",
+  "version": "15.0.2",
   "private": true,
   "description": "SSR React frontend of the todo example",
   "homepage": "https://github.com/christophehurpeau/liwi",
