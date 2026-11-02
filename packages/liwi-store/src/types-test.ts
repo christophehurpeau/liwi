@@ -1,4 +1,5 @@
 /* oxlint-disable eslint-js/camelcase */
+import type { PartialUpdateOptions, ResultAllowingNotFound } from "./Store.ts";
 import type { BaseModel, Criteria } from "./types.ts";
 
 interface Test1 extends BaseModel {
@@ -115,3 +116,36 @@ export const test2_geoInvalid: CriteriaTest2 = {
 export const test2_scalarArrayElemMatch: CriteriaTest2 = {
   tags: { $elemMatch: { $in: ["a", "b"] } },
 };
+
+declare const notFoundAllowedBoolean: boolean;
+declare const resultDefault: ResultAllowingNotFound<Test1, undefined>;
+declare const resultOtherOptions: ResultAllowingNotFound<
+  Test1,
+  { touchUpdated: false }
+>;
+declare const resultFalse: ResultAllowingNotFound<
+  Test1,
+  { allowNotFound: false }
+>;
+declare const resultTrue: ResultAllowingNotFound<
+  Test1,
+  { allowNotFound: true }
+>;
+declare const resultBoolean: ResultAllowingNotFound<
+  Test1,
+  { allowNotFound: typeof notFoundAllowedBoolean }
+>;
+declare const resultOptions: ResultAllowingNotFound<
+  Test1,
+  PartialUpdateOptions | undefined
+>;
+
+export const resultAllowingNotFound_default: Test1 = resultDefault;
+export const resultAllowingNotFound_otherOptions: Test1 = resultOtherOptions;
+export const resultAllowingNotFound_false: Test1 = resultFalse;
+// @ts-expect-error -- may be undefined
+export const resultAllowingNotFound_true: Test1 = resultTrue;
+// @ts-expect-error -- may be undefined
+export const resultAllowingNotFound_boolean: Test1 = resultBoolean;
+// @ts-expect-error -- may be undefined
+export const resultAllowingNotFound_options: Test1 = resultOptions;

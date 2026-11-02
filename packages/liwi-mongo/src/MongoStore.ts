@@ -1,5 +1,10 @@
-import { NotFoundError, ProtectedFieldUpdateError } from "liwi-store";
+import {
+  NotFoundError,
+  ProtectedFieldUpdateError,
+  resolveAllowingNotFound,
+} from "liwi-store";
 import type {
+  AllowNotFoundOptions,
   AllowedKeyValue,
   CreateQueryOptions,
   Criteria,
@@ -9,8 +14,10 @@ import type {
   PartialUpdateOptions,
   PartialUpdateResult,
   QueryParams,
+  ResultAllowingNotFound,
   Sort,
   SubscribableStore,
+  TouchUpdatedOptions,
   Update,
   UpsertPartialObject,
   UpsertResult,
@@ -46,8 +53,11 @@ import type {
 import { createReplacePipeline } from "./writes/createReplacePipeline.ts";
 import { stampPartialUpdate } from "./writes/stampPartialUpdate.ts";
 
-const resolveWriteTime = (options?: PartialUpdateOptions): Date | undefined =>
+const resolveWriteTime = (options?: TouchUpdatedOptions): Date | undefined =>
   options?.touchUpdated === false ? undefined : new Date();
+
+const createNotFoundError = (key: unknown): NotFoundError =>
+  new NotFoundError(`Document not found: ${String(key)}`);
 
 // the driver stores `undefined` as `null` (`ignoreUndefined` is off)
 const toStoredValues = <T extends object>(values: T): T =>
@@ -220,17 +230,21 @@ export default class MongoStore<
    * Always sets `updated` to the write time and keeps the stored `created`: the
    * object's own `created` and `updated` are ignored. The object is not mutated.
    */
-  async replaceOne(object: Model): Promise<Model> {
+  async replaceOne<
+    Options extends AllowNotFoundOptions | undefined = undefined,
+  >(
+    object: Model,
+    options?: Options,
+  ): Promise<ResultAllowingNotFound<Model, Options>> {
     const collection = await this.collection;
     const next = await collection.findOneAndUpdate(
       { _id: object._id } as Filter<Model>,
       createReplacePipeline({ ...object, updated: new Date() }),
       { returnDocument: "after" },
     );
-    if (!next) {
-      throw new NotFoundError(`Document not found: ${String(object._id)}`);
-    }
-    return next as Model;
+    return resolveAllowingNotFound(next as Model | null, options, () =>
+      createNotFoundError(object._id),
+    );
   }
 
   /** Same rules as `replaceOne`; `next` is derived from the atomic `prev`, no read back. */
@@ -329,12 +343,14 @@ export default class MongoStore<
     return Promise.all(objects.map((object: Model) => this.replaceOne(object)));
   }
 
-  async partialUpdateByKey(
+  async partialUpdateByKey<
+    Options extends PartialUpdateOptions | undefined = undefined,
+  >(
     key: KeyValue,
     partialUpdate: Update<Model>,
     criteria?: Criteria<Model>,
-    options?: PartialUpdateOptions,
-  ): Promise<Model> {
+    options?: Options,
+  ): Promise<ResultAllowingNotFound<Model, Options>> {
     const update = stampPartialUpdate(partialUpdate, resolveWriteTime(options));
     const collection = await this.collection;
     const next = await collection.findOneAndUpdate(
@@ -342,8 +358,9 @@ export default class MongoStore<
       update as UpdateFilter<Model>,
       { returnDocument: "after" },
     );
-    if (!next) throw new NotFoundError(`Document not found: ${String(key)}`);
-    return next as Model;
+    return resolveAllowingNotFound(next as Model | null, options, () =>
+      createNotFoundError(key),
+    );
   }
 
   /**
@@ -355,7 +372,7 @@ export default class MongoStore<
     key: KeyValue,
     partialUpdate: Update<Model>,
     criteria?: Criteria<Model>,
-    options?: PartialUpdateOptions,
+    options?: TouchUpdatedOptions,
   ): Promise<PartialUpdateResult<Model> | undefined> {
     const update = stampPartialUpdate(partialUpdate, resolveWriteTime(options));
     const collection = await this.collection;
@@ -369,11 +386,13 @@ export default class MongoStore<
     return { prev: prev as Model, next: await this.findByKey(key) };
   }
 
-  partialUpdateOne(
+  partialUpdateOne<
+    Options extends PartialUpdateOptions | undefined = undefined,
+  >(
     object: Model,
     partialUpdate: Update<Model>,
-    options?: PartialUpdateOptions,
-  ): Promise<Model> {
+    options?: Options,
+  ): Promise<ResultAllowingNotFound<Model, Options>> {
     return this.partialUpdateByKey(
       object._id,
       partialUpdate,
@@ -386,7 +405,7 @@ export default class MongoStore<
   async partialUpdateMany(
     criteria: Criteria<Model>,
     partialUpdate: Update<Model>,
-    options?: PartialUpdateOptions,
+    options?: TouchUpdatedOptions,
   ): Promise<void> {
     const update = stampPartialUpdate(partialUpdate, resolveWriteTime(options));
     const collection = await this.collection;

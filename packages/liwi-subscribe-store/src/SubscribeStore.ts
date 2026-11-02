@@ -1,7 +1,12 @@
-import { DeletedAfterUpdateError, NotFoundError } from "liwi-store";
+import {
+  DeletedAfterUpdateError,
+  NotFoundError,
+  resolveAllowingNotFound,
+} from "liwi-store";
 import type {
   AbstractConnection,
   AbstractStoreCursor,
+  AllowNotFoundOptions,
   AllowedKeyValue,
   BaseModel,
   CreateQueryOptions,
@@ -11,10 +16,12 @@ import type {
   PartialUpdateOptions,
   PartialUpdateResult,
   QueryParams,
+  ResultAllowingNotFound,
   Sort,
   Store as StoreInterface,
   SubscribableStore,
   SubscribableStoreQuery,
+  TouchUpdatedOptions,
   Update,
   UpsertPartialObject,
   UpsertResult,
@@ -57,6 +64,9 @@ const getActionKeys = <Model, KeyValue extends AllowedKeyValue>(
       throw new Error("Unsupported action type");
   }
 };
+
+const createNotFoundError = (key: unknown): NotFoundError =>
+  new NotFoundError(`Document not found: ${String(key)}`);
 
 export default class SubscribeStore<
   KeyPath extends keyof Model,
@@ -150,18 +160,17 @@ export default class SubscribeStore<
     return keys;
   }
 
-  private async replaceOneAndGetChange(object: Model): Promise<[Model, Model]> {
-    const key = object[this.keyPath];
+  private async replaceOneAndGetChange(
+    object: Model,
+  ): Promise<[Model, Model] | undefined> {
     if (this.store.replaceOneWithInfo) {
       const result = await this.store.replaceOneWithInfo(object);
-      if (!result) {
-        throw new NotFoundError(`Document not found: ${String(key)}`);
-      }
-      return [result.prev, result.next];
+      return result && [result.prev, result.next];
     }
-    const prev = await this.store.findByKey(key);
-    if (!prev) throw new NotFoundError(`Document not found: ${String(key)}`);
-    return [prev, await this.store.replaceOne(object)];
+    const prev = await this.store.findByKey(object[this.keyPath]);
+    if (!prev) return undefined;
+    const next = await this.store.replaceOne(object, { allowNotFound: true });
+    return next && [prev, next];
   }
 
   private async partialUpdateByKeyAndGetResult(
@@ -282,19 +291,30 @@ export default class SubscribeStore<
     return inserted;
   }
 
-  async replaceOne(object: Model): Promise<Model> {
-    if (!this.hasListeners()) return this.store.replaceOne(object);
+  async replaceOne<
+    Options extends AllowNotFoundOptions | undefined = undefined,
+  >(
+    object: Model,
+    options?: Options,
+  ): Promise<ResultAllowingNotFound<Model, Options>> {
+    if (!this.hasListeners()) return this.store.replaceOne(object, options);
 
     const change = await this.replaceOneAndGetChange(object);
-    this.callSubscribed({ type: "updated", changes: [change] });
-    return change[1];
+    if (change) this.callSubscribed({ type: "updated", changes: [change] });
+    return resolveAllowingNotFound(change?.[1], options, () =>
+      createNotFoundError(object[this.keyPath]),
+    );
   }
 
   async replaceSeveral(objects: Model[]): Promise<Model[]> {
     if (!this.hasListeners()) return this.store.replaceSeveral(objects);
 
     const results = await Promise.allSettled(
-      objects.map((object) => this.replaceOneAndGetChange(object)),
+      objects.map(async (object) => {
+        const change = await this.replaceOneAndGetChange(object);
+        if (!change) throw createNotFoundError(object[this.keyPath]);
+        return change;
+      }),
     );
     const changes = results.flatMap((result) =>
       result.status === "fulfilled" ? [result.value] : [],
@@ -345,12 +365,14 @@ export default class SubscribeStore<
     return upsertedWithInfo;
   }
 
-  async partialUpdateByKey(
+  async partialUpdateByKey<
+    Options extends PartialUpdateOptions | undefined = undefined,
+  >(
     key: KeyValue,
     partialUpdate: Update<Model>,
     criteria?: Criteria<Model>,
-    options?: PartialUpdateOptions,
-  ): Promise<Model> {
+    options?: Options,
+  ): Promise<ResultAllowingNotFound<Model, Options>> {
     if (!this.hasListeners()) {
       return this.store.partialUpdateByKey(
         key,
@@ -366,24 +388,28 @@ export default class SubscribeStore<
       criteria,
       options,
     );
-    if (!result) throw new NotFoundError(`Document not found: ${String(key)}`);
-    if (!result.next) {
-      throw new DeletedAfterUpdateError(
-        `Document deleted after update: ${String(key)}`,
-      );
+    if (result?.next) {
+      this.callSubscribed({
+        type: "updated",
+        changes: [[result.prev, result.next]],
+      });
     }
-    this.callSubscribed({
-      type: "updated",
-      changes: [[result.prev, result.next]],
-    });
-    return result.next;
+    return resolveAllowingNotFound(result?.next, options, () =>
+      result
+        ? new DeletedAfterUpdateError(
+            `Document deleted after update: ${String(key)}`,
+          )
+        : createNotFoundError(key),
+    );
   }
 
-  partialUpdateOne(
+  partialUpdateOne<
+    Options extends PartialUpdateOptions | undefined = undefined,
+  >(
     object: Model,
     partialUpdate: Update<Model>,
-    options?: PartialUpdateOptions,
-  ): Promise<Model> {
+    options?: Options,
+  ): Promise<ResultAllowingNotFound<Model, Options>> {
     return this.partialUpdateByKey(
       object[this.keyPath],
       partialUpdate,
@@ -401,7 +427,7 @@ export default class SubscribeStore<
   async partialUpdateMany(
     criteria: Criteria<Model>,
     partialUpdate: Update<Model>,
-    options?: PartialUpdateOptions,
+    options?: TouchUpdatedOptions,
   ): Promise<void> {
     if (!this.hasListeners()) {
       await this.store.partialUpdateMany(criteria, partialUpdate, options);
