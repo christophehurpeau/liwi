@@ -1,6 +1,6 @@
 {
   "name": "liwi-mongo",
-  "version": "15.1.0",
+  "version": "15.2.0",
   "description": "mongo implementation for liwi",
   "keywords": [],
   "homepage": "https://github.com/christophehurpeau/liwi",

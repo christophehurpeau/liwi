@@ -1,6 +1,6 @@
 {
   "name": "liwi-resources-websocket-client-node",
-  "version": "15.1.0",
+  "version": "15.2.0",
   "description": "node websocket client implementation for liwi",
   "keywords": [
     "liwi",

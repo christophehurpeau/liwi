@@ -3,6 +3,16 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [15.2.0](https://github.com/christophehurpeau/liwi/compare/v15.1.0...v15.2.0) (2026-11-03)
+
+### Features
+
+* **deps:** update dependency express to v5.3.0 ([#758](https://github.com/christophehurpeau/liwi/issues/758))
+
+### Bug Fixes
+
+* **deps:** update dependency mingo to ~7.2.7 ([#774](https://github.com/christophehurpeau/liwi/issues/774))
+
 ## [15.1.0](https://github.com/christophehurpeau/liwi/compare/v15.0.2...v15.1.0) (2026-11-02)
 
 ### Features
