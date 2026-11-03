@@ -53,7 +53,7 @@
     "liwi-store": "workspace:*",
     "liwi-subscribe-store": "workspace:*",
     "mingo": "~7.2.7",
-    "mongodb": "^7.7.0",
+    "mongodb": "^7.8.0",
     "nightingale-logger": "^18.2.0"
   },
   "devDependencies": {
