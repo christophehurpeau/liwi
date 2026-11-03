@@ -41,7 +41,6 @@ const subscribeToStores = (
   heartbeatIntervalMs: number,
   callback: SubscribeCallback<AllowedKeyValue, RelayResult>,
   includeInitial: boolean,
-  // eslint-disable-next-line @typescript-eslint/max-params
 ): QuerySubscription => {
   const pendingKeysByStore = new Map<string, Set<AllowedKeyValue>>();
   let flushTimeout: ReturnType<typeof setTimeout> | undefined;

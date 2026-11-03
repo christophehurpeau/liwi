@@ -1,5 +1,5 @@
 import type { ReactElement } from "react";
-import { useContext, useState } from "react";
+import { use, useState } from "react";
 import { usePaginatedResource } from "react-liwi";
 import { TodoServicesContext } from "../app/services/TodoServicesProvider";
 
@@ -13,7 +13,7 @@ export default function Paginated({
   const [completed, setCompleted] = useState(false);
   const [page, setPage] = useState(1);
 
-  const todoServices = useContext(TodoServicesContext);
+  const todoServices = use(TodoServicesContext);
   const tasksResourceResult = usePaginatedResource(
     todoServices.tasksService.queries.queryAll,
     {
@@ -62,7 +62,7 @@ export default function Paginated({
                     .fill(null)
                     .map((v, i) => {
                       return (
-                        // eslint-disable-next-line react/no-array-index-key
+                        // oxlint-disable-next-line react/no-array-index-key
                         <span key={i}>
                           <button
                             type="button"

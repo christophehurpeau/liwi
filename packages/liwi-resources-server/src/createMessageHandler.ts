@@ -96,7 +96,6 @@ export const createMessageHandler = <AuthenticatedUser>(
     resource: ServiceResource<any, any>,
     query: Query<any, any>,
     sendSubscriptionMessage: SubscriptionCallback,
-    // eslint-disable-next-line @typescript-eslint/max-params
   ): PromiseLike<null> => {
     if (!openedSubscriptions) {
       throw new Error("Subscriptions not allowed");

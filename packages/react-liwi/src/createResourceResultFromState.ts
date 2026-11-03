@@ -63,7 +63,7 @@ export const createResourceResultFromState = <
 >(
   state: State<Result, Params>,
 ): ResourceResult<Result, Params> =>
-  // eslint-disable-next-line @typescript-eslint/consistent-type-assertions
+  // oxlint-disable-next-line typescript/consistent-type-assertions
   ({
     query: state.query,
     initialLoading: !state.fetched && state.fetching,

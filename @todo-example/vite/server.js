@@ -1,4 +1,4 @@
-/* eslint-disable unicorn/no-await-expression-member */
+/* oxlint-disable unicorn/no-await-expression-member */
 import fs from "node:fs/promises";
 import path from "node:path";
 import { fileURLToPath } from "node:url";

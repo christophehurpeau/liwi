@@ -21,9 +21,9 @@ export default abstract class AbstractCursor<
   async forEachKeys(
     callback: (key: any) => Promise<void> | void,
   ): Promise<void> {
-    // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
+    // oxlint-disable-next-line typescript/no-unnecessary-condition
     while (true) {
-      // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
+      // oxlint-disable-next-line typescript/no-unsafe-assignment
       const key = await this.next();
       if (!key) return;
 
@@ -58,15 +58,15 @@ export default abstract class AbstractCursor<
    */
   *[Symbol.iterator](): Generator<Promise<Result>, void, undefined> {
     for (const keyPromise of this.keysIterator()) {
-      // eslint-disable-next-line @typescript-eslint/no-unsafe-return
+      // oxlint-disable-next-line typescript/no-unsafe-return
       yield keyPromise.then((key) => key && this.result());
     }
   }
 
   async *keysAsyncIterator(): AsyncGenerator<any, void, undefined> {
-    // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
+    // oxlint-disable-next-line typescript/no-unnecessary-condition
     while (true) {
-      // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
+      // oxlint-disable-next-line typescript/no-unsafe-assignment
       const key = await this.next();
       if (!key) return;
 

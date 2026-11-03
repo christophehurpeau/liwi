@@ -1,4 +1,3 @@
-/* eslint-disable complexity */
 import type {
   AllowedKeyValue,
   Changes,

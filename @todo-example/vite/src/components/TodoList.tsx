@@ -82,7 +82,7 @@ function TaskItem({
   }, [task]);
 
   return (
-    // eslint-disable-next-line jsx-a11y/no-noninteractive-element-interactions
+    // oxlint-disable-next-line jsx_a11y/no-noninteractive-element-interactions
     <li
       className={[
         optimisticUpdatedTask.completed && "completed",

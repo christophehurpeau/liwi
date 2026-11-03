@@ -5,7 +5,7 @@ export interface SubscribeHook<LoggedInUser = unknown, P = unknown> {
   unsubscribed: (loggedInUser: LoggedInUser | undefined, params: P) => void;
 }
 
-// eslint-disable-next-line @typescript-eslint/consistent-type-definitions
+// oxlint-disable-next-line typescript/consistent-type-definitions
 export type ServiceResource<
   ClientService extends ServiceInterface<any, any>,
   LoggedInUser = unknown,

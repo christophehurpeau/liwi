@@ -1,7 +1,7 @@
 import type { Query } from "liwi-resources-client";
 import { useResource } from "./useResource.ts";
 
-// eslint-disable-next-line @typescript-eslint/no-empty-object-type
+// oxlint-disable-next-line typescript/no-empty-object-type
 interface Test {}
 
 export function TestDataNotUndefinedWhenLoadingTrue(): void {
