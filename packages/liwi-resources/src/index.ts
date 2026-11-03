@@ -137,7 +137,7 @@ export type ToServerMessages = ToServerSimpleMessages &
 
 export type ToServerMessage = {
   id: number;
-} & ( // eslint-disable-next-line @typescript-eslint/sort-type-constituents
+} & (
   | {
       type: "do";
       payload: ToServerSimpleMessages["do"][0];
