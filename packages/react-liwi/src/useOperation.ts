@@ -24,7 +24,7 @@ export function useOperation<T extends (...args: any) => Promise<any>>(
         error: undefined,
       });
       try {
-        // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
+        // oxlint-disable-next-line typescript/no-unsafe-argument
         return operationCall(...(params as any)).then(
           (result) => {
             setState({

@@ -57,7 +57,14 @@
     {
       "files": ["@todo-example/vite/src/**"],
       "rules": {
-        "import/extensions": "off"
+        "import/extensions": "off",
+        "react/function-component-definition": [
+          "error",
+          {
+            "namedComponents": ["function-declaration", "arrow-function"],
+            "unnamedComponents": "arrow-function"
+          }
+        ]
       }
     }
   ]

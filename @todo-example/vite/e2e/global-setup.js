@@ -97,7 +97,7 @@ export default async function globalSetup(config) {
   // await async work, so it only triggers daemon kills synchronously; the
   // returned teardown below is the reliable path Playwright awaits.
   const onSignal = () => {
-    // eslint-disable-next-line unicorn/no-process-exit
+    // oxlint-disable-next-line unicorn/no-process-exit
     cleanup().finally(() => process.exit(130));
   };
   process.on("SIGINT", onSignal);

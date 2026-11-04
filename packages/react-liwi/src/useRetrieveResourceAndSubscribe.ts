@@ -216,7 +216,7 @@ export function useRetrieveResourceAndSubscribe<
     if (changeParamsRef.current) {
       changeParamsRef.current(params);
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+    // oxlint-disable-next-line react/exhaustive-deps
   }, [skip, ...deps]);
 
   useEffect(() => {

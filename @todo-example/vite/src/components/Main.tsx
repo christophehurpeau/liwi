@@ -1,12 +1,12 @@
 import type { TaskSummary } from "@todo-example/modules";
 import type { ReactElement } from "react";
-import { useContext, useMemo, useState } from "react";
+import { use, useMemo, useState } from "react";
 import { useOperation, useResource } from "react-liwi";
 import { TodoServicesContext } from "../app/services/TodoServicesProvider";
 import { TodoList } from "./TodoList";
 
 export default function Main(): ReactElement | null {
-  const todoServices = useContext(TodoServicesContext);
+  const todoServices = use(TodoServicesContext);
   const tasksResourceResult = useResource(
     todoServices.tasksService.queries.queryAll,
     {
@@ -20,7 +20,7 @@ export default function Main(): ReactElement | null {
   );
 
   const [hash, setHash] = useState(
-    // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
+    // oxlint-disable-next-line typescript/no-unnecessary-condition
     globalThis.window === undefined ? "#/" : globalThis.location.hash,
   );
 
@@ -108,7 +108,7 @@ export default function Main(): ReactElement | null {
             onClick={() => {
               clearCompleted().catch((error) => {
                 console.error(error);
-                // eslint-disable-next-line no-alert
+                // oxlint-disable-next-line no-alert
                 alert("Error clearing completed tasks");
               });
             }}

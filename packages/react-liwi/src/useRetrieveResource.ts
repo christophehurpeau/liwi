@@ -1,5 +1,5 @@
 import type { Query, QueryParams, QueryResult } from "liwi-resources-client";
-import { useCallback, useContext, useEffect, useReducer, useRef } from "react";
+import { use, useCallback, useEffect, useReducer, useRef } from "react";
 import { TransportClientReadyContext } from "./TransportClientProvider.tsx";
 import type { ResourceResult } from "./createResourceResultFromState.ts";
 import { createResourceResultFromState } from "./createResourceResultFromState.ts";
@@ -10,14 +10,14 @@ import type {
 } from "./reducer.ts";
 import reducer, { initReducer } from "./reducer.ts";
 
-// eslint-disable-next-line @typescript-eslint/max-params
+// oxlint-disable-next-line max-params
 export function useRetrieveResource<Result, Params extends QueryParams<Params>>(
   createQuery: (initialParams: Params) => Query<Result, Params>,
   params: Params,
   skip: boolean,
   deps: any[],
 ): ResourceResult<Result, Params> {
-  const isTransportReady = useContext(TransportClientReadyContext);
+  const isTransportReady = use(TransportClientReadyContext);
   const wasReady = useRef(isTransportReady);
   const currentFetchId = useRef(0);
 
@@ -98,7 +98,7 @@ export function useRetrieveResource<Result, Params extends QueryParams<Params>>(
         dispatch({ type: "error", error: error as Error });
       }),
     });
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+    // oxlint-disable-next-line react/exhaustive-deps
   }, [state.query, skip, ...deps]);
 
   return createResourceResultFromState(state);

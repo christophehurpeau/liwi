@@ -1,7 +1,7 @@
 import type { TasksService } from "@todo-example/modules";
 import { createResourceClientService } from "liwi-resources-client";
 import type { ReactNode } from "react";
-import { createContext, useContext, useState } from "react";
+import { createContext, use, useState } from "react";
 import { TransportClientContext } from "react-liwi";
 
 const createTasksServiceClient = createResourceClientService<TasksService>(
@@ -25,15 +25,13 @@ export function TodoServicesProvider({
 }: {
   children: ReactNode;
 }): ReactNode {
-  const transportClient = useContext(TransportClientContext);
-  // eslint-disable-next-line react/hook-use-state
+  const transportClient = use(TransportClientContext);
+  // oxlint-disable-next-line react/hook-use-state
   const [todoServices] = useState(() => ({
     tasksService: createTasksServiceClient(transportClient),
   }));
 
   return (
-    <TodoServicesContext.Provider value={todoServices}>
-      {children}
-    </TodoServicesContext.Provider>
+    <TodoServicesContext value={todoServices}>{children}</TodoServicesContext>
   );
 }

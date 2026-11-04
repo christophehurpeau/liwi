@@ -17,7 +17,6 @@ const applyCollectionChange = <Value>(
   change: Change<any, Value[]>,
   queryMeta: QueryMeta,
   queryInfo: QueryInfo<Value>,
-  // eslint-disable-next-line @typescript-eslint/max-params
 ): Value[] => {
   switch (change.type) {
     case "initial": {
@@ -79,7 +78,7 @@ const applyCollectionChange = <Value>(
 };
 
 // https://github.com/rethinkdb/horizon/blob/next/client/src/ast.js
-// eslint-disable-next-line @typescript-eslint/max-params
+// oxlint-disable-next-line max-params
 export function applyCollectionChanges<Item>(
   state: Item[] | undefined,
   changes: Changes<any, Item[]>,
@@ -91,7 +90,7 @@ export function applyCollectionChanges<Item>(
   const newQueryMeta = { ...queryMeta };
 
   return {
-    // eslint-disable-next-line unicorn/no-array-reduce
+    // oxlint-disable-next-line unicorn/no-array-reduce
     state: changes.reduce<Item[]>(
       (result: Item[], change: Change<any, Item[]>) =>
         applyCollectionChange<Item>(result, change, newQueryMeta, queryInfo),

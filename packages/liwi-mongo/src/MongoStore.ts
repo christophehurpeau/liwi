@@ -216,7 +216,7 @@ export default class MongoStore<
 
     const collection = await this.collection;
     const { acknowledged: isAcknowledged } = await collection.insertOne(
-      // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
+      // oxlint-disable-next-line typescript/no-unsafe-argument
       object as any,
     );
     if (!isAcknowledged) {

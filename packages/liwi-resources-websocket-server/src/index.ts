@@ -37,7 +37,6 @@ export const createWsServer = <AuthenticatedUser>(
   path: string,
   resourcesServerService: ResourcesServerService,
   getAuthenticatedUser: GetAuthenticatedUser<AuthenticatedUser>,
-  // eslint-disable-next-line @typescript-eslint/max-params
 ): ResourcesWebsocketServer => {
   const wss = new WebSocketServer({ noServer: true });
 
@@ -51,7 +50,6 @@ export const createWsServer = <AuthenticatedUser>(
         id: ToClientMessage[1],
         error: ToClientMessage[2],
         result: ToClientMessage[3],
-        // eslint-disable-next-line @typescript-eslint/max-params
       ): void => {
         if (!id) throw new Error("Invalid id");
         logger.debug("sendMessage", { type, id, error, result });
@@ -133,7 +131,7 @@ export const createWsServer = <AuthenticatedUser>(
       ws.on("message", (data, isBinary): void => {
         if (isBinary) return;
 
-        // eslint-disable-next-line @typescript-eslint/no-base-to-string
+        // oxlint-disable-next-line typescript/no-base-to-string
         const message = data.toString();
 
         if (message === "close") return;
@@ -154,7 +152,7 @@ export const createWsServer = <AuthenticatedUser>(
         try {
           const [type, id, payload] = decoded;
           logger.debug("received", { type, id, payload });
-          // eslint-disable-next-line @typescript-eslint/no-floating-promises
+          // oxlint-disable-next-line typescript/no-floating-promises
           handleDecodedMessage({ type, id, payload } as ToServerMessage);
         } catch {
           logger.notice("invalid message", { decoded });
@@ -190,7 +188,7 @@ export const createWsServer = <AuthenticatedUser>(
     const authenticatedUserPromise: Promise<AuthenticatedUser | null> =
       Promise.resolve(getAuthenticatedUser(request));
     wss.handleUpgrade(request, socket, upgradeHead, (ws) => {
-      // eslint-disable-next-line @typescript-eslint/no-floating-promises
+      // oxlint-disable-next-line typescript/no-floating-promises
       authenticatedUserPromise
         .catch((error: unknown) => {
           logger.warn(

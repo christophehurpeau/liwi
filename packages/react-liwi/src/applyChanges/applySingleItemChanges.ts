@@ -5,7 +5,6 @@ const applySingleItemChange = <Value extends Record<keyof Value, any>>(
   change: Change<any, Value | null>,
   queryMeta: QueryMeta,
   queryInfo: QueryInfo<Value>,
-  // eslint-disable-next-line @typescript-eslint/max-params
 ): Value | null => {
   switch (change.type) {
     case "initial":
@@ -29,7 +28,6 @@ const applySingleItemChange = <Value extends Record<keyof Value, any>>(
 };
 
 // https://github.com/rethinkdb/horizon/blob/next/client/src/ast.js
-// eslint-disable-next-line @typescript-eslint/max-params
 export function applySingleItemChanges<
   Value extends Record<keyof Value, unknown>,
 >(
@@ -43,7 +41,7 @@ export function applySingleItemChanges<
   const newQueryMeta = { ...queryMeta };
 
   return {
-    // eslint-disable-next-line unicorn/no-array-reduce
+    // oxlint-disable-next-line unicorn/no-array-reduce
     state: changes.reduce<Value | null>(
       (result: Value | null, change: Change<any, Value | null>) =>
         applySingleItemChange<Value>(result, change, newQueryMeta, queryInfo),

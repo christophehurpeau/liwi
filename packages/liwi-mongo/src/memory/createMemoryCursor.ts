@@ -75,7 +75,7 @@ export const createMemoryFindCursor = <T>(
   ): MemoryFindCursor<T> => {
     if (isStarted()) throw new mongodb.MongoCursorInUseError();
     Object.assign(options, { [option]: value });
-    // eslint-disable-next-line @typescript-eslint/no-use-before-define -- returns the cursor being built
+    // oxlint-disable-next-line no-use-before-define -- returns the cursor being built
     return findCursor;
   };
 

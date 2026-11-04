@@ -117,7 +117,7 @@ export default function reducer<Result, Params extends QueryParams<Params>>(
         error: undefined,
       };
     case "refetch":
-      // eslint-disable-next-line @typescript-eslint/consistent-type-assertions
+      // oxlint-disable-next-line typescript/consistent-type-assertions
       return {
         fetched: state.fetched,
         fetching: true,

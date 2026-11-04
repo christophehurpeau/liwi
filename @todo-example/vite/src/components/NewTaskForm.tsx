@@ -1,18 +1,18 @@
 import type { ReactNode, SubmitEventHandler } from "react";
-import { useContext, useEffect, useState } from "react";
+import { use, useEffect, useState } from "react";
 import { TransportClientReadyContext, useOperation } from "react-liwi";
 import { TodoServicesContext } from "../app/services/TodoServicesProvider";
 
 export function NewTaskForm(): ReactNode {
   const [newTaskInput, setNewTaskInput] = useState("");
-  const todoServices = useContext(TodoServicesContext);
-  const isReady = useContext(TransportClientReadyContext);
+  const todoServices = use(TodoServicesContext);
+  const isReady = use(TransportClientReadyContext);
   const [createTask, { loading: taskCreating, error: taskCreateFailed }] =
     useOperation(todoServices.tasksService.operations.create);
 
   useEffect(() => {
     if (taskCreateFailed === undefined) return;
-    // eslint-disable-next-line no-alert
+    // oxlint-disable-next-line no-alert
     alert(taskCreateFailed);
   }, [taskCreateFailed]);
 

@@ -73,7 +73,7 @@ export function usePaginatedResource<
 
   return useMemo(
     () =>
-      // eslint-disable-next-line @typescript-eslint/consistent-type-assertions
+      // oxlint-disable-next-line typescript/consistent-type-assertions
       ({ ...result, pagination }) as PaginatedResourceResult<Result, Params>,
     [result, pagination],
   );
