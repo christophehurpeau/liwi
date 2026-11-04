@@ -681,10 +681,14 @@ for (const backend of backends) {
             await getServerErrorCode(collection.dropIndex("missing_1")),
             27,
           );
-          await collection.createIndex({ label: 1 });
+          await collection.createIndex({ label: 1 }, undefined, undefined);
           assert.equal(
             await getServerErrorCode(
-              collection.createIndex({ label: 1 }, { name: "other" }),
+              collection.createIndex(
+                { label: 1 },
+                { name: "other" },
+                undefined,
+              ),
             ),
             85,
           );
@@ -693,6 +697,7 @@ for (const backend of backends) {
               collection.createIndex(
                 { label: 1 },
                 { name: "label_1", unique: true },
+                undefined,
               ),
             ),
             86,
@@ -849,10 +854,12 @@ for (const backend of backends) {
             await collection.createIndex(
               { "profile.email": 1 },
               { unique: true },
+              undefined,
             );
             await collection.createIndex(
               { ownerId: 1, at: 1 },
               { unique: true },
+              undefined,
             );
             const owner = new mongodb.ObjectId();
             const at = new Date("2026-01-01");
