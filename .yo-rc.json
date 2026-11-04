@@ -1,6 +1,8 @@
 {
   "pob": {
     "monorepo": {
+      "storybook": false,
+      "storybookReactNative": false,
       "ci": true,
       "testing": true,
       "testRunner": "node",
@@ -21,15 +23,15 @@
         "@todo-example/modules",
         "liwi-mongo-example",
         "liwi-resources-direct-client",
+        "liwi-resources-http-client",
+        "liwi-resources-http-server",
         "liwi-resources-void-client",
         "liwi-resources-websocket-client",
-        "liwi-resources-websocket-server",
         "react-liwi",
-        "@todo-example/server",
         "@todo-example/vite",
         "liwi-resources-websocket-client-node",
-        "liwi-resources-http-client",
-        "liwi-resources-http-server"
+        "liwi-resources-websocket-server",
+        "@todo-example/server"
       ]
     },
     "renovate": {
