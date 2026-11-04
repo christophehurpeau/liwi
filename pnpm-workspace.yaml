@@ -14,8 +14,9 @@ minimumReleaseAgeExclude:
   - alouette-icons
   - nightingale
   - nightingale-logger
+  - nightingale-levels
+  - nightingale-types
   - mingo@7.2.5
-  # Renovate security update: vite@8.2.4
   - vite@8.2.4
 nodeLinker: hoisted
 packages:
