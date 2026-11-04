@@ -12,14 +12,14 @@
     { "path": "@todo-example/modules/tsconfig.json" },
     { "path": "packages/liwi-mongo-example/tsconfig.json" },
     { "path": "packages/liwi-resources-direct-client/tsconfig.json" },
+    { "path": "packages/liwi-resources-http-client/tsconfig.json" },
+    { "path": "packages/liwi-resources-http-server/tsconfig.json" },
     { "path": "packages/liwi-resources-void-client/tsconfig.json" },
     { "path": "packages/liwi-resources-websocket-client/tsconfig.json" },
-    { "path": "packages/liwi-resources-websocket-server/tsconfig.json" },
     { "path": "packages/react-liwi/tsconfig.json" },
-    { "path": "@todo-example/server/tsconfig.json" },
     { "path": "@todo-example/vite/tsconfig.json" },
     { "path": "packages/liwi-resources-websocket-client-node/tsconfig.json" },
-    { "path": "packages/liwi-resources-http-client/tsconfig.json" },
-    { "path": "packages/liwi-resources-http-server/tsconfig.json" }
+    { "path": "packages/liwi-resources-websocket-server/tsconfig.json" },
+    { "path": "@todo-example/server/tsconfig.json" }
   ]
 }

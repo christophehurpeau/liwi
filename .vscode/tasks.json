@@ -7,25 +7,44 @@
       "label": "git: main",
       "type": "shell",
       "command": "git main",
-      "group": { "kind": "none" },
-      "options": { "cwd": "${workspaceFolder}" },
-      "presentation": { "close": true, "panel": "dedicated" },
+      "group": {
+        "kind": "none"
+      },
+      "options": {
+        "cwd": "${workspaceFolder}"
+      },
+      "presentation": {
+        "close": true,
+        "panel": "dedicated"
+      },
       "problemMatcher": []
     },
     {
       "label": "TODO Example - Server Start",
       "type": "shell",
       "command": "pnpm start",
-      "options": { "cwd": "${workspaceFolder}/@todo-example/server" },
-      "presentation": { "panel": "dedicated", "group": "start", "clear": true },
+      "options": {
+        "cwd": "${workspaceFolder}/@todo-example/server"
+      },
+      "presentation": {
+        "panel": "dedicated",
+        "group": "start",
+        "clear": true
+      },
       "problemMatcher": []
     },
     {
       "label": "TODO Example - Vite App Start",
       "type": "shell",
       "command": "pnpm start",
-      "options": { "cwd": "${workspaceFolder}/@todo-example/vite" },
-      "presentation": { "panel": "dedicated", "group": "start", "clear": true },
+      "options": {
+        "cwd": "${workspaceFolder}/@todo-example/vite"
+      },
+      "presentation": {
+        "panel": "dedicated",
+        "group": "start",
+        "clear": true
+      },
       "problemMatcher": []
     },
     {
@@ -185,7 +204,9 @@
       "label": "test:watch",
       "problemMatcher": {
         "owner": "vitest-watch",
-        "pattern": { "regexp": ".*" },
+        "pattern": {
+          "regexp": ".*"
+        },
         "background": {
           "activeOnStart": true,
           "beginsPattern": "RERUN",

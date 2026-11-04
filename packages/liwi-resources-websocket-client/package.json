@@ -41,13 +41,14 @@
   },
   "scripts": {
     "build": "pnpm run clean:build && rollup --config rollup.config.mjs && pnpm run build:definitions",
-    "build:definitions": "tsc -p tsconfig.json",
+    "build:definitions": "tsrs -p tsconfig.json",
     "clean": "yarn clean:build",
     "clean:build": "pob-esbuild-clean-out dist",
     "lint": "pnpm run lint:oxlint && pnpm run lint:eslint",
     "lint:eslint": "pnpm --dir '../..' exec eslint --quiet 'packages/liwi-resources-websocket-client'",
     "lint:oxlint": "pnpm --dir '../..' exec oxlint --quiet 'packages/liwi-resources-websocket-client'",
-    "tsc": "tsc",
+    "tsc": "tsrs",
+    "tsc:go": "tsc",
     "watch": "yarn clean:build && rollup --config rollup.config.mjs --watch"
   },
   "dependencies": {
@@ -57,9 +58,10 @@
     "nightingale-logger": "^18.2.0"
   },
   "devDependencies": {
-    "@pob/rollup-esbuild": "10.2.0",
+    "@pob/rollup-esbuild": "11.4.0",
     "@types/backo2": "1.0.4",
     "@typescript/native": "npm:typescript@7.0.2",
+    "tsrs": "0.20.1-ts7.1.0-beta",
     "typescript": "npm:@typescript/typescript6@6.0.2"
   },
   "browserslist": {
@@ -72,7 +74,7 @@
     ]
   },
   "engines": {
-    "node": ">=22.18.0"
+    "node": "^22.23.4 || ^24.22.1 || >=26.13.0"
   },
   "pob": {
     "bundler": "rollup-esbuild",
