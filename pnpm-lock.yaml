@@ -62,7 +62,7 @@ importers:
         version: link:../modules
       alp-node:
         specifier: 11.0.0
-        version: 11.0.0(router-segments@12.2.1)(supports-color@7.2.0)
+        version: 11.0.0(router-segments@12.2.2)(supports-color@7.2.0)
       liwi-mongo:
         specifier: workspace:*
         version: link:../../packages/liwi-mongo
@@ -76,8 +76,8 @@ importers:
         specifier: 18.2.0
         version: 18.2.0
       router-segments:
-        specifier: 12.2.1
-        version: 12.2.1
+        specifier: 12.2.2
+        version: 12.2.2
     devDependencies:
       '@pob/rollup-esbuild':
         specifier: 11.4.0
@@ -3473,9 +3473,9 @@ packages:
     engines: {node: '>=18.0.0', npm: '>=8.0.0'}
     hasBin: true
 
-  router-segments@12.2.1:
-    resolution: {integrity: sha512-OpWb9huKpswz3fXw6RwGM1wXIvgmCEDDnxCSRaqO61hvqBISnlsWg4dS35xibrQ8RZ2ib/TySTFtbeTBlNpZgg==}
-    engines: {node: '>=22.18.0'}
+  router-segments@12.2.2:
+    resolution: {integrity: sha512-6p/Q7vW/WVb0UhaJVprQ6C2wbSarfP2+oW0PWbQQn4v1pqLKCJuaMFCtBsmGu6RSwgkeP5rx+ZwuLNrfZS+WaA==}
+    engines: {node: ^22.18.0 || >=24.14.1}
 
   router@2.2.0:
     resolution: {integrity: sha512-nLTrUKm2UyiL7rlhapu/Zl45FwNgkZGaCpZbIHajDYgwlJCOzLSk+cIPAnsEqV955GjILJnKbdQC1nVPz+gAYQ==}
@@ -4914,7 +4914,7 @@ snapshots:
       json-schema-traverse: 0.4.1
       uri-js: 4.4.1
 
-  alp-node@11.0.0(router-segments@12.2.1)(supports-color@7.2.0):
+  alp-node@11.0.0(router-segments@12.2.2)(supports-color@7.2.0):
     dependencies:
       '@types/koa': 3.0.3
       '@types/node': 24.10.1
@@ -4927,7 +4927,7 @@ snapshots:
       nightingale-logger: 18.2.0
       object-properties: 10.0.0
     optionalDependencies:
-      router-segments: 12.2.1
+      router-segments: 12.2.2
     transitivePeerDependencies:
       - supports-color
 
@@ -6442,7 +6442,7 @@ snapshots:
       '@rollup/rollup-win32-x64-msvc': 4.67.3
       fsevents: 2.3.3
 
-  router-segments@12.2.1:
+  router-segments@12.2.2:
     dependencies:
       nightingale-logger: 18.2.0
       path-to-regexp: 8.4.2
