@@ -472,7 +472,7 @@ importers:
         version: link:../liwi-resources-websocket-client
       ws:
         specifier: ^8.22.1
-        version: 8.22.1(bufferutil@4.1.0)(utf-8-validate@6.0.6)
+        version: 8.22.1(bufferutil@4.2.0)(utf-8-validate@6.0.6)
     devDependencies:
       '@pob/rollup-esbuild':
         specifier: 11.4.0
@@ -506,7 +506,7 @@ importers:
         version: 18.2.0
       ws:
         specifier: ^8.22.1
-        version: 8.22.1(bufferutil@4.1.0)(utf-8-validate@6.0.6)
+        version: 8.22.1(bufferutil@4.2.0)(utf-8-validate@6.0.6)
     devDependencies:
       '@pob/rollup-esbuild':
         specifier: 11.4.0
@@ -531,8 +531,8 @@ importers:
         version: '@typescript/typescript6@6.0.2'
     optionalDependencies:
       bufferutil:
-        specifier: ^4.1.0
-        version: 4.1.0
+        specifier: ^4.2.0
+        version: 4.2.0
       utf-8-validate:
         specifier: ^6.0.6
         version: 6.0.6
@@ -2183,8 +2183,8 @@ packages:
     resolution: {integrity: sha512-oz3LwE3qGEhTCSyhzQRLY3Bj1NLOsjFMf6tcmY5J8M+3R7EVcmoBfSHWvjUK3yXCLDUsGpIuB3aQL4nDZ1EV/g==}
     engines: {node: '>=20.19.0'}
 
-  bufferutil@4.1.0:
-    resolution: {integrity: sha512-ZMANVnAixE6AWWnPzlW2KpUrxhm9woycYvPOo67jWHyFowASTEd9s+QN1EIMsSDtwhIxN4sWE1jotpuDUIgyIw==}
+  bufferutil@4.2.0:
+    resolution: {integrity: sha512-gyy58jET9kst2IGyBKb96a4Y2bPGTHXGyCd0/1eqIV3hr1Sz3VxtA8n7bXh8fLIuE2K6Z0Upax5a5Msx+HU1IQ==}
     engines: {node: '>=6.14.2'}
 
   builtin-modules@5.2.0:
@@ -5015,7 +5015,7 @@ snapshots:
 
   bson@7.3.3: {}
 
-  bufferutil@4.1.0:
+  bufferutil@4.2.0:
     dependencies:
       node-gyp-build: 4.8.4
     optional: true
@@ -6789,9 +6789,9 @@ snapshots:
 
   wrappy@1.0.2: {}
 
-  ws@8.22.1(bufferutil@4.1.0)(utf-8-validate@6.0.6):
+  ws@8.22.1(bufferutil@4.2.0)(utf-8-validate@6.0.6):
     optionalDependencies:
-      bufferutil: 4.1.0
+      bufferutil: 4.2.0
       utf-8-validate: 6.0.6
 
   yaml@2.9.1: {}
