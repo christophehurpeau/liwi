@@ -56,7 +56,7 @@
     "liwi-resources-server": "workspace:*",
     "liwi-store": "workspace:*",
     "nightingale-logger": "^18.2.0",
-    "ws": "^8.22.1"
+    "ws": "^8.22.2"
   },
   "devDependencies": {
     "@pob/rollup-esbuild": "11.4.0",

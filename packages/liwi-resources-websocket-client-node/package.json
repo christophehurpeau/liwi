@@ -49,7 +49,7 @@
   "dependencies": {
     "liwi-resources-client": "workspace:*",
     "liwi-resources-websocket-client": "workspace:*",
-    "ws": "^8.22.1"
+    "ws": "^8.22.2"
   },
   "devDependencies": {
     "@pob/rollup-esbuild": "11.4.0",
