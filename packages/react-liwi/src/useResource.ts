@@ -17,7 +17,6 @@ export type UseResourceOptions<Params extends QueryParams<Params>> =
     ? SetOptional<UseResourceOptionsRequiredParams<Params>, "params">
     : UseResourceOptionsRequiredParams<Params>;
 
-// oxlint-disable-next-line unicorn/prefer-global-this
 const isSSR = typeof window === "undefined";
 
 export function useResource<Result, Params extends QueryParams<Params>>(
