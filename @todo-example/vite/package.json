@@ -57,7 +57,7 @@
     "mongodb-memory-server-core": "11.3.0",
     "playwright": "1.65.0",
     "springbokjs-daemon": "10.1.0",
-    "tsrs": "0.24.0-ts7.1.0-beta",
+    "tsrs": "0.25.0-ts7.1.0-beta",
     "typescript": "npm:@typescript/typescript6@6.0.2",
     "vite": "8.3.8"
   },
